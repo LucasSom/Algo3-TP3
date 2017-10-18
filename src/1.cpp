@@ -140,9 +140,10 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		for (int h=1;h<columns;++h) {
 			if (minimo>posibles[h].second) {minimo=posibles[h].second; minpos=posibles[h].first;};
 		}
+		
+		return make_pair(minpos, posibles[minpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden
+
 	}
-	
-	return make_pair(maxpos, posibles[maxpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden	
 }
 
 
