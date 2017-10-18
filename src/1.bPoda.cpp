@@ -95,14 +95,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 	
 	if(posibles.size()==0) {return make_pair(88888888,0);} //empate, se lleno el tablero
 
-
-	//CAMBIO MATO, LO QUE DICE ABAJO
-	//CAMBIO MATO, LO QUE DICE ABAJO
-	//CAMBIO MATO, LO QUE DICE ABAJO
-	//CAMBIO MATO, LO QUE DICE ABAJO
-	//CAMBIO MATO, LO QUE DICE ABAJO
-	//CAMBIO MATO, LO QUE DICE ABAJO
-
 	int mejorPos = posibles[0].first;
 	int mejorValor= posibles[0].second;
 	//hago la recursion, llamando al siguiente en el arbol de minimax

@@ -103,20 +103,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		}
 	}
 	
-	
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO//CAMBIO MATO
-
-	//CAMBIO EL H=1; H<COLUMNS, ES EL MISMO ERROR QUE ANTES, ESTAMOS CHEQUEANDO TODAS LAS COLUMNAS PERO ALGUNAS
-	// NI ESTAN EN POSIBLES, SOLO DEBERÍAMOS CHEQUEAR LAS POSIBLES
-
-
 	if (maximizo) {
 		//agarro la columna que da el maximo y devuelvo.
 		int maxpos=posibles[0].first;
@@ -167,7 +153,7 @@ int main() {
         p = read_int();
 		//std::vector<int> board(columns);
 		vector<vector<int>>tablero (columns);
-
+		//la primer cordenada del tablero es la columna, y la segunda es la fila
         for(int i=0; i<columns; ++i) board[i] = 0;
 
         go_first = read_str();
