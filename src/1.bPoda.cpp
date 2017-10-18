@@ -68,6 +68,10 @@ bool perdi (const vector<vector<int>>& tablero){
 
 
 
+// la función minimax devuelve un par, el primer elemento es la posición donde consigue el mejor valor posible
+// es decir la jugada óptima desde el tablero de entrada, el segundo elemento es el mejor valor que
+// se puede conseguir al hacer esa jugada.
+
 // A cada tablero posible solo le doy tres valores (-1, 0, 1) para diferenciar entre situaciones en las que tengo
 // estrategia ganadora, situaciones de empate, o el otro tiene estrategia ganadora respectivamente. Como son solo
 // esos tres valores, se que cuando quiero inicializar alfa y beta en -infinito o +infinito para la poda,
@@ -91,21 +95,57 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 	
 	if(posibles.size()==0) {return make_pair(88888888,0);} //empate, se lleno el tablero
 
+
+	//CAMBIO MATO, LO QUE DICE ABAJO
+	//CAMBIO MATO, LO QUE DICE ABAJO
+	//CAMBIO MATO, LO QUE DICE ABAJO
+	//CAMBIO MATO, LO QUE DICE ABAJO
+	//CAMBIO MATO, LO QUE DICE ABAJO
+	//CAMBIO MATO, LO QUE DICE ABAJO
+
+	int mejorPos = posibles[0].first;
+	int mejorValor= posibles[0].second;
 	//hago la recursion, llamando al siguiente en el arbol de minimax
 	for(int i=0; i<posibles.size(); ++i){
 		vector<vector<int>> tablero2=tablero;
 		int quienva;
 		if(maximizo) {quienva=1;} else {quienva=2; }
 		tablero2[posibles[i].first].push_back(quienva); //juego el o yo, segun minimice o maximice respectivamente.
+
 		if (maximizo) {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, , ).second;
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta).second;
+			if (posibles[i].second > mejorValor) {
+				mejorPos = posibles[i].first;
+				mejorValor = posibles[i].second;
+			}
+			alfa = max(alfa, mejorValor);
+
+			if (alfa >= beta) {
+				break;
+			}
+
 		} else {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, , ).second;
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta).second;
+			if (posibles[i].second < mejorValor) {
+				mejorPos = posibles[i].first;
+				mejorValor = posibles[i].second;
+			}
+			beta = min(beta, mejorValor);
+
+			if (alfa >= beta) {
+				break;
+			}
 		}
 	}
+
+	return make_pair(mejorPos, mejorValor);
 	
 	
-	
+	//CAMBIO MATO, COMO CON LA PODA NO TERMINO DE REVISAR TODOS LOS POSIBLES NO QUIERO REVISARLOS TODOS
+	//PREFIERO IR ACTUALIZANDO EL VALOR ARRIBA Y YA TENER EL MINIMO/ MAXIMO, DIGAN SI VEN ALGO MAL CON ESO
+	//Y SE PUEDE USAR ESTO DE ABAJO MODIFICADO SI LO DE ARRIBA NO FUNCA
+
+	/*
 	if (maximizo) {
 		//agarro la columna que da el maximo y devuelvo.
 		int maxpos=posibles[0].first;
@@ -127,6 +167,7 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		return make_pair(minpos, posibles[minpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden
 
 	}
+	*/
 }
 
 
