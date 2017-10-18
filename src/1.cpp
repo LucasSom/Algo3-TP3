@@ -74,7 +74,12 @@ bool perdi (const vector<vector<int>>& tablero){
 }
 
 
-pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> tablero,  bool maximizo){
+
+// A cada tablero posible solo le doy tres valores (-1, 0, 1) para diferenciar entre situaciones en las que tengo
+// estrategia ganadora, situaciones de empate, o el otro tiene estrategia ganadora respectivamente. Como son solo
+// esos tres valores, se que cuando quiero inicializar alfa y beta en -infinito o +infinito para la poda,
+// puedo inicializarlos en -2 y 2 y se van a comportar como -infinito y +infinito
+pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> tablero,  bool maximizo, int alfa, int beta){
 	//el 888888888888 y -88888888 son numeros de relleno, porque aun no inicialize. Uso el negativo para que no
 	//afecte al tomar maximo entre 0,1 y -1
 	
@@ -108,7 +113,11 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		int quienva;
 		if(maximizo) {quienva=1;} else {quienva=2; }
 		tablero2[posibles[i].first].push_back(quienva); //juego el o yo, segun minimice o maximice respectivamente.
-		posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo).second;
+		if (maximizo) {
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, , ).second;
+		} else {
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, , ).second;
+		}
 	}
 	
 	
@@ -132,8 +141,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		//CAMBIO MATO
 		//CAMBIO MATO
 
-
-
 		//agarro la columna que da el maximo y devuelvo.
 		int minpos=posibles[0].first;
 		int minimo=posibles[0].second;
@@ -145,8 +152,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 
 	}
 }
-
-
 
 
 
@@ -187,7 +192,7 @@ int main() {
 
         go_first = read_str();
         if (go_first == "vos") {
-            move = minimax(rows, columns, c, p, tablero, true).first;
+            move = minimax(rows, columns, c, p, tablero, true, -2, 2).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
             //--p;
@@ -201,7 +206,7 @@ int main() {
             }
 			tablero[std::stoi(msg)].push_back(2);//juega el
             //board[std::stoi(msg)]++;
-            move = minimax(rows, columns, c, p, tablero, true).first;
+            move = minimax(rows, columns, c, p, tablero, true, -2, 2).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
 
