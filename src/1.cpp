@@ -41,13 +41,6 @@ std::string read_str() {
 }
 
 
-/*
-void relleno(vector<std::pair<int,int> > posibles, int rows, int columns, int c, int& p, vector<int> board, bool maximizo){
-	
-	
-	}
-*/
-
 
 bool ganojugador(vector<vector<int>> tablero, int i){
 	//ESTA FUNCION TIENE QUE DECIDIR SI DADO EL TABLERO (NO ESTA COMPLETO, ES VECTOR DE VECTORES DE DISTINTOS 
@@ -92,15 +85,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 	}
 	
 	if(posibles.size()==0) {return make_pair(88888888,0);} //empate, se lleno el tablero
-	
-	
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
-	//CAMBIO MATO
 
 	//hago la recursion, llamando al siguiente en el arbol de minimax
 	for(int i=0; i<posibles.size(); ++i){
@@ -123,18 +107,7 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		
 		return make_pair(maxpos, posibles[maxpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden	
 	} else {
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-
-
-
-		//agarro la columna que da el maximo y devuelvo.
+		//agarro la columna que da el minimo y devuelvo.
 		int minpos=posibles[0].first;
 		int minimo=posibles[0].second;
 		for (int h=1;h<columns;++h) {
@@ -173,13 +146,6 @@ int main() {
         rows = read_int();
         c = read_int();
         p = read_int();
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
-		//CAMBIO MATO
 		//std::vector<int> board(columns);
 		vector<vector<int>>tablero (columns);
 
@@ -190,7 +156,7 @@ int main() {
             move = minimax(rows, columns, c, p, tablero, true).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
-            //--p;
+            --p;
             send(move);
         }
 
@@ -204,13 +170,6 @@ int main() {
             move = minimax(rows, columns, c, p, tablero, true).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
-
-            //CAMBIO MATO
-            //CAMBIO MATO
-            //CAMBIO MATO
-            //CAMBIO MATO
-            //CAMBIO MATO
-            //CAMBIO MATO
             --p;
             send(move);
         }
