@@ -94,24 +94,52 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 	if(posibles.size()==0) {return make_pair(88888888,0);} //empate, se lleno el tablero
 	
 	
-	
+	//CAMBIO MATO
+	//CAMBIO MATO
+	//CAMBIO MATO
+	//CAMBIO MATO
+	//CAMBIO MATO
+	//CAMBIO MATO
+	//CAMBIO MATO
+
 	//hago la recursion, llamando al siguiente en el arbol de minimax
-	for(int h=0;h<columns;++h){
+	for(int i=0; i<posibles.size(); ++i){
 		vector<vector<int>> tablero2=tablero;
 		int quienva;
 		if(maximizo) {quienva=1;} else {quienva=2; }
-		tablero2[h].push_back(quienva); //juego el o yo, segun minimice o maximice respectivamente.
-		posibles[posibles.size()-1].second = minimax(rows, columns, c, p-1, tablero2, not maximizo).second;
+		tablero2[posibles[i].first].push_back(quienva); //juego el o yo, segun minimice o maximice respectivamente.
+		posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo).second;
 	}
 	
 	
 	
-	
-	//agarro la columna que da el maximo y devuelvo.
-	int maxpos=posibles[0].first;
-	int maximo=posibles[0].second;
-	for (int h=1;h<columns;++h) {
-		if (maximo<posibles[h].second) {maximo=posibles[h].second; maxpos=posibles[h].first;};
+	if (maximizo) {
+		//agarro la columna que da el maximo y devuelvo.
+		int maxpos=posibles[0].first;
+		int maximo=posibles[0].second;
+		for (int h=1;h<columns;++h) {
+			if (maximo<posibles[h].second) {maximo=posibles[h].second; maxpos=posibles[h].first;};
+		}
+		
+		return make_pair(maxpos, posibles[maxpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden	
+	} else {
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+
+
+
+		//agarro la columna que da el maximo y devuelvo.
+		int minpos=posibles[0].first;
+		int minimo=posibles[0].second;
+		for (int h=1;h<columns;++h) {
+			if (minimo>posibles[h].second) {minimo=posibles[h].second; minpos=posibles[h].first;};
+		}
 	}
 	
 	return make_pair(maxpos, posibles[maxpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden	
@@ -144,7 +172,14 @@ int main() {
         rows = read_int();
         c = read_int();
         p = read_int();
-		std::vector<int> board(columns);
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//CAMBIO MATO
+		//std::vector<int> board(columns);
 		vector<vector<int>>tablero (columns);
 
         for(int i=0; i<columns; ++i) board[i] = 0;
@@ -168,7 +203,14 @@ int main() {
             move = minimax(rows, columns, c, p, tablero, true).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
-            //--p;
+
+            //CAMBIO MATO
+            //CAMBIO MATO
+            //CAMBIO MATO
+            //CAMBIO MATO
+            //CAMBIO MATO
+            //CAMBIO MATO
+            --p;
             send(move);
         }
     }
