@@ -42,7 +42,7 @@ std::string read_str() {
 
 
 
-bool ganojugador(vector<vector<int>> tablero, int i){
+bool ganojugador(vector<vector<int>> tablero, int i, int ultimajugada){
 	//ESTA FUNCION TIENE QUE DECIDIR SI DADO EL TABLERO (NO ESTA COMPLETO, ES VECTOR DE VECTORES DE DISTINTOS 
 	//TAMAÑOS, NO ES MATRIZ GANA EL JUGADOR i. CONSIDERANDO QUE HAY UN i EN LA POSICION EN LA QUE JUGO EL JUGADOR i
 	//EJEMPLO DE TABLERO:
@@ -58,12 +58,12 @@ bool ganojugador(vector<vector<int>> tablero, int i){
 	 * */
 }
 
-bool gane ( const vector<vector<int>>& tablero){
-	return ganojugador(tablero,1);	
+bool gane ( const vector<vector<int>>& tablero, int ultimajugada){
+	return ganojugador(tablero,1, ultimajugada);	
 }
 	
-bool perdi (const vector<vector<int>>& tablero){
-	return ganojugador(tablero,2);	
+bool perdi (const vector<vector<int>>& tablero, int ultimajugada){
+	return ganojugador(tablero,2, ultimajugada);	
 }
 
 
@@ -71,14 +71,14 @@ bool perdi (const vector<vector<int>>& tablero){
 // la función minimax devuelve un par, el primer elemento es la posición donde consigue el mejor valor posible
 // es decir la jugada óptima desde el tablero de entrada, el segundo elemento es el mejor valor que
 // se puede conseguir al hacer esa jugada.
-pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> tablero,  bool maximizo){
+pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> tablero,  bool maximizo, int ultimajugada){
 	//el 888888888888 y -88888888 son numeros de relleno, porque aun no inicialize. Uso el negativo para que no
 	//afecte al tomar maximo entre 0,1 y -1
 	
 	
-	if(gane(tablero)) {return make_pair(88888888,1);} //gane
+	if(gane(tablero, ultimajugada)) {return make_pair(88888888,1);} //gane
 	
-	if(perdi(tablero)) {return make_pair(88888888,-1);} //perdi
+	if(perdi(tablero, ultimajugada)) {return make_pair(88888888,-1);} //perdi
 	
 	if(p==0) { return make_pair(88888888,0);} //empate, no hay fichas
 	
@@ -97,9 +97,9 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		if(maximizo) {quienva=1;} else {quienva=2; }
 		tablero2[posibles[i].first].push_back(quienva); //juego el o yo, segun minimice o maximice respectivamente.
 		if (maximizo) {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo).second;
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, posibles[i].first).second;
 		} else {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo).second;
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, posibles[i].first).second;
 		}
 	}
 	
@@ -154,11 +154,12 @@ int main() {
 		//std::vector<int> board(columns);
 		vector<vector<int>>tablero (columns);
 		//la primer cordenada del tablero es la columna, y la segunda es la fila
-        for(int i=0; i<columns; ++i) board[i] = 0;
+        
+        //for(int i=0; i<columns; ++i) board[i] = 0;
 
         go_first = read_str();
         if (go_first == "vos") {
-            move = minimax(rows, columns, c, p, tablero, true).first;
+            move = minimax(rows, columns, c, p, tablero, true, -1).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
             --p;
@@ -172,7 +173,7 @@ int main() {
             }
 			tablero[std::stoi(msg)].push_back(2);//juega el
             //board[std::stoi(msg)]++;
-            move = minimax(rows, columns, c, p, tablero, true).first;
+            move = minimax(rows, columns, c, p, tablero, true, std::stoi(msg)).first;
             tablero[move].push_back(1); //juego yo
             //board[move]++;
             --p;
