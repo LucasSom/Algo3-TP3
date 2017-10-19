@@ -59,9 +59,19 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	 * */
 	 bool gano;
 
-	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]==i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
+	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
+	 //CAMBIO CHEBAR, DECIA == i Y PUSE != i , SI ES IGUAL, JUSTAMENTE PODRIA GANAR, SI NO, ES QUE NO FUE EL ULTIMO
+	 // EN JUGAR, POR ENDE NO GHAY CHANCE DE QUE GANE.
 	 bool esMio = true;
-
+		
+		
+		//SOY CHEBAR, NO LO TOCO, PERO COMO HACES ESTE PRIMER CHECKEO DE COLUMNA NO ME GUSTA, DECLARAS GANO AL PEDO
+		// NI LO INICIALIZAS, PODRIAS NI ENTRAR AL WHILE NUNCA. ADEMAS ES OTRA ESTRUCTURA DISTINTA A COMO LO HACES
+		// EN LOS DEMAS, CREO QUE SERIA MAS CLARO HACER ALGO DEL MISMO TIPO. ADEMAS, EL IF QUE ESTA ADENTRO DEL 
+		// PRIMER WHILE, LO PODRIAS CHECKEAR SOLO AFUERA Y SI SE CUMPLE ENTRAR, LO CHECKEAS VARIAS VECES AL PEDO
+		// Y CHECKEAS LO MISMO. EN EL ELSE ESTA LA POSTA, NO VEO NECESARIO EL PRIMER WHILE NI LA VARIABLE GANO
+		// YO LO HARIA TIPO LOS OTROS QUE ES CLARO Y ESTA BIEN Y NO HACE COSAS AL PEDO.
+		
 		 //checkear si hay c en linea en la columna
 		 while (esMio && not gano){
 			 if (tablero[ultimajugada].size() < c){
@@ -105,7 +115,8 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 			 }
 			 ++k;
 		 }
-		 if (contador==c) return true;
+		 if (contador>=c) return true;
+		 //CAMBIO SOY CHEBAR, ES SI EL CONTADOR ES C O MAS! CAMBIE EL == POR >=
 		 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,8 +153,8 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 			 ++col;
 			 ++fil;
 		 }
-		 if (contador==c) return true;
-		 
+		 if (contador>=c) return true;
+		 //	CAMBIO CHEBAR, IDEM QUE ARRIBA
 		 
 		 //////////////////////////////////////////////////////////////////////////////////////////////
 		 //checkear si hay c en linea en diagonal hacia abajo
@@ -177,7 +188,8 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 			 ++col;
 			 --fil;
 		 }
-		 if (contador==c) return true;
+		 if (contador>=c) return true;
+		 //	CAMBIO CHEBAR, IDEM QUE ARRIBA
 		 
 	 return false;
 }
