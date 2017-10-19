@@ -42,7 +42,8 @@ std::string read_str() {
 
 
 
-bool ganojugador(vector<vector<int>> tablero, int i, int ultimajugada){
+
+bool ganojugador(vector<vector<int>> tablero, int i, int c, int columns){
 	//ESTA FUNCION TIENE QUE DECIDIR SI DADO EL TABLERO (NO ESTA COMPLETO, ES VECTOR DE VECTORES DE DISTINTOS 
 	//TAMAÑOS, NO ES MATRIZ GANA EL JUGADOR i. CONSIDERANDO QUE HAY UN i EN LA POSICION EN LA QUE JUGO EL JUGADOR i
 	//EJEMPLO DE TABLERO:
@@ -56,7 +57,137 @@ bool ganojugador(vector<vector<int>> tablero, int i, int ultimajugada){
 	 * ACA SI FUESE CUATRO EN LINEA, GANO EL 2 PORQUE TIRO UNA DIAGONAL DE 4. SI LLAMAS GANOJUGADOR(TABLERO,2)
 	 * DEBERIA DAR TRUE
 	 * */
+	 bool gano = false;
+	 int columnas=tablero.size();
+	 int j=0;
+	 
+	 while (j<columnas && not gano){
+		 bool elPrimeroEsMio=false;
+		 if (tablero[j][tablero[j].size()-1]==i) elPrimeroEsMio=true; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
+		 bool esMio = elPrimeroEsMio;
+			 //checkear si hay c en linea en la columna
+			 while (esMio && not gano){
+				 if (tablero[j].size() < c){
+					 esMio=false;//si la columna tiene menos fichas que c, no checkeamos
+				 }else{
+					 int k=tablero[j].size()-1;
+					 while (tablero[j].size()-k<=c && esMio){
+						 if (tablero[tablero.size()][k] != i) esMio=false;
+						 --k;
+					 }
+					 gano=esMio;
+				 }
+			 }
+			 
+			 if (gano) break ;
+			
+			///////////////////////////////////////////////////////////////////////////////////////////// 
+			 //checkear si hay c en linea en la fila
+			 esMio = elPrimeroEsMio;
+			 int k=j;
+			 int contador=0;
+			 while (esMio && k>=0 && contador<c){
+				 //calculamos cuantos de los que estan a la izquierda de j son iguales
+				 if (tablero[k].size()>=tablero[j].size() && tablero[k][tablero[j].size()-1]==i){
+					 ++contador;
+				 }else{
+					 esMio = false;
+				 }
+				 --k;
+			 }
+			 ///////////////////////Calcular a derecha//////////////////////////////
+			 k=j;
+			 --contador;
+			 esMio=true;
+			 while (esMio && k<tablero[j].size()-1 && contador<c){
+				 //calculamos a la derecha de j
+				 if (tablero[k].size()>=tablero[j].size() && tablero[k][tablero[j].size()-1]==i){
+					 ++contador;
+				 }else{
+					 esMio = false;
+				 }
+				 ++k;
+			 }
+			 if (contador==c) gano=true;
+			 if (gano) break;
+			 
+
+			/////////////////////////////////////////////////////////////////////////////////////////////
+			 //checkear si hay c en linea en diagonal hacia arriba (de izq a der)
+			 esMio = elPrimeroEsMio;
+			 int col=j;
+			 int fil=tablero[j].size()-1;
+			 contador=0;
+			 while (esMio && col>=0 && fil>=0 && contador<c){
+				 //calculamos cuantos de los que estan a la izquierda de j son iguales
+				 if (tablero[col].size()>=tablero[j].size()-(j-col) && tablero[col][fil]==i){
+					 ++contador;
+				 }else{
+					 esMio = false;
+				 }
+				 --col;
+				 --fil;
+			 }
+			 ///////////////////////Calcular a derecha//////////////////////////////
+			 col=j;
+			 fil=tablero[j].size()-1;
+			 --contador;
+			 esMio=true;
+			 
+			 while (esMio && col<tablero.size() && fil<columns && contador<c){
+				 //calculamos a la derecha de j
+				 if (tablero[col].size()>=tablero[j].size()+(j-col) && tablero[col][fil]==i){
+					 ++contador;
+				 }else{
+					 esMio = false;
+				 }
+				 ++col;
+				 ++fil;
+			 }
+			 if (contador==c) gano=true;
+			 if (gano) break;
+			 
+			 
+			 //////////////////////////////////////////////////////////////////////////////////////////////
+			 //checkear si hay c en linea en diagonal hacia abajo
+			 esMio = elPrimeroEsMio;
+			 col=j;
+			 fil=tablero[j].size()-1;
+			 contador=0;
+			 while (esMio && col>=0 && fil<columns && contador<c){
+				 //calculamos cuantos de los que estan a la izquierda de j son iguales
+				 if (tablero[col].size()>=tablero[j].size()+(j-col) && tablero[col][fil]==i){
+					 ++contador;
+				 }else{
+					 esMio = false;
+				 }
+				 --col;
+				 ++fil;
+			 }
+			 ///////////////////////Calcular a derecha//////////////////////////////
+			 col=j;
+			 fil=tablero[j].size()-1;
+			 --contador;
+			 esMio=true;
+			 
+			 while (esMio && col<tablero.size() && fil>=0 && contador<c){
+				 //calculamos a la derecha de j
+				 if (tablero[col].size()>=tablero[j].size()-(j-col) && tablero[col][fil]==i){
+					 ++contador;
+				 }else{
+					 esMio = false;
+				 }
+				 ++col;
+				 --fil;
+			 }
+			 if (contador==c) gano=true;
+			 if (gano) break;
+			 
+		 ++j;
+	 }
+	 return gano;
 }
+
 
 bool gane ( const vector<vector<int>>& tablero, int ultimajugada){
 	return ganojugador(tablero,1, ultimajugada);	
