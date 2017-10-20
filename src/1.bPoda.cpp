@@ -56,18 +56,12 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	 * ACA SI FUESE CUATRO EN LINEA, GANO EL 2 PORQUE TIRO UNA DIAGONAL DE 4. SI LLAMAS GANOJUGADOR(TABLERO,2)
 	 * DEBERIA DAR TRUE
 	 * */
-
+	 
+     if(ultimajugada==-1){return false;}
+     //Por si es la primer jugada, nadie gano aun
 	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
 	 bool esMio = true;
 		
-		
-		//SOY CHEBAR, NO LO TOCO, PERO COMO HACES ESTE PRIMER CHECKEO DE COLUMNA NO ME GUSTA, DECLARAS GANO AL PEDO
-		// NI LO INICIALIZAS, PODRIAS NI ENTRAR AL WHILE NUNCA. ADEMAS ES OTRA ESTRUCTURA DISTINTA A COMO LO HACES
-		// EN LOS DEMAS, CREO QUE SERIA MAS CLARO HACER ALGO DEL MISMO TIPO. ADEMAS, EL IF QUE ESTA ADENTRO DEL 
-		// PRIMER WHILE, LO PODRIAS CHECKEAR SOLO AFUERA Y SI SE CUMPLE ENTRAR, LO CHECKEAS VARIAS VECES AL PEDO
-		// Y CHECKEAS LO MISMO. EN EL ELSE ESTA LA POSTA, NO VEO NECESARIO EL PRIMER WHILE NI LA VARIABLE GANO
-		// YO LO HARIA TIPO LOS OTROS QUE ES CLARO Y ESTA BIEN Y NO HACE COSAS AL PEDO.
-		///Corregido
 		
 		 //checkear si hay c en linea en la columna
 		 if (tablero[ultimajugada].size() < c){
@@ -75,7 +69,8 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 		 }else{
 			 int k=tablero[ultimajugada].size()-1; //k es la fila que voy a chequear ahora
 			 while (tablero[ultimajugada].size()-k<=c && esMio){
-				 if (tablero[tablero.size()][k] != i) esMio=false;
+				 if (tablero[ultimajugada][k] != i) esMio=false;		 
+				 //CAMBIO CHEBAR, DECIA TABLERO[TABLERO.SIZE()] DABA SEGFAULT, IBA ESTO, YA LO CAMBIE
 				 --k;
 			 }
 			 if (esMio) return true;
@@ -139,7 +134,10 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 		 
 		 while (esMio && col<tablero.size() && contador<c){
 			 //calculamos a la derecha de j
-			 if (tablero[col].size()>=tablero[ultimajugada].size()+(ultimajugada-col) && tablero[col][fil]==i){
+			 if (tablero[col].size()>=tablero[ultimajugada].size()+(col-ultimajugada) && tablero[col][fil]==i){
+				  //CHEBAR, DEBUGEANDO, CREO ES AL REVES LA RESTA DE COL Y ULTIMA JUGADA, ESTABA ASI:
+				 
+				 //+(ultimajugada-col)
 				 ++contador;
 			 }else{
 				 esMio = false;
@@ -173,7 +171,10 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 		 
 		 while (esMio && col<tablero.size() && fil>=0 && contador<c){
 			 //calculamos a la derecha de j
-			 if (tablero[col].size()>=tablero[ultimajugada].size()-(ultimajugada-col) && tablero[col][fil]==i){
+			 if (tablero[col].size()>=tablero[ultimajugada].size()-(col-ultimajugada) && tablero[col][fil]==i){
+				  //CHEBAR, DEBUGEANDO, CREO ES AL REVES LA RESTA DE COL Y ULTIMA JUGADA, ESTABA ASI:
+				 
+				 //-(ultimajugada-col)
 				 ++contador;
 			 }else{
 				 esMio = false;
@@ -245,7 +246,8 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 			}
 
 		} else {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
+			posibles[i].second = minimax(rows, columns, c, p, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
+			//PUSE P EN VEZ DE P-1, CUANDO JUEGA EL, QUE ES CUANDO MINIMIZO NO USO FICHA
 			if (posibles[i].second < mejorValor) {
 				mejorPos = posibles[i].first;
 				mejorValor = posibles[i].second;
