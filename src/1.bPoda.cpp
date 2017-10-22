@@ -206,7 +206,9 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 	if(posibles.size()==0) {return make_pair(88888888,0);} //empate, se lleno el tablero
 
 	int mejorPos = posibles[0].first;
-	int mejorValor= posibles[0].second;
+	int mejorValorMaximizo= -88888888; //CAMBIO CHEBAR, SEGUN MINIMICE O MAXIMICE, QUIERO QUE SE INICIALIZE EN
+	int mejorValorMinimizo= 88888888;  //ALGO >1 O <-1
+	
 	//hago la recursion, llamando al siguiente en el arbol de minimax
 	for(int i=0; i<posibles.size(); ++i){
 		vector<vector<int>> tablero2=tablero;
@@ -216,11 +218,11 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 
 		if (maximizo) {
 			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
-			if (posibles[i].second > mejorValor) {
+			if (posibles[i].second > mejorValorMaximizo) {
 				mejorPos = posibles[i].first;
-				mejorValor = posibles[i].second;
+				mejorValorMaximizo = posibles[i].second;
 			}
-			alfa = max(alfa, mejorValor);
+			alfa = max(alfa, mejorValorMaximizo);
 
 			if (alfa >= beta) {
 				break;
@@ -228,18 +230,20 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 
 		} else {
 			posibles[i].second = minimax(rows, columns, c, p, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
-			if (posibles[i].second < mejorValor) {
+			if (posibles[i].second < mejorValorMinimizo) {
 				mejorPos = posibles[i].first;
-				mejorValor = posibles[i].second;
+				mejorValorMinimizo = posibles[i].second;
 			}
-			beta = min(beta, mejorValor);
+			beta = min(beta, mejorValorMinimizo);
 
 			if (alfa >= beta) {
 				break;
 			}
 		}
 	}
-
+	int mejorValor;
+	if(maximizo) {mejorValor=mejorValorMaximizo;} else {mejorValor=mejorValorMinimizo;}
+	//CAMBIO CHEBAR, DEVUELVO LO QUE ME PIDAN...
 	return make_pair(mejorPos, mejorValor);
 	
 	

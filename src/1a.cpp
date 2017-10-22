@@ -224,7 +224,10 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 			if (maximo<posibles[h].second) {maximo=posibles[h].second; maxpos=posibles[h].first;};
 		}
 		
-		return make_pair(maxpos, posibles[maxpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden	
+		return make_pair(maxpos, maximo) ;//donde tenia que jugar y cual es el resultado en ese orden
+		
+		//CAMBIO CHEBAR, DECIA return make_pair(maxpos, posibles[maxpos].second) Y EN REALIDAD QUIERO DEVOLVER
+		//EL MAXIMO EN LA SEGUNDA COORDENADA.	
 	} else {
 		
 		//agarro la columna que da el minimo y devuelvo.
@@ -234,8 +237,10 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 			if (minimo>posibles[h].second) {minimo=posibles[h].second; minpos=posibles[h].first;};
 		}
 		
-		return make_pair(minpos, posibles[minpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden
-
+		return make_pair(minpos, minimo) ;//donde tenia que jugar y cual es el resultado en ese orden
+		
+		//CAMBIO CHEBAR, DECIA return make_pair(minpos, posibles[minpos].second) Y EN REALIDAD QUIERO DEVOLVER
+		//EL MINIMO EN LA SEGUNDA COORDENADA.
 	}
 }
 
