@@ -2268,3 +2268,98 @@ envio <type 'str'>: vos
 recibo <type 'str'>: 0
 envio <type 'str'>: salir
 recibo <type 'str'>: listo
+
+/*************** Nueva partida *****************/
+columnas: 5
+filas: 3
+c: 3
+p: 1000
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 5 3 3 1000
+envio <type 'str'>: vos
+
+/*************** Nueva partida *****************/
+columnas: 4
+filas: 3
+c: 3
+p: 1000
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 4 3 3 1000
+envio <type 'str'>: vos
+recibo <type 'str'>: 0
+
+/*************** Nueva partida *****************/
+columnas: 2
+filas: 5
+c: 2
+p: 1000
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 2 5 2 1000
+envio <type 'str'>: vos
+recibo <type 'str'>: 0
+envio <type 'int'>: 0
+recibo <type 'str'>: 1
+envio <type 'str'>: ganaste
+
+/*************** Nueva partida *****************/
+columnas: 2
+filas: 5
+c: 2
+p: 1000
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 2 5 2 1000
+envio <type 'str'>: vos
+recibo <type 'str'>: 0
+envio <type 'int'>: 1
+recibo <type 'str'>: 0
+envio <type 'str'>: ganaste
+
+/*************** Nueva partida *****************/
+columnas: 2
+filas: 5
+c: 2
+p: 1000
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 2 5 2 1000
+envio <type 'str'>: vos
+recibo <type 'str'>: 0
+envio <type 'str'>: salir
+recibo <type 'str'>: listo
+envio <type 'str'>: salir
+recibo <type 'str'>: listo
+
+/*************** Nueva partida *****************/
+columnas: 4
+filas: 3
+c: 3
+p: 1000
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 4 3 3 1000
+envio <type 'str'>: vos
+recibo <type 'str'>: 0
+envio <type 'str'>: salir
+recibo <type 'str'>: listo

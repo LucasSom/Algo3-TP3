@@ -43,21 +43,11 @@ std::string read_str() {
 
 
 bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
-	//ESTA FUNCION TIENE QUE DECIDIR SI DADO EL TABLERO (NO ESTA COMPLETO, ES VECTOR DE VECTORES DE DISTINTOS 
-	//TAMAÑOS, NO ES MATRIZ GANA EL JUGADOR i. CONSIDERANDO QUE HAY UN i EN LA POSICION EN LA QUE JUGO EL JUGADOR i
-	//EJEMPLO DE TABLERO:
-	/*
-	 * 
-	 * 1
-	 * 1       2 
-	 * 2   1 2 1 1
-	 * 2   2 2 1 1
-	 * 1 2 1 1 2 2
-	 * ACA SI FUESE CUATRO EN LINEA, GANO EL 2 PORQUE TIRO UNA DIAGONAL DE 4. SI LLAMAS GANOJUGADOR(TABLERO,2)
-	 * DEBERIA DAR TRUE
-	 * */
+	
+     if(ultimajugada==-1){if(c==1) {return true;}else{return false;}}
+     //CAMBIO CHEBAR, AGREGUE ESTO, COSA QUE SI HAY QUE PONER UNA SOLA Y SOS EL PRIMERO EN JUGAR YA GANASTE
+     //Por si es la primer jugada, nadie gano aun
 	 
-     if(ultimajugada==-1){return false;}
      //Por si es la primer jugada, nadie gano aun
 	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
 	 bool esMio = true;
@@ -70,7 +60,6 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 			 int k=tablero[ultimajugada].size()-1; //k es la fila que voy a chequear ahora
 			 while (tablero[ultimajugada].size()-k<=c && esMio){
 				 if (tablero[ultimajugada][k] != i) esMio=false;		 
-				 //CAMBIO CHEBAR, DECIA TABLERO[TABLERO.SIZE()] DABA SEGFAULT, IBA ESTO, YA LO CAMBIE
 				 --k;
 			 }
 			 if (esMio) return true;
@@ -117,9 +106,7 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 		 while (esMio && col>=0 && fil>=0 && contador<c){
 			 //calculamos cuantos de los que estan a la izquierda de j son iguales
 			 if (tablero[col].size()>=tablero[ultimajugada].size()-(ultimajugada-col) && tablero[col][fil]==i){
-			 	//yo pondría si empieza a funcionar mal tablero[col].size()>=fil+1
-			 	//DEMOSTRAR EN CASA (msg per Soma)
-				 ++contador;
+			 	++contador;
 			 }else{
 				 esMio = false;
 			 }
@@ -135,10 +122,7 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 		 while (esMio && col<tablero.size() && contador<c){
 			 //calculamos a la derecha de j
 			 if (tablero[col].size()>=tablero[ultimajugada].size()+(col-ultimajugada) && tablero[col][fil]==i){
-				  //CHEBAR, DEBUGEANDO, CREO ES AL REVES LA RESTA DE COL Y ULTIMA JUGADA, ESTABA ASI:
-				 
-				 //+(ultimajugada-col)
-				 ++contador;
+				  ++contador;
 			 }else{
 				 esMio = false;
 			 }
@@ -172,9 +156,6 @@ bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 		 while (esMio && col<tablero.size() && fil>=0 && contador<c){
 			 //calculamos a la derecha de j
 			 if (tablero[col].size()>=tablero[ultimajugada].size()-(col-ultimajugada) && tablero[col][fil]==i){
-				  //CHEBAR, DEBUGEANDO, CREO ES AL REVES LA RESTA DE COL Y ULTIMA JUGADA, ESTABA ASI:
-				 
-				 //-(ultimajugada-col)
 				 ++contador;
 			 }else{
 				 esMio = false;
@@ -247,7 +228,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 
 		} else {
 			posibles[i].second = minimax(rows, columns, c, p, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
-			//PUSE P EN VEZ DE P-1, CUANDO JUEGA EL, QUE ES CUANDO MINIMIZO NO USO FICHA
 			if (posibles[i].second < mejorValor) {
 				mejorPos = posibles[i].first;
 				mejorValor = posibles[i].second;
@@ -263,33 +243,6 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 	return make_pair(mejorPos, mejorValor);
 	
 	
-	//CAMBIO MATO, COMO CON LA PODA NO TERMINO DE REVISAR TODOS LOS POSIBLES NO QUIERO REVISARLOS TODOS
-	//PREFIERO IR ACTUALIZANDO EL VALOR ARRIBA Y YA TENER EL MINIMO/ MAXIMO, DIGAN SI VEN ALGO MAL CON ESO
-	//Y SE PUEDE USAR ESTO DE ABAJO MODIFICADO SI LO DE ARRIBA NO FUNCA
-
-	/*
-	if (maximizo) {
-		//agarro la columna que da el maximo y devuelvo.
-		int maxpos=posibles[0].first;
-		int maximo=posibles[0].second;
-		for (int h=1;h<columns;++h) {
-			if (maximo<posibles[h].second) {maximo=posibles[h].second; maxpos=posibles[h].first;};
-		}
-		
-		return make_pair(maxpos, posibles[maxpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden	
-	} else {
-		
-		//agarro la columna que da el minimo y devuelvo.
-		int minpos=posibles[0].first;
-		int minimo=posibles[0].second;
-		for (int h=1;h<columns;++h) {
-			if (minimo>posibles[h].second) {minimo=posibles[h].second; minpos=posibles[h].first;};
-		}
-		
-		return make_pair(minpos, posibles[minpos].second) ;//donde tenia que jugar y cual es el resultado en ese orden
-
-	}
-	*/
 }
 
 
