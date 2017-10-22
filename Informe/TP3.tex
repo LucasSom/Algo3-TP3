@@ -1,0 +1,242 @@
+\documentclass[A4paper,oneside,fleqn,11pt]{article}
+
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+%Cambiamos un poquito los márgenes%
+\addtolength{\oddsidemargin}{-1in}
+\addtolength{\evensidemargin}{-1in}
+\addtolength{\textwidth}{2in}
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+
+
+\usepackage{mathtools}
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsmath,scalerel}
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage{algpseudocode}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usepackage{graphicx,wrapfig,lipsum}
+\usepackage{subcaption} %para poner varias imagenes en un figure
+\usepackage{graphicx} % Required for including pictures
+
+\usepackage{sidecap}%para poner la descripción de una imagen al lado de la imagen,no abajo ni arriba
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{wrapfig} % Allows in-line images such as the example fish picture
+\graphicspath{ {Grphs/} }
+
+
+\setcounter{tocdepth}{3}% to get subsubsections in toc
+
+\let\oldtocsection=\tocsection
+
+\let\oldtocsubsection=\tocsubsection
+
+\let\oldtocsubsubsection=\tocsubsubsection
+
+% various theorems, numbered by section
+
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{lem}[teo]{Lema}
+\newtheorem{prop}[teo]{Proposición}
+\newtheorem{cor}[teo]{Corolario}
+\newtheorem{crit}[teo]{Criterio}
+\newtheorem{propi}[teo]{Propiedad}
+
+\theoremstyle{definition}
+\newtheorem{ejcio}[teo]{Ejercicio}
+\newtheorem{conj}[teo]{Conjetura}
+\newtheorem{obs}[teo]{Observación}
+\newtheorem{defn}[teo]{Definición}
+\newtheorem{ax}[teo]{Axioma}
+\newtheorem{ex}[teo]{Ejemplo}
+
+\newcommand{\bd}[1]{\mathbf{#1}}  % for bolding symbols
+\newcommand{\cl}[1]{\overline{#1}} 
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}      % for Real numbers
+\newcommand{\ZZ}{\mathbb{Z}}      % for Integers
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\col}[1]{\left[\begin{matrix} #1 \end{matrix} \right]}
+\newcommand{\comb}[2]{\binom{#1^2 + #2^2}{#1+#2}}
+\newcommand{\eps}{\varepsilon}
+\renewcommand{\hom}{\mathrm{Hom}}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\mcm}{mcm}
+\DeclareMathOperator{\mcd}{mcd}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\sg}{sg}
+\DeclareMathOperator{\cok}{cok}
+\DeclareMathOperator{\ext}{Ext}
+\DeclareMathOperator{\Obj}{Obj}
+\DeclareMathOperator{\rank}{rk}
+\DeclareMathOperator{\gr}{gr}
+\DeclareMathOperator{\car}{char}
+\DeclareMathOperator{\Nil}{Nil}
+\DeclareMathOperator{\spec}{Spec}
+\DeclareMathOperator{\ev}{ev}
+\DeclareMathOperator{\ann}{Ann}
+\DeclareMathOperator{\tr}{Tr}
+\DeclareMathOperator*{\bigcdot}{\scalerel*{\cdot}{\bigodot}}
+\def\acts{\curvearrowright}
+\def\stca{\curvearrowleft}
+
+\setcounter{tocdepth}{10}
+\setcounter{secnumdepth}{10}
+
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+
+\center % Center everything on the page
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\textsc{\LARGE Universidad de Buenos Aires}\\[1.5cm] % Name of your university/college
+\textsc{\Large Facultad de Ciencias Exactas y Naturales}\\[0.5cm] % Major heading such as course name
+\textsc{\large Departamento de Computación}\\[0.5cm] % Minor heading such as course title
+\textsc{\large Algoritmos y Estructuras de Datos III}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.8cm]
+{ \huge \bfseries Trabajo Práctico 3}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+\begin{minipage}{0.8\textwidth}
+\center
+%\begin{flushleft} 
+\Large
+\emph{Autores:}
+
+
+{Nicolás Chehebar, mail: \textit{nicocheh@hotmail.com}, LU: 308/16 
+
+Matías Duran, mail: \textit{mato\_ fede@live.com.ar}, LU: 400/16 
+
+Lucas Somacal, mail: \textit{lsomacal@gmail.com}, LU: 249/16} % Your name
+%\end{flushleft}
+~
+\end{minipage}\\[4cm]
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+
+ %\chead{Algo III, TP2, Chehebar, Duran, Somacal}
+ 
+%\title{Algoritmos y Estructuras de Datos III, TP2}
+%\author{Nicolás Chehebar, Matías Duran, Lucas Somacal}
+%\date{}
+
+
+
+\pagenumbering{roman}
+\pagenumbering{arabic}
+%\maketitle
+\tableofcontents
+\clearpage
+
+
+
+
+
+
+
+\section{El Juego}
+\subsection{Descripción}
+
+\subsubsection{Ejemplos}
+
+
+
+
+
+
+
+
+
+
+\section{1.a) Jugador Óptimo, Minimax sin poda}
+
+\subsection{El algoritmo}
+
+\subsubsection{El Pseudocódigo}
+
+
+
+\subsection{Complejidad}
+
+
+\subsection{Experimentación}
+
+
+
+
+
+
+
+
+
+\section{1.b) Jugador Óptimo, Minimax con poda alfa-beta}
+
+
+\subsection{El algoritmo}
+
+\subsubsection{El Pseudocódigo}
+
+
+
+\subsection{Complejidad}
+
+
+\subsection{Experimentación}
+
+\subsubsection{Contexto} 
+\subsubsection{Experimentos}
+
+\section{Análisis comparativo con paper}
+
+
+
+
+
+
+
+
+\end{document}
