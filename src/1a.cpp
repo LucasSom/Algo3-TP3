@@ -210,8 +210,8 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		if (maximizo) {
 			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, posibles[i].first).second;
 		} else {
-			posibles[i].second = minimax(rows, columns, c, p, tablero2, not maximizo, posibles[i].first).second;
-			//PUSE P EN VEZ DE P-1, CUANDO JUEGA EL, QUE ES CUANDO MINIMIZO NO USO FICHA
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, posibles[i].first).second;
+			//CAMBIO CHEBAR FICHAS AHORA CUENTO FICHAS TOTALES
 			
 		}
 	}
@@ -274,7 +274,8 @@ int main() {
 		//la primer cordenada del tablero es la columna, y la segunda es la fila
         
         //for(int i=0; i<columns; ++i) board[i] = 0;
-
+		
+		p=2*p;//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
         go_first = read_str();
         if (go_first == "vos") {
             move = minimax(rows, columns, c, p, tablero, true, -1).first;
@@ -290,6 +291,7 @@ int main() {
                 break;
             }
 			tablero[std::stoi(msg)].push_back(2);//juega el
+			--p; //CAMBIO CHEBAR FICHAS AHORA CUENTO FICHAS TOTALES
             //board[std::stoi(msg)]++;
             move = minimax(rows, columns, c, p, tablero, true, std::stoi(msg)).first;
             tablero[move].push_back(1); //juego yo

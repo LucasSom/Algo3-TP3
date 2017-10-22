@@ -229,7 +229,8 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 			}
 
 		} else {
-			posibles[i].second = minimax(rows, columns, c, p, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
+			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
+			//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
 			if (posibles[i].second < mejorValorMinimizo) {
 				mejorPos = posibles[i].first;
 				mejorValorMinimizo = posibles[i].second;
@@ -278,7 +279,7 @@ int main() {
 		vector<vector<int>>tablero (columns);
 
         //for(int i=0; i<columns; ++i) board[i] = 0;
-
+		p=2*p;//CAMBIO CHEBAR FICHAS, ahora cuento fichas totales
         go_first = read_str();
         if (go_first == "vos") {
             move = minimax(rows, columns, c, p, tablero, true, -2, 2, -1).first;
@@ -294,6 +295,7 @@ int main() {
                 break;
             }
 			tablero[std::stoi(msg)].push_back(2);//juega el
+			--p; //CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
             //board[std::stoi(msg)]++;
             move = minimax(rows, columns, c, p, tablero, true, -2, 2, std::stoi(msg)).first;
             tablero[move].push_back(1); //juego yo
