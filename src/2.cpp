@@ -237,7 +237,47 @@ int esquinas(int rows,int columns,const vector<vector<int>>& tablero, int i){
 	return enesquina;
 	
 	}
+	
+int centro(int rows,int columns,const vector<vector<int>>& tablero, int i){
+	int encentro=0;
+	if(columns % 2 == 0){//si hay pares columnas, hay dos centrales, cuento la que aparece solo si es par
+		for (int h=0; h<tablero[columns/2].size(); ++h){
+			if (tablero[columns/2].size()!=0 && tablero[columns/2][h]==i) {++encentro;} 
+		}
+	}
+	for (int h=0; h<tablero[(columns/2) -1].size(); ++h){
+		if (tablero[(columns/2) -1].size()!=0 && tablero[(columns/2) -1][h]==i) {++encentro;} //cuento en el centro
+	}
 
+	return encentro;
+	
+	}
+
+int libertades(int q, int h, const vector<vector<int>>&  tablero){
+	int res=0;
+	if(q+1<tablero.size() && tablero[q+1].size()<h+2){
+		++res; //sumo el de arriba a la der si esta vacio
+		if(tablero[q+1].size()<h+1){++res;} //sumo el de la der si esta vacio
+		if(tablero[q+1].size()<h){++res;}	 //sumo el de abajo a la der si esta vacio	
+	}
+	if(q-1>=0 && tablero[q-1].size()<h+2){
+		++res; //sumo el de arriba a la izq si esta vacio
+		if(tablero[q-1].size()<h+1){++res;} //sumo el de la izq si esta vacio
+		if(tablero[q-1].size()<h){++res;}	//sumo el de abajo a la izq si esta vacio	
+	}
+	if(tablero[q].size()==h+1){ ++res;} //sumo la de arriba si esta vacía	
+	return res;
+}
+
+int libres (int rows,int columns,const vector<vector<int>>& tablero, int i){
+	int resultado=0;
+	for(int q=0; q< columns;++q){
+		for(int h=0; h<tablero[q].size();++h){
+			if(tablero[q][h]==i) {resultado=resultado+libertades(q,h,tablero);}	
+		}
+	}
+	return resultado;
+}
 
 
 //RECORDAR TODOS LOS PARAMETROS QUE AGREGAMOS, PONERSELOS EN CADA LLAMADA DE PUNTAJES ¿Y EN LA DE PARAMETRIZABLE?
@@ -254,25 +294,28 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	//cuento la cantidad de fichas que estan en una esquina, mias y de el.
 	int esquinas1=esquinas(rows,columns,tablero,1);
 	int esquinas2=esquinas(rows,columns,tablero,2);
+	//cuento la cantidad de fichas en el centro 
+	int centro1=centro(rows,columns,tablero,1);
+	int centro2=centro(rows,columns,tablero,2);
+	//cuento la cantidad de casillas libres alrededor de cada ficha mia
+	int libres1=libres(rows,columns,tablero,1);
+	int libres2=libres(rows,columns,tablero,2);
+	//cantidad de fichas consecutivas
 	
 	
 	//ideas de puntajes:
 	//cantidad de fichas en los bordes HECHO
 	//cantidad de fichas en las esquinas HECHO
-	//cantidad de fichas en el centro (definir mejor... en la del medio solo? hasta que altura las cuento?)
-	
-	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. (¿mirar solo las utiles? i.e las extensibles a un 4 en linea. Sirve contar unas ya tapadas?)
-	//cantidad de posibles 4 en linea que puedo formar
-	
-	//gano +inf y si pierdo es -inf HECHO
+	//cantidad de fichas en el centro HECHO
+	//contar casillas libres alrededor de cada mia. HECHO
+	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. (si se puede mirar solo las utiles i.e las extensibles a un 4 en linea porque no sirve contar unas ya tapadas)
+	//cantidad de posibles 4 en linea que puedo formar (bastante dificil de hacer y suena poco claro y util)
 
+	//gano +inf y si pierdo es -inf HECHO
 	//tratar de maximizar mi putntaje, o minimizar el de el, o maximizar la diferencia (me parece mejor la ultima pero puede ser otro parámetro y que decida entre las tres)
 	
 	
-	
-	
-		
-	
+	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino
 	
 	
 	}
