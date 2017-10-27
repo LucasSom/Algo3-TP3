@@ -283,7 +283,6 @@ int libres (int rows,int columns,const vector<vector<int>>& tablero, int i){
 
 vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, int c, int i){
 	vector<int> res(c,0); //cantidad de consecutivas que tengo. En el lugar i aparecen la cantidad que tienen i. Las que tienen 0 las desestimo, puede decir cualquier cosa ahi
-	
 	//miro en las columnas
 	for(int h=0;h<columns;++h){
 		int contador=0;
@@ -297,6 +296,7 @@ vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, in
 			}
 			 --k;
 		}
+		++res[contador];
 	}	
 		
 		
@@ -313,6 +313,7 @@ vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, in
 			}
 			 --k;
 		}
+		++res[contador];
 	}
 	
 	//miro en diagonal de arriba der a abajo izq
@@ -346,6 +347,7 @@ vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, in
 			 --k;
 			 --h;
 		}
+		++res[contador];
 	}
 	
 	
@@ -367,6 +369,7 @@ vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, in
 			 ++k;
 			 --h;
 		}
+		++res[contador];
 	}
 	//ahora las que estan por encima de la diagonal principal
 	for(int k=1;k<columns;++k){
@@ -382,6 +385,7 @@ vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, in
 			 ++k;
 			 --h;
 		}
+		++res[contador];
 	}
 	
 	
@@ -389,8 +393,8 @@ vector<int> consec(int rows, int columns, const vector<vector<int>>& tablero, in
 }
 
 
-vector<int> ext(int rows, int columns, const vector<vector<int>>& tablero, int c, int i){
-	vector<int> res(c,0); //cantidad de consecutivas extensibles que tengo. En el lugar i aparecen la cantidad que tienen i. Las que tienen 0 las desestimo, puede decir cualquier cosa ahi
+vector<int> extprox(int rows, int columns, const vector<vector<int>>& tablero, int c, int i){
+	vector<int> res(c,0); //cantidad de consecutivas extensibles en el proximo movimiento. En el lugar i aparecen la cantidad que tienen i. Las que tienen 0 las desestimo, puede decir cualquier cosa ahi
 	for(int h=0;h<columns;++h){
 	if(tablero[h].size()<rows){
 		
@@ -477,10 +481,149 @@ vector<int> ext(int rows, int columns, const vector<vector<int>>& tablero, int c
 		
 }
 
+
+
+pair<vector<int>,vector<int> > ext(int rows, int columns, const vector<vector<int>>& tablero, int c, int i){
+	vector<int> res(c,0); //cantidad de extensibles en algun turno. En el lugar i aparecen la cantidad que tienen i. Las que tienen 0 las desestimo, puede decir cualquier cosa ahi
+	vector<int> res2(c,0); //los doble extensibles
+	
+	//miro en las columnas
+	for(int h=0;h<columns;++h){
+		int contador=0;
+		int k=tablero[h].size()-1; 
+		while (k>=0){
+			if(tablero[h][k]==i){++contador;}else{break;}
+			--k;
+		}
+		if(tablero[h].size()<columns){++res[contador];} //si es extensible
+	}	
+		
+		
+	//miro en las filas
+	for(int h=0;h<rows;++h){
+		bool extensible=false;
+		int contador=0;
+		int k=columns-1; 
+		while (k>=0){
+			if(tablero[k].size()>h && tablero[k][h]==i){
+				++contador;
+			}else{
+				if(tablero[k].size()<=h){
+					if(extensible){++res2[contador];} //si es extensible por dos lados
+					++res[contador]; //es extensible por un lado seguro , pues la prox es vacía
+					extensible=true;
+				}
+				contador=0;
+			}
+			 --k;
+		}
+		if(extensible){++res[contador];} //si es extensible
+	}
+	
+	//miro en diagonal de arriba der a abajo izq
+	
+	//primero cuento las que estan debajo de la diagonal principal, incluyendo esta
+	for(int h=rows-1;h>=0;--h){
+		bool extensible=false;
+		int contador=0;
+		int k=columns-1;		 
+		while (k>=0 && h>=0){
+			if(tablero[k].size()>h && tablero[k][h]==i){
+				++contador;
+			}else{
+				if(tablero[k].size()<=h){
+					if(extensible){++res2[contador];} //si es extensible por dos lados
+					++res[contador]; //es extensible por un lado seguro , pues la prox es vacía
+					extensible=true;
+				}
+				contador=0;
+			}
+			 --k;
+			 --h;
+		}
+		if(extensible){++res[contador];}
+	}
+	//ahora las que estan por encima de la diagonal principal
+	for(int k=columns-2;k>=0;--k){
+		bool extensible=false;
+		int contador=0;
+		int h=rows-1;		 
+		while (k>=0 && h>=0){
+			if(tablero[k].size()>h && tablero[k][h]==i){
+				++contador;
+			}else{
+				if(tablero[k].size()<=h){
+					if(extensible){++res2[contador];} //si es extensible por dos lados
+					++res[contador]; //es extensible por un lado seguro , pues la prox es vacía
+					extensible=true;
+				}
+				contador=0;
+			}
+			 --k;
+			 --h;
+		}
+		if(extensible){++res[contador];}
+	}
+	
+	
+	
+	
+	//miro en diagonal de arriba izq a abajo der
+	
+	//primero cuento las que estan debajo de la diagonal principal, incluyendo esta
+	for(int h=rows-1;h>=0;--h){
+		bool extensible=false;
+		int contador=0;
+		int k=0;		 
+		while (k<columns && h>=0){
+			if(tablero[k].size()>h && tablero[k][h]==i){
+				++contador;
+			}else{
+				if(tablero[k].size()<=h){
+					if(extensible){++res2[contador];} //si es extensible por dos lados
+					++res[contador]; //es extensible por un lado seguro , pues la prox es vacía
+					extensible=true;
+				}
+				contador=0;
+			}
+			 ++k;
+			 --h;
+		}
+		if(extensible){++res[contador];}
+	}
+	//ahora las que estan por encima de la diagonal principal
+	for(int k=1;k<columns;++k){
+		bool extensible=false;
+		int contador=0;
+		int h=rows-1;		 
+		while (k<columns && h>=0){
+			if(tablero[k].size()>h && tablero[k][h]==i){
+				++contador;
+			}else{
+				if(tablero[k].size()<=h){
+					if(extensible){++res2[contador];} //si es extensible por dos lados
+					++res[contador]; //es extensible por un lado seguro , pues la prox es vacía
+					extensible=true;
+				}
+				contador=0;
+			}
+			 ++k;
+			 --h;
+		}
+		if(extensible){++res[contador];}
+	}
+	
+	
+	return make_pair(res,res2);
+}
+
+
+
+
 //RECORDAR TODOS LOS PARAMETROS QUE AGREGAMOS, PONERSELOS EN CADA LLAMADA DE PUNTAJES ¿Y EN LA DE PARAMETRIZABLE?
 
 
-float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& tablero, int ultimajugada, int borde, int esquina, int centro, int libertad, vector<int> consecutivos,vector<int> extensibles){
+float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& tablero, int ultimajugada, int borde, int esquina, int centro, int libertad, vector<int> consecutivos, pair<float,float> consecparam, vector<int> extensiblesprox, pair<float,float> extproxparam, vector<int> extensibles,pair<float,float> extparam, vector<int> biextensibles, pair<float,float> biextparam){
 	//el parametro de entrada consecutivos es un vector que tiene en la i coordenada el valor de las tiras de largo i+1. Consecutivos tiene c-1 elementos
 	//idem para extensibles
 	
@@ -506,49 +649,68 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	//cantidad de fichas consecutivas
 	vector<int> consecutivas1=consec(rows,columns,tablero,c,1);
 	vector<int> consecutivas2=consec(rows, columns, tablero, c, 2);
-	//cantidad de inmediatemente extensibles
-	vector<int> extensibles1=ext(rows,columns,tablero,c,1);
-	vector<int> extensibles2=ext(rows, columns, tablero, c, 2);
+	//cantidad de inmediatemente extensibles en la proxima jugada
+	vector<int> extensiblesprox1=extprox(rows,columns,tablero,c,1);
+	vector<int> extensiblesprox2=extprox(rows, columns, tablero, c, 2);
+	//cantidad de  extensibles en cualquier momento (Extensibles en ambos sentidos)
+	//NO CUENTO ACA SI CON UN MOVIMIENTO DOS DE 1 SE UNEN EN UNA DE 3, HACER ESTO
+	vector<int> extensibles1=ext(rows,columns,tablero,c,1).first;
+	vector<int> extensibles2=ext(rows, columns, tablero, c, 2).first;
+	//cantidad de  bi-extensibles en cualquier momento
+	vector<int> biextensibles1=ext(rows,columns,tablero,c,1).second;
+	vector<int> biextensibles2=ext(rows, columns, tablero, c, 2).second;
+	
 	
 	float subtotalA=0;
 	for(int h=1;h<consecutivas1.size();++h){
-		subtotalA= subtotalA + consecutivos[h-1]*(consecutivas1[h]-consecutivas2[h]);
+		subtotalA= subtotalA + consecutivos[h-1]*(consecparam.first*consecutivas1[h]-consecparam.second*consecutivas2[h]);
+		subtotalA= subtotalA + extensiblesprox[h-1]*(extproxparam.first*extensiblesprox1[h]-extproxparam.second*extensiblesprox2[h]);
+		subtotalA= subtotalA + extensibles[h-1]*(extparam.first*extensibles1[h]-extparam.second*extensibles2[h]);
+		subtotalA= subtotalA + biextensibles[h-1]*(biextparam.first*biextensibles1[h]-biextparam.second*biextensibles2[h]);
+		//La idea es poner dos parametros que dan el peso de cada uno. Para los demas no lo hice xq no parecian
+		//cosas tan relevantes y lo hace muy engorroso
 	}
+
 	
-	float subtotalB=0;
-	for(int h=1;h<extensibles1.size();++h){
-		subtotalB= subtotalB + extensibles[h-1]*(extensibles1[h]-5*extensibles2[h]);
-		//ojo aca puse que solo resta para probar
-		//IDEA: PONER DOS PARAMETROS QUE PRUEBEN LA RELACION TIPO QUE SEA
-		//extensibles[h-1]*(parametro1*extensibles1[h]-parametro2*extensibles2[h])
-	}
 		
 	float total=0;
 	total= (enborde1-enborde2)*borde;
 	total= total + (enesquinas1-enesquinas2)*esquina;
 	total= total + (encentro1-encentro2)*centro;
 	total= total + (libres1-libres2)*libertad;
-	total= total + subtotalA + subtotalB;
+	total= total + subtotalA;
 	return total;
 	
 	
 	
 	
 	//ideas de puntajes:
+	
+	//--------------HECHO--------------------
 	//cantidad de fichas en los bordes HECHO
 	//cantidad de fichas en las esquinas HECHO
 	//cantidad de fichas en el centro HECHO
 	//contar casillas libres alrededor de cada mia. HECHO
 	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. HECHO 
 	//gano +inf y si pierdo es -inf HECHO
+	//contar TODAS las extensibles, no solo las de la proxima jugada, para cada largo HECHO
+	//cpntar las extensibles en AMBOS sentidos para cada largo HECHO
 	
-	//Estaria bueno poder contar las tiras que son extensibles en varios sentidos y darles mas valor a esas
-	//(ejemplo bobo, si pones dos solas en el cuatro en linea, te tienen que cubrir si o si xq sino ganas)
+	
+	//----------A HACER -----------
+	
+	//EN EXTENSIBLES: NO CUENTO ACA SI CON UN MOVIMIENTO DOS DE 1 SE UNEN EN UNA DE 3, HACER ESTO
+	
+	//hacer parametros para cada jugada, o dividir en etapas y hacer parametros para cada etapa
 	
 	
-	//(se puede mirar solo las utiles i.e las extensibles a un c en linea porque no s si aporta mucho contar unas ya tapadas, el tema es que se nos pasa de complejidad al implementar)
+	
+	
+	//-------LO HACEMOS DESPUES Y NO TAN UTIL COMO LO DE ARRIBA. IDEAS VIEJAS----------
+	
+	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino, o contar por cada columna..
 	//tratar de maximizar mi putntaje, o minimizar el de el, o maximizar la diferencia (me parece mejor la ultima pero puede ser otro parámetro y que decida entre las tres)
-	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino
+	//contar si hay lugares consecutivos (al menos dos, uno encima de otro) donde ambos extienden y de que largo
 	
 	
 	}
@@ -590,10 +752,30 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	consecutivos.push_back(0);
 	consecutivos.push_back(10);
 	consecutivos.push_back(100);
+	pair<float,float> consecparam;
+	consecparam.first=1;
+	consecparam.second=1;
+	vector<int> extensiblesprox; //tiene que tener c-1 cosas
+	extensiblesprox.push_back(0);
+	extensiblesprox.push_back(20);
+	extensiblesprox.push_back(200);
+	pair<float,float> extproxparam;
+	extproxparam.first=1;
+	extproxparam.second=1;
 	vector<int> extensibles; //tiene que tener c-1 cosas
 	extensibles.push_back(0);
 	extensibles.push_back(10);
 	extensibles.push_back(100);
+	pair<float,float> extparam;
+	extparam.first=2;
+	extparam.second=1;
+	vector<int> biextensibles; //tiene que tener c-1 cosas
+	biextensibles.push_back(0);
+	biextensibles.push_back(10000);
+	biextensibles.push_back(100000);
+	pair<float,float> biextparam;
+	biextparam.first=1;
+	biextparam.second=2;
 	//---------
 	
 	for(int a=0; a<posibles.size();++a){
@@ -605,14 +787,14 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	
 	//si o si hay una jugada posibles pues sino seria empate
 	tablero[posibles[0]].push_back(1);
-	float maximopuntaje=puntaje(rows, columns, c, p, tablero, 0, borde,esquina,centro,libertad,consecutivos, extensibles);
+	float maximopuntaje=puntaje(rows, columns, c, p, tablero, posibles[0], borde,esquina,centro,libertad,consecutivos,consecparam, extensiblesprox, extproxparam, extensibles, extparam, biextensibles, biextparam);
 	int maxpos=posibles[0];
 	tablero[posibles[0]].pop_back();
 	
 	for(int q=1; q< posibles.size();++q){
 		tablero[posibles[q]].push_back(1);
-		if(puntaje(rows, columns, c, p, tablero, posibles[q],borde,esquina,centro,libertad,consecutivos,extensibles)>maximopuntaje){
-			maximopuntaje=puntaje(rows, columns, c, p, tablero, posibles[q],borde,esquina,centro,libertad,consecutivos,extensibles);
+		if(puntaje(rows, columns, c, p, tablero, posibles[q],borde,esquina,centro,libertad,consecutivos,consecparam, extensiblesprox, extproxparam, extensibles, extparam, biextensibles, biextparam)>maximopuntaje){
+			maximopuntaje=puntaje(rows, columns, c, p, tablero, posibles[q],borde,esquina,centro,libertad,consecutivos,consecparam, extensiblesprox, extproxparam, extensibles, extparam, biextensibles, biextparam);
 			maxpos= posibles[q];
 			}
 		tablero[posibles[q]].pop_back();		
