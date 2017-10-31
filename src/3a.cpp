@@ -877,7 +877,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	parametro mejor=param;
 	
 	int random=0;
-	while(random<40){//si pasaron mas de mil y nunca cambio, corto.
+	while(random<1000){//si pasaron mas de mil y nunca cambio, corto.
 	//CHECKEAR, QUIZAS HACEN FALTA BASTANTES MAS, 40 parametros son los que sorteo a lo sumo (enunciado dice c<8)
 		
 		if(juez(rows,columns,c,p,1,param,mejor)==1 && juez(rows,columns,c,p,1,mejor,param)==2) {

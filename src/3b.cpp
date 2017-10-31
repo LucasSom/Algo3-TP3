@@ -825,14 +825,15 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 //----------------- ALGORITMO GENETICO------------------------
 
 //FITNESS1
-	//idea: ver cantidad de partidos no perdidos sobre total jugados del mejor de la generacion
+	//idea: ver cantidad de partidos no perdidos sobre total jugados del mejor de la generacion. juega contra 
+	//todos los de su generacion. Podria jugar contra los mejores de generaciones pasadas sino.
 	
 	
 	
 //FITNESS2
 	//idea: ver cantidad de partidos no perdidos sobre total jugados del peor de la generacion, da poblacion pareja
 	// ESTARIA BUENO ALGO QUE SEA MAS EXTERNO A LA GENERACION NUESTRA PER SE, que  mida cuan buena es PUERTAS AFUERA
-	// o tambien ver partidos ganados sobre total jugados	
+	// o tambien ver partidos ganados sobre total jugados, como podria ser jugar contra mejores de viejas generaciones	
 	
 	
 	
@@ -937,27 +938,28 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 
 
 //SELECCION1
-	//idea: quedarse con un porcentaje de los de mejor fitness, mediante un torneo entre todos contra todos
+	//idea: quedarse con un porcentaje de los de mejor fitness, mediante un torneo entre todos contra todos.
+	//Luego los cruzamos de alguna forma  y dan el doble. Conservar siempre al mejor individuo copiado tal cual
 
 
 
 //SELECCION2
-	//idea: poner a uno como el mejor y pasar a todos desafiandolo y si alguno le gana ambos o gana y empata
-	//lo reemplaza. Repetir hasta tener cierto porcentaje del total. 
+	//idea: agarrar varios al azar y elegir el mejor y cruzarlo con otro elegido de la misma forma. Repetir asi
+	//hasta tener todos los que queremos. Conservar siempre al mejor individuo copiado tal cual
 
 
 
 
 //EL AGORITMO GENETICO PER SE
-/*Evaluar supongo que es ver el fitnes, y el t determina el numero de generacion
+/*Evaluar es ver el fitnes, y el t determina el numero de generacion
  
  	t = 0;
-	inicializar P(t); 
-	evaluar P(t);
+	inicializar Poblacion (t); 
+	evaluar Poblacion (t);
 	Mientras (no se cumpla la condición de parada) hacer
 		t = t + 1
 		seleccionar P(t) desde P(t-1)
-		recombinar P(t)
+		Reproducir P(t)
 		mutación P(t)
 		evaluar P(t)
 
@@ -967,6 +969,5 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 //--------------------MAIN-------------------
 //Este es un main trucho para que me de el resultado del genetico
 int main(){
-	return 0;
 	}
 	
