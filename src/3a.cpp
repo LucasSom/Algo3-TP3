@@ -840,12 +840,12 @@ void paramrandom(parametro& param, int c){
 	param.esquinaparam.second = float_rand(min,max);
 	param.bordeparam.first = float_rand(min,max);
 	param.bordeparam.second = float_rand(min,max);
-	param.centroparam.first = float_rand(min,max);
-	param.centroparam.second = float_rand(min,max);
 	param.libertadparam.first = float_rand(min,max);
 	param.libertadparam.second = float_rand(min,max);
 	param.consecparam.first = float_rand(min,max);
 	param.consecparam.second = float_rand(min,max);
+	param.centroparam.first = float_rand(min,max);
+	param.centroparam.second = float_rand(min,max);
 	param.extproxparam.first = float_rand(min,max);
 	param.extproxparam.second = float_rand(min,max);
 	param.extparam.first = float_rand(min,max);

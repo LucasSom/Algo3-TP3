@@ -44,6 +44,7 @@ struct parametro{
 	
 	pair<float,float> biextparam;	
 		
+	bool operator ==(const parametro& p){} 	
 };
 
 
@@ -823,32 +824,134 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 
 //----------------- ALGORITMO GENETICO------------------------
 
-//fitnes1
+//FITNESS1
 	//idea: ver cantidad de partidos no perdidos sobre total jugados del mejor de la generacion
 	
-//fitnes2
+	
+	
+//FITNESS2
 	//idea: ver cantidad de partidos no perdidos sobre total jugados del peor de la generacion, da poblacion pareja
 	// ESTARIA BUENO ALGO QUE SEA MAS EXTERNO A LA GENERACION NUESTRA PER SE, que  mida cuan buena es PUERTAS AFUERA
+	// o tambien ver partidos ganados sobre total jugados	
 	
-//mutacion
+	
+	
+//MUTACION
 	//idea: simple, tener un porcentaje fijo y en cada variable tira random si se da el porcentaje de mutacion
 
-//crossover
-	//idea: simple, tener un porcentaje fijo que dice si hay crossover y cambia y lo ejecuto cada vez en cada 
-	//cosa, puede pasar varias veces en un mismo cruzamiento o ninguna.
+//funcion que da un float random en el intervalo cerrado [min,max]
+float float_rand( float min, float max ){
+    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
+    return min + scale * ( max - min );      /* [min, max] */
+}	
+	
+//param es el paremtro a mutar, rate indica la proba de mutar, min y max son los rangos en que estan los puntajes
+//de todas las cosas.
+void mutacion(parametro param, float rate, float min, float max){
+	
+	//muto aleatoriamente los parametros que son solo numeros
+	if(float_rand(0,1)<rate){param.esquinaparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.esquinaparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.bordeparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.bordeparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.libertadparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.libertadparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.consecparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.consecparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.centroparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.centroparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.extproxparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.extproxparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.extparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.extparam.second = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.biextparam.first = float_rand(min,max);}
+	if(float_rand(0,1)<rate){param.biextparam.second = float_rand(min,max);}
+	//muto aleatoriamente los vectores
+	for(int k=0;k<param.extensibles.size();++k){
+		if(float_rand(0,1)<rate){param.extensiblesprox[k]=(float_rand(min,max));}
+		if(float_rand(0,1)<rate){param.extensibles[k]=(float_rand(min,max));}
+		if(float_rand(0,1)<rate){param.biextensibles[k]=(float_rand(min,max));}
+		if(float_rand(0,1)<rate){param.consecutivos[k]=(float_rand(min,max));}
+	}
+	
+}
 
-//seleccion1
+
+//CROSSOVER
+	//idea: simple, tener un porcentaje fijo que dice si hay crossover y cambia y lo ejecuto cada vez en cada 
+	//cosa, puede pasar varias veces en un mismo cruzamiento o ninguna. Los vectores y los pares de parametros
+	//son caracteristicas que van juntas. O sea, los pairs y vectors, se copian entero de alguno de los dos siempre.
+	// es como si fueran un solo gen que lo agarras o del padre o de la madre
+parametro crossover(parametro p1, parametro p2, float rate, float min, float max){
+	
+	parametro param;
+	//empiezo con p1 y si corresponde cambio
+	parametro copiode=p1;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.esquinaparam.first = copiode.esquinaparam.first;
+		param.esquinaparam.second = copiode.esquinaparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.bordeparam.first = copiode.bordeparam.first;
+		param.bordeparam.second = copiode.bordeparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.libertadparam.first = copiode.libertadparam.first;
+		param.libertadparam.second = copiode.libertadparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.consecparam.first = copiode.consecparam.first;
+		param.consecparam.second = copiode.consecparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.centroparam.first = copiode.centroparam.first;
+		param.centroparam.second = copiode.centroparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.extproxparam.first = copiode.extproxparam.first;
+		param.extproxparam.second = copiode.extproxparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.extparam.first = copiode.extparam.first;
+		param.extparam.second = copiode.extparam.second;
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+		param.biextparam.first = copiode.biextparam.first;
+		param.biextparam.second = copiode.biextparam.second;
+	//muto aleatoriamente los vectores
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	for(int k=0;k<p1.extensibles.size();++k){
+		param.extensiblesprox[k]=copiode.extensiblesprox[k];
+	}
+	
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	for(int k=0;k<p1.extensibles.size();++k){
+		param.extensibles[k]=copiode.extensibles[k];
+	}
+		
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	for(int k=0;k<p1.extensibles.size();++k){
+		param.biextensibles[k]=copiode.biextensibles[k];
+	}
+	
+	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	for(int k=0;k<p1.extensibles.size();++k){
+		param.consecutivos[k]=copiode.consecutivos[k];
+	}
+	
+	return param;
+}
+
+
+//SELECCION1
 	//idea: quedarse con un porcentaje de los de mejor fitness, mediante un torneo entre todos contra todos
 
-//seleccion2
+
+
+//SELECCION2
 	//idea: poner a uno como el mejor y pasar a todos desafiandolo y si alguno le gana ambos o gana y empata
-	//lo reemplaza. 
+	//lo reemplaza. Repetir hasta tener cierto porcentaje del total. 
 
 
-//el algoritmo genetico per se
+
+
+//EL AGORITMO GENETICO PER SE
 /*Evaluar supongo que es ver el fitnes, y el t determina el numero de generacion
- * 
-* 	t = 0;
+ 
+ 	t = 0;
 	inicializar P(t); 
 	evaluar P(t);
 	Mientras (no se cumpla la condición de parada) hacer
