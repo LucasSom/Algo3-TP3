@@ -6055,3 +6055,29 @@ envio <type 'str'>: vos
 recibo <type 'str'>: 0
 envio <type 'str'>: salir
 recibo <type 'str'>: listo
+
+/*************** Nueva partida *****************/
+columnas: 7
+filas: 6
+c: 4
+p: 50
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 7 6 4 50
+envio <type 'str'>: vos
+
+/*************** Nueva partida *****************/
+columnas: 7
+filas: 6
+c: 4
+p: 50
+color: azul
+color del oponente: rojo
+vas primero: True
+/**********************************************/
+envio <type 'str'>: azul rojo
+envio <type 'str'>: 7 6 4 50
+envio <type 'str'>: vos

@@ -16,6 +16,7 @@ std::mt19937 generator(rd());
 #define INF std::numeric_limits<float>::max();
 #define INFneg std::numeric_limits<float>::min();
 
+
 //------------------ ESTRUCTURA QUE CONTIENE LOS PARAMETROS QUE TOMARA LA FUNCION PARAMETRIZABLE--------------
 
 struct parametro{
@@ -44,38 +45,6 @@ struct parametro{
 	pair<float,float> biextparam;	
 		
 };
-
-
-//------------------FUNCIONES DE COMUNICACION CON EL JUEZ-----------
-
-void send(const std::string& msg) {
-    std::cout << msg << std::endl;
-}
-
-void send(int msg) {
-    std::cout << msg << std::endl;
-}
-
-int read_int() {
-    std::string msg;
-    std::cin >> msg;
-    if (msg == "salir") {
-        send("listo");
-        std::exit(0);
-    }
-    return std::stoi(msg);
-}
-
-std::string read_str() {
-    std::string msg;
-    std::cin >> msg;
-    if (msg == "salir") {
-        send("listo");
-        std::exit(0);
-    }
-    return msg;
-}
-
 
 
 //---------------------FUNCIONES QUE DETERMINAN SI UN JUGADOR YA GANO O NO-------------
@@ -809,102 +778,167 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	return maxpos;
 }
 
-	
-//---------------FUNCION MAIN, EL JUGADOR EN SI---------------------
 
-int main() {
-	
-	
-	//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
-	parametro param;
-	
-	param.esquinaparam.first=0;//-10
-	param.esquinaparam.second=0;//-10
-	param.bordeparam.first=0;//-3
-	param.bordeparam.second=0;//-3
-	param.centroparam.first=0;//8
-	param.centroparam.second=0;//8
-	param.libertadparam.first=0;//1
-	param.libertadparam.second=0;//1
-	
-	param.consecutivos.push_back(0);
-	param.consecutivos.push_back(10);
-	param.consecutivos.push_back(100);
-	
-	param.consecparam.first=0;
-	param.consecparam.second=0;
-	
-	
-	param.extensiblesprox.push_back(0);
-	param.extensiblesprox.push_back(200);
-	param.extensiblesprox.push_back(8888888); //esto es ganar para el, tiene que ser +inf
-	
-	param.extproxparam.first=0;
-	param.extproxparam.second=1;
-	
-	
-	param.extensibles.push_back(0);
-	param.extensibles.push_back(10);
-	param.extensibles.push_back(100); 
-	
-	param.extparam.first=0;
-	param.extparam.second=0;
+//-------------------------JUEZ NUESTRO-----------------
 
+//decide de dos jugadors que usan los parametros p1 y p2 quien gana o si es empate. devuelve 0 si empate, 1 si 
+//gana el de p1 y 2 si gana el de  p2. Ambos jugadores utilizan la funcion parametrizable para jugar
+int juez (int rows, int columns, int c, int p, int primero, parametro p1, parametro p2){
 
-	param.biextensibles.push_back(10);
-	param.biextensibles.push_back(1000);
-	param.biextensibles.push_back(88888888); //esto es ganar para el, es +inf
+	vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
+	p=2*p; //cuento fichas totales
+	int LeTocaA=primero;
+	int ultimajugada=-1;
+	
+	while (true) {
+		if(gane(tablero, c, ultimajugada)) {return 1;} //gano el 1
+		if(perdi(tablero, c, ultimajugada)) {return 2;} //perdio el 1, gano el 2
+		if(p==0){return 0;} //empate no hay mas fichas
+		bool lleno=true;
+		int h=0;
+		while( h<columns && lleno){
+			if(tablero[h].size()<rows){ lleno=false;}
+			++h;
+		}
+		if (lleno) {return 0;} //empate se lleno el tablero y no gano nadie
 		
-	param.biextparam.first=0;
-	param.biextparam.second=1;
-	//---------
-
-    //std::default_random_engine generator;
-    std::string msg, color, oponent_color, go_first;
-    int columns, rows, c, p, move;
-
-    while (true) {
-        color = read_str();
-        oponent_color = read_str();
-
-        columns = read_int();
-        rows = read_int();
-        c = read_int();
-        p = read_int();
-		//std::vector<int> board(columns);
-		vector<vector<int>>tablero (columns);
-		//la primer cordenada del tablero es la columna, y la segunda es la fila
-        
-        //for(int i=0; i<columns; ++i) board[i] = 0;
 		
-		p=2*p;//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
-        go_first = read_str();
-        if (go_first == "vos") {
-            move = parametrizable(rows, columns, c, p, tablero, -1, param);
-            tablero[move].push_back(1); //juego yo
-            //board[move]++;
-            --p;
-            send(move);
-        }
-
-        while (true) {
-            msg = read_str();
-            if (msg == "ganaste" || msg == "perdiste" || msg == "empataron") {
-                break;
-            }
-			tablero[std::stoi(msg)].push_back(2);//juega el
-			--p; //CAMBIO CHEBAR FICHAS AHORA CUENTO FICHAS TOTALES
-            //board[std::stoi(msg)]++;
-            move = parametrizable(rows, columns, c, p, tablero, std::stoi(msg), param);
-            tablero[move].push_back(1); //juego yo
-            //board[move]++;
-            --p;
-            send(move);
-        }
-    }
-
-    return 0;
+		parametro param;
+		int move;
+		if(LeTocaA==1){ 
+			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, p1);
+			tablero[move].push_back(LeTocaA); //juega quien corresponda
+			LeTocaA=2;
+		}else{
+			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, p2);
+			tablero[move].push_back(LeTocaA); //juega quien corresponda
+			LeTocaA=1;
+		}
+		--p;
+		ultimajugada=move;
+	}
 }
 
 
 
+//----------------- GRID SEARCH------------------------
+
+
+//funcion que da un float random en el intervalo cerrado [min,max]
+float float_rand( float min, float max ){
+    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
+    return min + scale * ( max - min );      /* [min, max] */
+}
+
+//función que sortea un parametro random
+void paramrandom(parametro& param, int c){
+	
+	float min=-1;
+	float max=1;
+	//los parametros que determinan el peso de mi jugada respecto a la del rival van entre -1 y 1
+	param.esquinaparam.first = float_rand(min,max);
+	param.esquinaparam.second = float_rand(min,max);
+	param.bordeparam.first = float_rand(min,max);
+	param.bordeparam.second = float_rand(min,max);
+	param.centroparam.first = float_rand(min,max);
+	param.centroparam.second = float_rand(min,max);
+	param.libertadparam.first = float_rand(min,max);
+	param.libertadparam.second = float_rand(min,max);
+	param.consecparam.first = float_rand(min,max);
+	param.consecparam.second = float_rand(min,max);
+	param.extproxparam.first = float_rand(min,max);
+	param.extproxparam.second = float_rand(min,max);
+	param.extparam.first = float_rand(min,max);
+	param.extparam.second = float_rand(min,max);
+	param.biextparam.first = float_rand(min,max);
+	param.biextparam.second = float_rand(min,max);
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		param.extensiblesprox.push_back(float_rand(min,max));
+		param.extensibles.push_back(float_rand(min,max));
+		param.biextensibles.push_back(float_rand(min,max));
+		param.consecutivos.push_back(float_rand(min,max));
+	}
+}
+
+//funcion del punto 3.a que busca parametros que optimicen
+parametro gridsearch(int rows, int columns, int c, int p){
+	
+	parametro param;	
+	paramrandom(param,c);
+
+	parametro mejor=param;
+	
+	int random=0;
+	while(random<40){//si pasaron mas de mil y nunca cambio, corto.
+	//CHECKEAR, QUIZAS HACEN FALTA BASTANTES MAS, 40 parametros son los que sorteo a lo sumo (enunciado dice c<8)
+		
+		if(juez(rows,columns,c,p,1,param,mejor)==1 && juez(rows,columns,c,p,1,mejor,param)==2) {
+			//si le gana al mejor hasta ahora siendo primero y segundo
+			mejor=param;// pasa a ser el nuevo mejor
+			random=-1;//actualice
+		}
+		if(juez(rows,columns,c,p,1,param,mejor)==1 && juez(rows,columns,c,p,1,mejor,param)==0) {
+			//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
+			mejor=param;// pasa a ser el nuevo mejor
+			random=-1;//actualice
+		}
+		if(juez(rows,columns,c,p,1,param,mejor)==0 && juez(rows,columns,c,p,1,mejor,param)==1) {
+			//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente
+			mejor=param;// pasa a ser el nuevo mejor
+			random=-1;//actualice
+		}
+		++random;		
+		paramrandom(param,c);		
+	}
+	return mejor;
+}	
+	
+
+
+
+//-----------------------MAIN--------------------------
+//Este es un main trucho para que me de el resultado de grid-search
+int main(){
+	srand((unsigned int)time(NULL));
+	int columns = 7;
+	int rows = 6;
+	int c = 4;
+	int p = 50; 
+	parametro param=gridsearch(columns,rows,c,p);
+	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
+	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
+	cout<<"param borde1:"<<param.bordeparam.first<< endl;
+	cout<<"param borde2:"<<param.bordeparam.second<< endl;
+	cout<<"param centro1:"<<param.centroparam.first << endl;
+	cout<<"param centro2:"<<	param.centroparam.second<< endl;
+	cout<<"param libertad1:"<<	param.libertadparam.first << endl;
+	cout<<"param libertad2:"<<	param.libertadparam.second << endl;
+	cout<<"param consec1:"<<param.consecparam.first << endl;
+	cout<<"param consec2:"<<param.consecparam.second << endl;
+	cout<<"param extprox1:"<<param.extproxparam.first << endl;
+	cout<<"param extprox2:"<<param.extproxparam.second << endl;
+	cout<<"param ext1:"<<param.extparam.first << endl;
+	cout<<"param ext2:"<<param.extparam.second << endl;
+	cout<<"param biext1:"<<param.biextparam.first << endl;
+	cout<<"param biext2:"<<param.biextparam.second << endl;
+	
+	cout<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
+	
+	for(int k=0;k<c-1;++k){
+		cout<< param.extensiblesprox[k]<< ";  ";
+		cout<<param.extensibles[k]<< ";  ";
+		cout<<param.biextensibles[k]<< ";  ";
+		cout<<param.consecutivos[k]<< endl;
+	}
+	
+	return 0;
+	}
+	

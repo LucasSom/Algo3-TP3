@@ -16,6 +16,7 @@ std::mt19937 generator(rd());
 #define INF std::numeric_limits<float>::max();
 #define INFneg std::numeric_limits<float>::min();
 
+
 //------------------ ESTRUCTURA QUE CONTIENE LOS PARAMETROS QUE TOMARA LA FUNCION PARAMETRIZABLE--------------
 
 struct parametro{
@@ -44,38 +45,6 @@ struct parametro{
 	pair<float,float> biextparam;	
 		
 };
-
-
-//------------------FUNCIONES DE COMUNICACION CON EL JUEZ-----------
-
-void send(const std::string& msg) {
-    std::cout << msg << std::endl;
-}
-
-void send(int msg) {
-    std::cout << msg << std::endl;
-}
-
-int read_int() {
-    std::string msg;
-    std::cin >> msg;
-    if (msg == "salir") {
-        send("listo");
-        std::exit(0);
-    }
-    return std::stoi(msg);
-}
-
-std::string read_str() {
-    std::string msg;
-    std::cin >> msg;
-    if (msg == "salir") {
-        send("listo");
-        std::exit(0);
-    }
-    return msg;
-}
-
 
 
 //---------------------FUNCIONES QUE DETERMINAN SI UN JUGADOR YA GANO O NO-------------
@@ -809,102 +778,92 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	return maxpos;
 }
 
-	
-//---------------FUNCION MAIN, EL JUGADOR EN SI---------------------
 
-int main() {
-	
-	
-	//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
-	parametro param;
-	
-	param.esquinaparam.first=0;//-10
-	param.esquinaparam.second=0;//-10
-	param.bordeparam.first=0;//-3
-	param.bordeparam.second=0;//-3
-	param.centroparam.first=0;//8
-	param.centroparam.second=0;//8
-	param.libertadparam.first=0;//1
-	param.libertadparam.second=0;//1
-	
-	param.consecutivos.push_back(0);
-	param.consecutivos.push_back(10);
-	param.consecutivos.push_back(100);
-	
-	param.consecparam.first=0;
-	param.consecparam.second=0;
-	
-	
-	param.extensiblesprox.push_back(0);
-	param.extensiblesprox.push_back(200);
-	param.extensiblesprox.push_back(8888888); //esto es ganar para el, tiene que ser +inf
-	
-	param.extproxparam.first=0;
-	param.extproxparam.second=1;
-	
-	
-	param.extensibles.push_back(0);
-	param.extensibles.push_back(10);
-	param.extensibles.push_back(100); 
-	
-	param.extparam.first=0;
-	param.extparam.second=0;
+//-------------------------JUEZ NUESTRO-----------------
 
+//decide de dos jugadors que usan los parametros p1 y p2 quien gana o si es empate. devuelve 0 si empate, 1 si 
+//gana el de p1 y 2 si gana el de  p2. Ambos jugadores utilizan la funcion parametrizable para jugar
+int juez (int rows, int columns, int c, int p, int primero, parametro p1, parametro p2){
 
-	param.biextensibles.push_back(10);
-	param.biextensibles.push_back(1000);
-	param.biextensibles.push_back(88888888); //esto es ganar para el, es +inf
+	vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
+	p=2*p; //cuento fichas totales
+	int LeTocaA=primero;
+	int ultimajugada=-1;
+	
+	while (true) {
+		if(gane(tablero, c, ultimajugada)) {return 1;} //gano el 1
+		if(perdi(tablero, c, ultimajugada)) {return 2;} //perdio el 1, gano el 2
+		if(p==0){return 0;} //empate no hay mas fichas
+		bool lleno=true;
+		int h=0;
+		while( h<columns && lleno){
+			if(tablero[h].size()<rows){ lleno=false;}
+			++h;
+		}
+		if (lleno) {return 0;} //empate se lleno el tablero y no gano nadie
 		
-	param.biextparam.first=0;
-	param.biextparam.second=1;
-	//---------
-
-    //std::default_random_engine generator;
-    std::string msg, color, oponent_color, go_first;
-    int columns, rows, c, p, move;
-
-    while (true) {
-        color = read_str();
-        oponent_color = read_str();
-
-        columns = read_int();
-        rows = read_int();
-        c = read_int();
-        p = read_int();
-		//std::vector<int> board(columns);
-		vector<vector<int>>tablero (columns);
-		//la primer cordenada del tablero es la columna, y la segunda es la fila
-        
-        //for(int i=0; i<columns; ++i) board[i] = 0;
 		
-		p=2*p;//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
-        go_first = read_str();
-        if (go_first == "vos") {
-            move = parametrizable(rows, columns, c, p, tablero, -1, param);
-            tablero[move].push_back(1); //juego yo
-            //board[move]++;
-            --p;
-            send(move);
-        }
-
-        while (true) {
-            msg = read_str();
-            if (msg == "ganaste" || msg == "perdiste" || msg == "empataron") {
-                break;
-            }
-			tablero[std::stoi(msg)].push_back(2);//juega el
-			--p; //CAMBIO CHEBAR FICHAS AHORA CUENTO FICHAS TOTALES
-            //board[std::stoi(msg)]++;
-            move = parametrizable(rows, columns, c, p, tablero, std::stoi(msg), param);
-            tablero[move].push_back(1); //juego yo
-            //board[move]++;
-            --p;
-            send(move);
-        }
-    }
-
-    return 0;
+		parametro param;
+		int move;
+		if(LeTocaA==1){ 
+			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, p1);
+			tablero[move].push_back(LeTocaA); //juega quien corresponda
+			LeTocaA=2;
+		}else{
+			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, p2);
+			tablero[move].push_back(LeTocaA); //juega quien corresponda
+			LeTocaA=1;
+		}
+		--p;
+		ultimajugada=move;
+	}
 }
 
 
 
+//----------------- ALGORITMO GENETICO------------------------
+
+//fitnes1
+	//idea: ver cantidad de partidos no perdidos sobre total jugados del mejor de la generacion
+	
+//fitnes2
+	//idea: ver cantidad de partidos no perdidos sobre total jugados del peor de la generacion, da poblacion pareja
+	// ESTARIA BUENO ALGO QUE SEA MAS EXTERNO A LA GENERACION NUESTRA PER SE, que  mida cuan buena es PUERTAS AFUERA
+	
+//mutacion
+	//idea: simple, tener un porcentaje fijo y en cada variable tira random si se da el porcentaje de mutacion
+
+//crossover
+	//idea: simple, tener un porcentaje fijo que dice si hay crossover y cambia y lo ejecuto cada vez en cada 
+	//cosa, puede pasar varias veces en un mismo cruzamiento o ninguna.
+
+//seleccion1
+	//idea: quedarse con un porcentaje de los de mejor fitness, mediante un torneo entre todos contra todos
+
+//seleccion2
+	//idea: poner a uno como el mejor y pasar a todos desafiandolo y si alguno le gana ambos o gana y empata
+	//lo reemplaza. 
+
+
+//el algoritmo genetico per se
+/*Evaluar supongo que es ver el fitnes, y el t determina el numero de generacion
+ * 
+* 	t = 0;
+	inicializar P(t); 
+	evaluar P(t);
+	Mientras (no se cumpla la condición de parada) hacer
+		t = t + 1
+		seleccionar P(t) desde P(t-1)
+		recombinar P(t)
+		mutación P(t)
+		evaluar P(t)
+
+ */
+
+
+//--------------------MAIN-------------------
+//Este es un main trucho para que me de el resultado del genetico
+int main(){
+	return 0;
+	}
+	
