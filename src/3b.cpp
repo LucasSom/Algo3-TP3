@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <cmath>
+#include <algorithm>
 
 
 using namespace std;
@@ -821,13 +822,67 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 }
 
 
+//funcion que da un float random en el intervalo cerrado [min,max]
+float float_rand( float min, float max ){
+    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
+    return min + scale * ( max - min );      /* [min, max] */
+}	
+	
+//función que sortea un parametro random
+parametro paramrandom(int c){
+	parametro param;
+	float min=-1;
+	float max=1;
+	//los parametros que determinan el peso de mi jugada respecto a la del rival van entre -1 y 1
+	param.esquinaparam.first = float_rand(min,max);
+	param.esquinaparam.second = float_rand(min,max);
+	param.bordeparam.first = float_rand(min,max);
+	param.bordeparam.second = float_rand(min,max);
+	param.libertadparam.first = float_rand(min,max);
+	param.libertadparam.second = float_rand(min,max);
+	param.consecparam.first = float_rand(min,max);
+	param.consecparam.second = float_rand(min,max);
+	param.centroparam.first = float_rand(min,max);
+	param.centroparam.second = float_rand(min,max);
+	param.extproxparam.first = float_rand(min,max);
+	param.extproxparam.second = float_rand(min,max);
+	param.extparam.first = float_rand(min,max);
+	param.extparam.second = float_rand(min,max);
+	param.biextparam.first = float_rand(min,max);
+	param.biextparam.second = float_rand(min,max);
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		param.extensiblesprox.push_back(float_rand(min,max));
+		param.extensibles.push_back(float_rand(min,max));
+		param.biextensibles.push_back(float_rand(min,max));
+		param.consecutivos.push_back(float_rand(min,max));
+	}
+	return param;
+}
+	
 
 //----------------- ALGORITMO GENETICO------------------------
 
 //FITNESS1
-	//idea: ver cantidad de partidos no perdidos sobre total jugados del mejor de la generacion. juega contra 
-	//todos los de su generacion. Podria jugar contra los mejores de generaciones pasadas sino.
-	
+	//idea: ver cantidad de partidos no perdidos sobre total jugados juega contra 
+	//todos los de su generacion.
+	//ES BASTANTE MALA, SE PODRIA MEJORAR, QUE JUEGUE CONTRA OTROS TAMBIEN, EXTERNOS
+float fitness1(parametro param, vector<parametro> poblacion, int rows,int  columns, int c,int  p){
+	int noperdio=0;
+	for(int i=0;i<poblacion.size();++i){
+		if(juez(rows,columns,c,p, 1, param,poblacion[i]) !=2) {++noperdio;}
+		if(juez(rows,columns,c,p, 2, param, poblacion[i]) !=2) {++noperdio;}
+	}
+	float resultado=noperdio/(2*poblacion.size());
+	return resultado;	
+}
 	
 	
 //FITNESS2
@@ -840,11 +895,7 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 //MUTACION
 	//idea: simple, tener un porcentaje fijo y en cada variable tira random si se da el porcentaje de mutacion
 
-//funcion que da un float random en el intervalo cerrado [min,max]
-float float_rand( float min, float max ){
-    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
-    return min + scale * ( max - min );      /* [min, max] */
-}	
+
 	
 //param es el paremtro a mutar, rate indica la proba de mutar, min y max son los rangos en que estan los puntajes
 //de todas las cosas.
@@ -915,22 +966,22 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 	//muto aleatoriamente los vectores
 	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
-		param.extensiblesprox[k]=copiode.extensiblesprox[k];
+		param.extensiblesprox.push_back(copiode.extensiblesprox[k]);
 	}
 	
 	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
-		param.extensibles[k]=copiode.extensibles[k];
+		param.extensibles.push_back(copiode.extensibles[k]);
 	}
 		
 	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
-		param.biextensibles[k]=copiode.biextensibles[k];
+		param.biextensibles.push_back(copiode.biextensibles[k]);
 	}
 	
 	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
-		param.consecutivos[k]=copiode.consecutivos[k];
+		param.consecutivos.push_back(copiode.consecutivos[k]);
 	}
 	
 	return param;
@@ -938,9 +989,30 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 
 
 //SELECCION1
-	//idea: quedarse con un porcentaje de los de mejor fitness, mediante un torneo entre todos contra todos.
-	//Luego los cruzamos de alguna forma  y dan el doble. Conservar siempre al mejor individuo copiado tal cual
-
+	//idea: quedarse con la mitad de los de mejor fitness, mediante un torneo entre todos contra todos.
+	//Luego los cruzo agarrando aleatoriamente dos de ellos hasta que tenga una poblacion del mismo tamaño que
+	//antes. Conservar siempre al mejor individuo copiado tal cual
+vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
+	
+	vector<parametro> poblacionnueva;
+	
+	vector<float> fit;
+	for(int i=0;i<poblacion.size();++i){
+		fit.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+	}
+	sort(fit.begin(),fit.end());
+	
+	poblacionnueva.push_back(poblacion[poblacion.size()-1]); //elitismo, siempre dejo al mejor
+	while (poblacionnueva.size()<poblacion.size()){
+		int x, y;
+		x= rand() % (poblacion.size()-poblacion.size()/2) + poblacion.size()/2;
+		y= rand() % (poblacion.size()-poblacion.size()/2) + poblacion.size()/2;
+		//PUEDO VARIAR QUE SEAN LA MITAD, PUEDO ELEGIR X E Y DE ALGUN OTRO PORCENTAJE DE MEJORES
+		poblacionnueva.push_back(crossover(poblacion[x],poblacion[y], pcrossover, min, max) );		
+	}
+	
+	return poblacionnueva;
+}
 
 
 //SELECCION2
@@ -951,23 +1023,78 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 
 
 //EL AGORITMO GENETICO PER SE
-/*Evaluar es ver el fitnes, y el t determina el numero de generacion
- 
- 	t = 0;
-	inicializar Poblacion (t); 
-	evaluar Poblacion (t);
-	Mientras (no se cumpla la condición de parada) hacer
-		t = t + 1
-		seleccionar P(t) desde P(t-1)
-		Reproducir P(t)
-		mutación P(t)
-		evaluar P(t)
-
- */
+parametro genetico(int rows, int columns, int c, int p){
+	
+	//determino parametros que luego podemos modificar segun gustemos
+	int tamanopoblacion=10;
+	float min=-1;
+	float max=1;
+	float pmutar=0.0015;
+	float pcrossover=0.1;
+	int totalgeneraciones=2;
+	
+	int generacion=1;
+	
+	vector<parametro> poblacion;
+	for(int i=1;i<=tamanopoblacion;++i){
+		poblacion.push_back(paramrandom(c));
+	}
+	
+	while(generacion<totalgeneraciones){
+		//puse esta como basica pero se puede poner una condicion de corte mucho mejor
+		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
+						  
+		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
+		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
+		for(int i=0;i<poblacion.size();++i){
+			mutacion(poblacion[i],pmutar, min, max);
+		}
+		++generacion;
+	}
+	
+	float maximo=fitness1(poblacion[0],poblacion,rows,columns,c,p);
+	int maxpos=0;
+	for(int i=1;i<poblacion.size();++i){
+		if(fitness1(poblacion[i], poblacion, rows, columns, c, p)>maximo){
+			maxpos=i; 
+			maximo=fitness1(poblacion[i], poblacion, rows, columns, c, p);
+		}
+	}
+		
+	return poblacion[maxpos];
+}
 
 
 //--------------------MAIN-------------------
 //Este es un main trucho para que me de el resultado del genetico
 int main(){
+	srand((unsigned int)time(NULL));
+	parametro param=genetico(6,7,4,50);
+	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
+	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
+	cout<<"param borde1:"<<param.bordeparam.first<< endl;
+	cout<<"param borde2:"<<param.bordeparam.second<< endl;
+	cout<<"param centro1:"<<param.centroparam.first << endl;
+	cout<<"param centro2:"<<	param.centroparam.second<< endl;
+	cout<<"param libertad1:"<<	param.libertadparam.first << endl;
+	cout<<"param libertad2:"<<	param.libertadparam.second << endl;
+	cout<<"param consec1:"<<param.consecparam.first << endl;
+	cout<<"param consec2:"<<param.consecparam.second << endl;
+	cout<<"param extprox1:"<<param.extproxparam.first << endl;
+	cout<<"param extprox2:"<<param.extproxparam.second << endl;
+	cout<<"param ext1:"<<param.extparam.first << endl;
+	cout<<"param ext2:"<<param.extparam.second << endl;
+	cout<<"param biext1:"<<param.biextparam.first << endl;
+	cout<<"param biext2:"<<param.biextparam.second << endl;
+	
+	cout<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
+	
+	for(int k=0;k<3;++k){
+		cout<< param.extensiblesprox[k]<< ";  ";
+		cout<<param.extensibles[k]<< ";  ";
+		cout<<param.biextensibles[k]<< ";  ";
+		cout<<param.consecutivos[k]<< endl;
+	}
+	
 	}
 	
