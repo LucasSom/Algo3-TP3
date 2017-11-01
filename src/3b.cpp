@@ -1014,20 +1014,26 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 
 
 //SELECCION1
-	//idea: quedarse con la mitad de los de mejor fitness, mediante un torneo entre todos contra todos.
-	//Luego los cruzo agarrando aleatoriamente dos de ellos hasta que tenga una poblacion del mismo tamaño que
-	//antes. Conservar siempre al mejor individuo copiado tal cual
+	//idea: quedarse con la mitad de los de mejor fitness.Luego los cruzo agarrando aleatoriamente dos de ellos
+	// hasta que tenga una poblacion del mismo tamaño que antes.
+	// Conservar siempre al mejor individuo copiado tal cual
+	//POSIBLE MODIFICACION, TOMAR ALEATORIOS DONDE CUANTO MAS ARRIBA ESTAS MAS CHANCES TENES. ES FACIL DE HACER.
+	
+	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
 vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	vector<parametro> poblacionnueva;
 	
-	vector<float> fit;
-	for(int i=0;i<poblacion.size();++i){
-		fit.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+	float maximo=fitness1(poblacion[0], poblacion, rows, columns, c, p);
+	int maxpos=0;
+	for(int i=1;i<poblacion.size();++i){
+		if(fitness1(poblacion[i], poblacion, rows, columns, c, p)>maximo){
+			maximo= fitness1(poblacion[i], poblacion, rows, columns, c, p);
+			maxpos=i;
+		}
 	}
-	sort(fit.begin(),fit.end());
+	poblacionnueva.push_back(poblacion[maxpos]); //elitismo, siempre dejo al mejor
 	
-	poblacionnueva.push_back(poblacion[poblacion.size()-1]); //elitismo, siempre dejo al mejor
 	while (poblacionnueva.size()<poblacion.size()){
 		int x, y;
 		x= rand() % (poblacion.size()-poblacion.size()/2) + poblacion.size()/2;
@@ -1043,7 +1049,56 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 
 //SELECCION2
 	//idea: agarrar varios al azar y elegir el mejor y cruzarlo con otro elegido de la misma forma. Repetir asi
-	//hasta tener todos los que queremos. Conservar siempre al mejor individuo copiado tal cual
+	//hasta tener todos los que queremos.  Hago como minitorneos y asi elijo a cada padre.
+	//Conservar siempre al mejor individuo copiado tal cual
+	
+	
+	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
+vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
+	
+	vector<parametro> poblacionnueva;
+	
+	
+	float maximo=fitness1(poblacion[0], poblacion, rows, columns, c, p);
+	int maxpos=0;
+	for(int i=1;i<poblacion.size();++i){
+		if(fitness1(poblacion[i], poblacion, rows, columns, c, p)>maximo){
+			maximo= fitness1(poblacion[i], poblacion, rows, columns, c, p);
+			maxpos=i;
+		}
+	}
+	poblacionnueva.push_back(poblacion[maxpos]); //elitismo, siempre dejo al mejor
+	
+	int tamano=10; //indica cantidad de los jugadores que elijo
+	
+	while (poblacionnueva.size()<poblacion.size()){
+		
+		vector<parametro> padres;
+		for(int h=0;h<2;++h){
+			
+			vector<parametro> random;
+			for(int q=0;q<tamano;++q){
+				int x= rand() % (poblacion.size());
+				random.push_back(poblacion[x]);
+			}
+
+			float maximo=fitness1(random[0], poblacion, rows, columns, c, p);
+			int maxpos=0;
+			for(int i=1;i<random.size();++i){
+				if(fitness1(random[i], poblacion, rows, columns, c, p)>maximo){
+					maximo= fitness1(random[i], poblacion, rows, columns, c, p);
+					maxpos=i;
+			}
+			padres.push_back(random[maxpos]);
+			}
+		}
+		//PUEDO VARIAR QUE SEAN LA MITAD, PUEDO ELEGIR X E Y DE ALGUN OTRO PORCENTAJE DE MEJORES
+		poblacionnueva.push_back(crossover(padres[0],padres[1], pcrossover, min, max) );		
+	}
+	
+	return poblacionnueva;
+}
+
 
 
 
@@ -1149,6 +1204,4 @@ int main(){
 		cout<<param.biextensibles[k]<< ";  ";
 		cout<<param.consecutivos[k]<< endl;
 	}
-	
-	}
-	
+}	
