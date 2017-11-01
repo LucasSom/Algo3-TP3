@@ -889,6 +889,31 @@ float fitness1(parametro param, vector<parametro> poblacion, int rows,int  colum
 	//idea: ver cantidad de partidos no perdidos sobre total jugados del peor de la generacion, da poblacion pareja
 	// ESTARIA BUENO ALGO QUE SEA MAS EXTERNO A LA GENERACION NUESTRA PER SE, que  mida cuan buena es PUERTAS AFUERA
 	// o tambien ver partidos ganados sobre total jugados, como podria ser jugar contra mejores de viejas generaciones	
+float fitness2(parametro param, vector<parametro> poblacion, int rows, int  columns, int c, int  p, int k){
+	//k es el valor del bonus si es segundo (pues ganar o empatar siendo segundo vale mas que siendo primero)
+	int puntaje=0;
+	int pierde=0;
+	int empata=5;
+	int gana=10;
+	int i=0;
+	for(i;i<poblacion.size();++i){
+		//empate siendo primero
+		if(juez(rows,columns,c,p, 1, param, poblacion[i])==0) puntaje+=empata;
+		//empate siendo segundo
+		if(juez(rows,columns,c,p, 2, param, poblacion[i])==0) puntaje+=empata+k;
+		//gano siendo primero
+		if(juez(rows,columns,c,p, 1, param, poblacion[i])==1) puntaje+=gana;
+		//gano siendo segundo
+		if(juez(rows,columns,c,p, 2, param, poblacion[i])==1) puntaje+=gana+2*k;
+		//pierdo siendo primero
+		if(juez(rows,columns,c,p, 1, param, poblacion[i])==2) puntaje+=pierde;
+		//pierdo siendo segundo
+		if(juez(rows,columns,c,p, 2, param, poblacion[i])==2) puntaje+=pierde+k/2;
+
+	}
+	float resultado=puntaje/(2*i);
+	return resultado;	
+}
 	
 	
 	
@@ -1015,10 +1040,10 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 }
 
 
+
 //SELECCION2
 	//idea: agarrar varios al azar y elegir el mejor y cruzarlo con otro elegido de la misma forma. Repetir asi
 	//hasta tener todos los que queremos. Conservar siempre al mejor individuo copiado tal cual
-
 
 
 
@@ -1040,27 +1065,56 @@ parametro genetico(int rows, int columns, int c, int p){
 		poblacion.push_back(paramrandom(c));
 	}
 	
-	while(generacion<totalgeneraciones){
-		//puse esta como basica pero se puede poner una condicion de corte mucho mejor
-		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
-						  
-		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
-		for(int i=0;i<poblacion.size();++i){
-			mutacion(poblacion[i],pmutar, min, max);
+	////////////////////////////////////////////////////////////////////
+	///////////Copiada de codigo asquerosa para usar fit1 o 2///////////
+	////////////////////////////////////////////////////////////////////
+	bool fit1=true;///ESTO ES PARA QUE FUNQUE AHORA. DESPUES LO TENDRIAMOS DE ANTES
+	///Es true si queremos usar el fitnes1 y false si usamos el 2
+	if (fit1){
+		while(generacion<totalgeneraciones){
+			//puse esta como basica pero se puede poner una condicion de corte mucho mejor
+			//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
+							  
+			//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
+			poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
+			for(int i=0;i<poblacion.size();++i){
+				mutacion(poblacion[i],pmutar, min, max);
+			}
+			++generacion;
 		}
-		++generacion;
+		
+		float maximo=fitness1(poblacion[0],poblacion,rows,columns,c,p);
+		int maxpos=0;
+		for(int i=1;i<poblacion.size();++i){
+			if(fitness1(poblacion[i], poblacion, rows, columns, c, p)>maximo){
+				maxpos=i; 
+				maximo=fitness1(poblacion[i], poblacion, rows, columns, c, p);
+			}
+		}
+	}else{
+		while(generacion<totalgeneraciones){
+			//puse esta como basica pero se puede poner una condicion de corte mucho mejor
+			//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
+							  
+			//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
+			int k=2;///Lo ideal seria que tome valores pares entre 2 y 10
+			poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p, k);
+			for(int i=0;i<poblacion.size();++i){
+				mutacion(poblacion[i],pmutar, min, max);
+			}
+			++generacion;
+		}
+		
+		float maximo=fitness2(poblacion[0],poblacion,rows,columns,c,p);
+		int maxpos=0;
+		for(int i=1;i<poblacion.size();++i){
+			if(fitness2(poblacion[i], poblacion, rows, columns, c, p)>maximo){
+				maxpos=i; 
+				maximo=fitness2(poblacion[i], poblacion, rows, columns, c, p);
+			}
+		}
 	}
 	
-	float maximo=fitness1(poblacion[0],poblacion,rows,columns,c,p);
-	int maxpos=0;
-	for(int i=1;i<poblacion.size();++i){
-		if(fitness1(poblacion[i], poblacion, rows, columns, c, p)>maximo){
-			maxpos=i; 
-			maximo=fitness1(poblacion[i], poblacion, rows, columns, c, p);
-		}
-	}
-		
 	return poblacion[maxpos];
 }
 
