@@ -925,9 +925,9 @@ float fitness2(parametro param, vector<parametro> poblacion, int rows, int  colu
 //de todas las cosas.
 void mutacion(parametro param, float rate, float min, float max){
 	
-	//CAMBIO MATO , ME PARECE QUE PARA QE NO SEA MUY CAOTICA LA EVOLUCION ESTARIA BUENO QUE EN VEZ DE QUE MUTE A UN RANDOM CUALQUIER
-	//QUE MUTE A ALGO COMO nuevo=viejo+(float_rand(min,max)*mutSize) DONDE mutSize ES ALGO COMO EL MUTATION RATE, UN PARAMETRO
-	//DEL GENETICO Y QU SEA UN VALOR COMO 0.05 0.1 0.2 
+	// PARA QE NO SEA MUY CAOTICA LA EVOLUCION ES OTRA OPCION QUE EN VEZ DE QUE MUTE A UN RANDOM CUALQUIER
+	//QUE MUTE A ALGO COMO nuevo=viejo+(float_rand(min,max)*mutSize) DONDE mutSize ES ALGO COMO EL MUTATION RATE,
+	// UN PARAMETRO DEL GENETICO Y QU SEA UN VALOR COMO 0.05 0.1 0.2 IDEA PARA EXPERIMENTAR.
 
 	//muto aleatoriamente los parametros que son solo numeros
 	if(float_rand(0,1)<rate){param.esquinaparam.first = float_rand(min,max);}
@@ -992,8 +992,8 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 		param.biextparam.first = copiode.biextparam.first;
 		param.biextparam.second = copiode.biextparam.second;
 
-	//CAMBIO MATO CHE QUIZAS ESTARIA BUENO QUE PUEDACOPIAR PARTE DE UN VECTOR DE UN PADREY PARTE DEL OTRO NO?
-	//SE HARIA ASI PONELE
+	//CHE QUIZAS ESTARIA BUENO QUE PUEDACOPIAR PARTE DE UN VECTOR DE UN PADREY PARTE DEL OTRO NO?
+	//SE HARIA ASI PONELE. OTRA IDEA PARA EXPERIMENTAR
 		/*
 		//muto aleatoriamente los vectores
 	for(int k=0;k<p1.extensibles.size();++k){
@@ -1037,23 +1037,19 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 	
 	vector<parametro> poblacionnueva;
 	
+	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
 		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+		///fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
 	}
 
 	float maximo=fitnessValues[0];
-	///float maximo=fitness2(poblacion[0], poblacion, rows, columns, c, p, k);
 	int maxpos=0;
 	for(int i=1;i<poblacion.size();++i){
-
-		//CAMBIO MATO PARA CALCULAR 1 VEZ EL FITNESS.
-
 		
 		if(fitnessValues[i]>maximo){
-		///if(fitness2(poblacion[i], poblacion, rows, columns, c, p,k)>maximo){
 			maximo= fitnessValues[i];
-			///maximo= fitness2(poblacion[i], poblacion, rows, columns, c, p,k);
 			maxpos=i;
 		}
 	}
@@ -1061,22 +1057,18 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 	
 	//ordeno ascendente por fitness
 
-	// CAMBIO MATO
-	//ordeno con upsort o downsort lo quesea
 	for (int j=poblacion.size()-1;j>=0;--j){
 		//esto de aca me da el maximo de lo que queda, siempre lo pongo ultimo;
 		maximo= fitnessValues[0];
 		maxpos=0;
 		for(int i=1;i<j;++i){
 			if(fitnessValues[i]>maximo){
-			///if(fitness2(poblacion[i], poblacion, rows, columns, c, p,k)>maximo){
 				maximo= fitnessValues[i];
-				///maximo= fitness2(poblacion[i], poblacion, rows, columns, c, p, k);
 				maxpos=i;
 			}
 		}
-		swap(fitnessValues[i],fitnessValues[j]);
-		swap(poblacion[i],poblacion[j]);
+		swap(fitnessValues[maxpos],fitnessValues[j]);
+		swap(poblacion[maxpos],poblacion[j]);
 	}
 
 	while (poblacionnueva.size()<poblacion.size()){
@@ -1102,21 +1094,19 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	vector<parametro> poblacionnueva;
-	int k=2;//PARA FITNESS2
+	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
 		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+		///fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
 	}
 
 	float maximo=fitnessValues[0];
-	///float maximo=fitness2(poblacion[0], poblacion, rows, columns, c, p, k);
 	int maxpos=0;
 	for(int i=1;i<poblacion.size();++i){
 		if(fitnessValues[i]>maximo){
-		///if(fitness2(poblacion[i], poblacion, rows, columns, c, p, k)>maximo){
 			maximo= fitnessValues[i];
-			///maximo= fitness2(poblacion[i], poblacion, rows, columns, c, p, k);
 			maxpos=i;
 		}
 	}
@@ -1129,13 +1119,13 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 		vector<parametro> padres;
 		for(int h=0;h<2;++h){
 			
-			vector<parametro> random;
+			vector<int> random;
 			for(int q=0;q<tamano;++q){
 				int x= rand() % (poblacion.size());
-				random.push_back(poblacion[x]);
+				random.push_back(x);
 			}
 
-			//CAMBIO MATO, MAS QUE CAMBIO OBSERVACION, HAY OTRA FORMA DE HACERLO QU ES HACERQUE SOLO COMPITAN ETRE
+			//HAY OTRA FORMA DE HACERLO QU ES HACERQUE SOLO COMPITAN ETRE
 			//ELLOS DIEZ Y SEDEJA AL MEJOR, NO SE QUE OPCION SERA MEJOR. QUE COMPITAN ENTRE ELLOS 10 DA MENOS INFO
 			//PERO JUSTMNTE LES DA MAS OPORTUNIDAD DE COSAS RARAS. SERIA CON ESTO COMENADO
 
@@ -1145,16 +1135,13 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 		//	}
 
 			float maximo=fitnessValues[random[0]];
-			///float maximo=fitness2(random[0], poblacion, rows, columns, c, p, k);
 			int maxpos=0;
 			for(int i=1;i<random.size();++i){
 				if(fitnessValues[random[i]]>maximo){
-				///if(fitness2(random[i], poblacion, rows, columns, c, p, k)>maximo){
 					maximo= fitnessValues[random[i]];
-					///maximo= fitness2(random[i], poblacion, rows, columns, c, p, k);
 					maxpos=i;
 			}
-			padres.push_back(random[maxpos]);
+			padres.push_back(poblacion[random[maxpos]]);
 			}
 		}
 		//PUEDO VARIAR QUE SEAN LA MITAD, PUEDO ELEGIR X E Y DE ALGUN OTRO PORCENTAJE DE MEJORES
@@ -1177,6 +1164,9 @@ parametro genetico(int rows, int columns, int c, int p){
 	float pmutar=0.0015;
 	float pcrossover=0.1;
 	int totalgeneraciones=2;
+	int k=2; //PARA FITNESS2 EXPERIMENTAR
+	
+	
 	
 	int generacion=1;
 	
@@ -1203,14 +1193,11 @@ parametro genetico(int rows, int columns, int c, int p){
 	int maxpos=0;
 	for(int i=1;i<poblacion.size();++i){
 
-		//CAMBIO MATO PARA CALCULA ELFITNESS SOLO 1 VEZ.
-
 		float actual =  fitness1(poblacion[i], poblacion, rows, columns, c, p);
+		///float actual =  fitness2(poblacion[i], poblacion, rows, columns, c, p, k);
 		if(actual >maximo){
-		///if(fitness2(poblacion[i], poblacion, rows, columns, c, p,k)>maximo){
 			maxpos=i; 
 			maximo=actual;
-			///maximo=fitness2(poblacion[i], poblacion, rows, columns, c, p,k);
 		}
 	}
 	
@@ -1240,7 +1227,7 @@ int main(){
 	cout<<"param biext1:"<<param.biextparam.first << endl;
 	cout<<"param biext2:"<<param.biextparam.second << endl;
 	
-	cout<< extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
+	cout<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
 	
 	for(int k=0;k<3;++k){
 		cout<< param.extensiblesprox[k]<< ";  ";
