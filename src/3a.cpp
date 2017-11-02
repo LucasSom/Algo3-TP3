@@ -884,9 +884,6 @@ bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, paramet
 		//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
 		return true;// pasa a ser el nuevo mejor
 	}
-	
-	//CAMBIO MATO, ACA ABAJO HABIA 0,1 PERO LO CAMBIE PORQUE ME PARECE QUE TIENE QUE IR 0,2 PORQUE QUIERO QUE GANE EL SEGUNDO
-	//SI EMPIEZA EL NUEVITO JUGANDO SEGUNDO
 
 	if(empiezaDesafiante==0 && empiezaCampeon==2) {
 		//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente

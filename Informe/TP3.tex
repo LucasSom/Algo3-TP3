@@ -225,19 +225,40 @@ Así, ejecutando dicho algoritmo la raíz tendrá la información de quién tien
 \subsubsection{Contexto} 
 
 \subsubsection{Sin poda}
+En principio, para verificar experimentalmente que el jugador era óptimo se jugo en tableros pequeños (particularmente de $2\times2, 3\times3, 4\times4, 2\times3, 3\times2, 2\times4, 4\times2, 3\times4, 4\times3, 5\times3$) con un $c=2, 3, 4$ siempre que cumpla la condicion del juego ($c\leq min{N,M}$) contra el jugador random. En todos los casos la cantidad de iteraciones fue de $2*N^(N*M)$ por lo que todo tablero posible tenía una probabilidad considerable de ser jugado (notar que la cantidad de juegos posibles es menor que  $N^(N*M)$ ya que a cada paso lo que se elije es una de $N$ -o menos si hay columnas llenas- opciones donde jugar y esto se repite hasta que termine el juego -a lo sumo se lena la grilla $N*M$ veces-) y como el jugador es random, la distribución respecto de los tableros es uniforme. Más aún, se puede notar que solo queremos contar las opciones que puede dar el segundo jugador (en este caso el aleatorio), lo que nos provee una cota menor de la cantidad total de jugadas distintas que se le pueden hacer al jugador optimo, acotandolo por $N^(N*M/2)$. 
+
+Estos experimentos se repitieron en dos casos cada uno, cuando comenzaba el minimax y cuando comenzaba el random. Además para fijado el jugador que empieza, se repitió con valores de fichas que fueron $p=N*M/2, N*M/3, N*M/4$ donde el primer valor de p aseguraba que se pueda jugar sin limite de fichas (siempre se podría llegar a llenar el tablero) y los otros dos sí imponian un limite de fichas. Luego de cada experimento, nos fijamos en el archivo .log devuelto por dichas iteraciones y en todos se observo el mismo comportamiento:
+\begin{itemize}
+\item O bien siempre ganaba (lo que nos indica que había estrategia ganadora para el que empieza). Al invertir la situación (cambiar el jugador que empieza), se daba el item 3.
+\item O bien siempre ganaba o empataba (lo que nos indicaria que la mejor estrategia para ambos resulta en un empate, pero como el jugador random no siempre juega lo mejor, le daba la posibilidad a nuestro jugador de ganar). Al invertir la situación (cambiar el jugador que empieza) se obtenía este mismo item.
+\item O bien siempre ganaba o empataba o perdía (lo que nos indicaría que el que no empieza tiene estrategia ganadora, pero como el jugador random no siempre juega lo mejor, le daba la posibilidad a veces a nuestro jugador de ganar). Al invertir la situación (cambiar el jugador que empieza), se daba el item 1.
+\end{itemize}
+
+Como se explico, estas situaciones, en todos estos tableros reforzaron fuertemente la idea de que se trataba de un jugador óptimo. Cabe aclarar que se realizo solo con tableros pequeños debido a que para tableros muy grandes el jugador demoraba demasiado tiempo en decidir que jugar (como se vio en la complejidad teórica exponencial, por lo que crecía brutalmente al crecer el tamaño del tablero y la cantidad de columnas) y por ende resultaba inviable realizar una alta cantidad de iteraciones para recorrer una gran cantidad de tableros posibles lo que nos permita reforzar la idea de optimalidad del jugador. 
+
+Pero en tableros pequeños hemos podido comprobar que en todos los tableros que se dieron, cumplieron que el jugador era óptimo ya que si tenía la posibilidad de ganar lo hacía, en caso de no existir esta, si tenía la posibilidad de empatar lo hacía y recién en caso de no existir esta, jugaba cualquier cosa sabiendo perdería.  Pero como hemos visto, esto se comprobaba paso a paso, por lo que el jugador podía jugar creyendo que perdería y como el otro no jugo optimamente luego, pasar a poder ganar o empatar (y efectivamente hacerlo pues es optimo); o sea, asume optimalidad del rival.
+
+Esta experimentación nos permitió reforzar nuestra idea (al menos para estos tableros pequeños y con una probabilidad muy alta) de que el jugador era efectivamente óptimo.
+
+MEDIR EL TIEMPO Y VER QUE CUMPLE CON LA COMPLEJIDAD PROPUESTA.
 
 \subsubsection{Con poda}
+En el caso con poda se realizo la misma experimentación para comprobar la optimalidad. Como el algoritmo tardaba un poco menos (por la poda realizada), se realizó (además de con los ya mencionados) con tableros de tamaño $4\times5, 5\times4, 6\times3, 3\times6, 7\times3 y 3\times7$ , con los mismos valores de c que antes (y siempre y cuando cumpliera las condiciones del juego). También se varió la cantidad de fichas de la misma forma.
+
+Nuevamente, los resultados y conclusiones sobre estos fueron las mismas, lo que nos permitió reforzar nuestra idea (al menos para estos tableros pequeños y con una probabilidad muy alta) de que el jugador era efectivamente óptimo.
 
 
 
+MEDIR EL TIEMPO Y VER QUE CUMPLE CON LA COMPLEJIDAD PROPUESTA IGUAL  PERO QUE MEJORA CLARAMENTE AL SIN PODA.
 
+
+\section{Jugador parametrizable}
+
+\section{Grid Search}
+
+\section{Algoritmo Genético}
 
 \section{Análisis comparativo con paper}
-
-
-
-
-
 
 
 

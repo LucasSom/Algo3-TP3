@@ -1158,11 +1158,11 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 parametro genetico(int rows, int columns, int c, int p){
 	
 	//determino parametros que luego podemos modificar segun gustemos
-	int tamanopoblacion=10;
+	int tamanopoblacion=100;
 	float min=-1;
 	float max=1;
 	float pmutar=0.0015;
-	float pcrossover=0.1;
+	float pcrossover=0.05;
 	int totalgeneraciones=2;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
 	
@@ -1181,7 +1181,7 @@ parametro genetico(int rows, int columns, int c, int p){
 		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
 						  
 		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
+		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
 		for(int i=0;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
