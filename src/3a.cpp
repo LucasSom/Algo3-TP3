@@ -868,36 +868,155 @@ void paramrandom(parametro& param, int c){
 	}
 }
 
-//funcion del punto 3.a que busca parametros que optimicen
-parametro gridsearch(int rows, int columns, int c, int p){
+
+//se fija si un jugador desafiante le gana al jugador mejor
+bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, parametro desafiante){
+
+	int empiezaDesafiante = juez(rows,columns,c,p,1,desafiante,mejor);
+	int empiezaCampeon = juez(rows,columns,c,p,1,mejor,desafiante);
+
+	if(empiezaDesafiante==1 && empiezaCampeon==2) {
+		//si le gana al mejor hasta ahora siendo primero y segundo
+		return true;// pasa a ser el nuevo mejor		
+	}
 	
+	if(empiezaDesafiante==1 && empiezaCampeon==0) {
+		//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
+		return true;// pasa a ser el nuevo mejor
+	}
+	
+	//CAMBIO MATO, ACA ABAJO HABIA 0,1 PERO LO CAMBIE PORQUE ME PARECE QUE TIENE QUE IR 0,2 PORQUE QUIERO QUE GANE EL SEGUNDO
+	//SI EMPIEZA EL NUEVITO JUGANDO SEGUNDO
+
+	if(empiezaDesafiante==0 && empiezaCampeon==2) {
+		//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente
+		return true;// pasa a ser el nuevo mejor
+	}
+	return false;
+}
+
+
+
+//funcion del punto 3.a que busca parametros que optimicen 
+parametro gridsearch(int rows, int columns, int c, int p){
+
 	parametro param;	
 	paramrandom(param,c);
-
 	parametro mejor=param;
-	
-	int random=0;
-	while(random<1000){//si pasaron mas de mil y nunca cambio, corto.
-	//CHECKEAR, QUIZAS HACEN FALTA BASTANTES MAS, 40 parametros son los que sorteo a lo sumo (enunciado dice c<8)
-		
-		if(juez(rows,columns,c,p,1,param,mejor)==1 && juez(rows,columns,c,p,1,mejor,param)==2) {
-			//si le gana al mejor hasta ahora siendo primero y segundo
-			mejor=param;// pasa a ser el nuevo mejor
-			random=-1;//actualice
+
+	//optimizamos equinaparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.esquinaparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.esquinaparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
-		if(juez(rows,columns,c,p,1,param,mejor)==1 && juez(rows,columns,c,p,1,mejor,param)==0) {
-			//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
-			mejor=param;// pasa a ser el nuevo mejor
-			random=-1;//actualice
-		}
-		if(juez(rows,columns,c,p,1,param,mejor)==0 && juez(rows,columns,c,p,1,mejor,param)==1) {
-			//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente
-			mejor=param;// pasa a ser el nuevo mejor
-			random=-1;//actualice
-		}
-		++random;		
-		paramrandom(param,c);		
 	}
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+
+
+	//optimizamos bordeparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.bordeparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.bordeparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+	
+	//optimizamos libertadparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.libertadparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.libertadparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+
+	//optimizamos consecparam	
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.consecparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.consecparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+	
+	//optimizamos centroparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.centroparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.centroparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+
+	//optimizamos extproxparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.extproxparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.extproxparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+	
+	//optimizamos extparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.extparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.extparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+	
+	//optimizamos biextparam
+	for (float i=-1; i<=1; i=i+0.01) {
+		param.biextparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.01){
+			param.biextparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+
+
+	for(int k=0;k<c-1;++k){
+		for (float i=-1; i<=1; i=i+0.0001) {
+			param.extensiblesprox.push_back(i);
+			param.extensibles.push_back(i);
+			param.biextensibles.push_back(i);
+			param.consecutivos.push_back(i);
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+	}
+
+	// PARA EXPERIMENTAR, SI RESULTA QUE ESO NO DABUENOS RESULTADOS SEPUEDE HACER CON MAS RANDOM, O CORRERLO VARIAS VECES MUY FACIL
+	// PORQUE ESTE QUEDO MUY RAPIDO
+
 	return mejor;
 }	
 	
