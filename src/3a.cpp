@@ -1004,13 +1004,16 @@ parametro gridsearch(int rows, int columns, int c, int p){
 			param.extensiblesprox.push_back(i);
 			for (float j=-1; j<=1; j=j+0.1) {
 				param.extensibles.push_back(j);
-				for (float l=-1; l<=1; l=l+0.1) {
-					param.biextensibles.push_back(l);
-					for (float r=-1; r<=1; r=r+0.1) {
-						param.consecutivos.push_back(r);
-						if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-					}
-				}
+			}
+		}
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+
+		for (float l=-1; l<=1; l=l+0.1) {
+			param.biextensibles.push_back(l);
+			for (float r=-1; r<=1; r=r+0.1) {
+				param.consecutivos.push_back(r);
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
