@@ -902,10 +902,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	parametro mejor=param;
 
 	//optimizamos equinaparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.esquinaparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.esquinaparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -915,10 +915,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 
 	//optimizamos bordeparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.bordeparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.bordeparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -927,10 +927,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	param = mejor;
 	
 	//optimizamos libertadparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.libertadparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.libertadparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -939,10 +939,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	param = mejor;
 
 	//optimizamos consecparam	
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.consecparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.consecparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -951,10 +951,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	param = mejor;
 	
 	//optimizamos centroparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.centroparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.centroparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -963,10 +963,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	param = mejor;
 
 	//optimizamos extproxparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.extproxparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.extproxparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -975,10 +975,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	param = mejor;
 	
 	//optimizamos extparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.extparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.extparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -987,10 +987,10 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	param = mejor;
 	
 	//optimizamos biextparam
-	for (float i=-1; i<=1; i=i+0.01) {
+	for (float i=-1; i<=1; i=i+0.1) {
 		param.biextparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.01){
+		for (float j=-1; j<=1; j=j+0.1){
 			param.biextparam.second = j;
 			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 		}
@@ -1000,12 +1000,18 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 
 	for(int k=0;k<c-1;++k){
-		for (float i=-1; i<=1; i=i+0.0001) {
+		for (float i=-1; i<=1; i=i+0.1) {
 			param.extensiblesprox.push_back(i);
-			param.extensibles.push_back(i);
-			param.biextensibles.push_back(i);
-			param.consecutivos.push_back(i);
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			for (float j=-1; j<=1; j=j+0.1) {
+				param.extensibles.push_back(j);
+				for (float l=-1; l<=1; l=l+0.1) {
+					param.biextensibles.push_back(l);
+					for (float r=-1; r<=1; r=r+0.1) {
+						param.consecutivos.push_back(r);
+						if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+					}
+				}
+			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
 		param = mejor;
