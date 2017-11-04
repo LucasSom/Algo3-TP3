@@ -1027,6 +1027,50 @@ parametro gridsearch(int rows, int columns, int c, int p){
 }	
 	
 
+parametro leerParametro(int c){
+
+	parametro param;
+
+	cin >> param.esquinaparam.first ;
+	cin >> param.esquinaparam.second;
+	cin >> param.bordeparam.first ;
+	cin >> param.bordeparam.second ;
+	cin >> param.libertadparam.first;
+	cin >> param.libertadparam.second;
+	cin >> param.consecparam.first;
+	cin >> param.consecparam.second;
+	cin >> param.centroparam.first;
+	cin >> param.centroparam.second;
+	cin >> param.extproxparam.first;
+	cin >> param.extproxparam.second;
+	cin >> param.extparam.first ;
+	cin >> param.extparam.second ;
+	cin >> param.biextparam.first;
+	cin >> param.biextparam.second ;
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		float n;
+		cin >> n
+		param.extensiblesprox.push_back(n);
+		cin >> n
+		param.extensibles.push_back(n);
+		cin >> n
+		param.biextensibles.push_back(n);
+		cin >> n
+		param.consecutivos.push_back(n);
+	}
+
+
+	return param
+}
+
 
 
 //-----------------------MAIN--------------------------
@@ -1039,9 +1083,10 @@ int main(){
 	int p = 50; 
 
 	parametro primero;
-
+	primero = leerParametro(c);
 
 	parametro segundo;
+	segundo = leerParametro(c);
 
 	float porcentaje = 0;
 	float cantidad = 0;

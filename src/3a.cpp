@@ -901,6 +901,73 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	paramrandom(param,c);
 	parametro mejor=param;
 
+
+	//le fijamos esto porque sabemos que es importante y si no daba cualquier cosa
+	//param.biextensibles[]
+
+
+	for(int k=0;k<c-1;++k){
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.extensiblesprox[k] = i;
+			for (float j=-1; j<=1; j=j+0.1) {
+				param.extensibles[k] = j;
+			}
+		}
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+
+		for (float l=-1; l<=1; l=l+0.1) {
+			param.biextensibles[k] = l;
+			for (float r=-1; r<=1; r=r+0.1) {
+				param.consecutivos[k] = r;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+	}
+
+
+
+	//optimizamos biextparam
+	for (float i=-1; i<=1; i=i+0.1) {
+		param.biextparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.1){
+			param.biextparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+
+
+
+	//optimizamos extproxparam
+	for (float i=-1; i<=1; i=i+0.1) {
+		param.extproxparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.1){
+			param.extproxparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+	
+	//optimizamos extparam
+	for (float i=-1; i<=1; i=i+0.1) {
+		param.extparam.first = i;
+
+		for (float j=-1; j<=1; j=j+0.1){
+			param.extparam.second = j;
+			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+		}
+	}	
+	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+	param = mejor;
+
+
 	//optimizamos equinaparam
 	for (float i=-1; i<=1; i=i+0.1) {
 		param.esquinaparam.first = i;
@@ -962,71 +1029,53 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
 	param = mejor;
 
-	//optimizamos extproxparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.extproxparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.extproxparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
 	
-	//optimizamos extparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.extparam.first = i;
 
-		for (float j=-1; j<=1; j=j+0.1){
-			param.extparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-	
-	//optimizamos biextparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.biextparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.biextparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-
-
-	for(int k=0;k<c-1;++k){
-		for (float i=-1; i<=1; i=i+0.1) {
-			param.extensiblesprox.push_back(i);
-			for (float j=-1; j<=1; j=j+0.1) {
-				param.extensibles.push_back(j);
-			}
-		}
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-
-		for (float l=-1; l<=1; l=l+0.1) {
-			param.biextensibles.push_back(l);
-			for (float r=-1; r<=1; r=r+0.1) {
-				param.consecutivos.push_back(r);
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-			}
-		}
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-	}
-
-	// PARA EXPERIMENTAR, SI RESULTA QUE ESO NO DABUENOS RESULTADOS SEPUEDE HACER CON MAS RANDOM, O CORRERLO VARIAS VECES MUY FACIL
-	// PORQUE ESTE QUEDO MUY RAPIDO
 
 	return mejor;
 }	
 	
 
+
+parametro escribirParametro(int c, parametro param){
+
+	cout << param.esquinaparam.first ;
+	cout << param.esquinaparam.second;
+	cout << param.bordeparam.first ;
+	cout << param.bordeparam.second ;
+	cout << param.libertadparam.first;
+	cout << param.libertadparam.second;
+	cout << param.consecparam.first;
+	cout << param.consecparam.second;
+	cout << param.centroparam.first;
+	cout << param.centroparam.second;
+	cout << param.extproxparam.first;
+	cout << param.extproxparam.second;
+	cout << param.extparam.first ;
+	cout << param.extparam.second ;
+	cout << param.biextparam.first;
+	cout << param.biextparam.second ;
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	int k=0;
+	for(k=0;k<c-1;++k){
+		float n;
+		cout << param.extensiblesprox[k] ;
+		cout << param.extensibles[k] ;
+		cout << param.biextensibles[k] ;
+		cout << param.consecutivos[k] ;
+	}
+
+	assert(param.extensiblesprox.size() == k)
+
+	return param
+}
 
 
 //-----------------------MAIN--------------------------
@@ -1038,6 +1087,10 @@ int main(){
 	int c = 4;
 	int p = 50; 
 	parametro param=gridsearch(columns,rows,c,p);
+
+	escribirParametro(c, param);
+
+	/*
 	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
 	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
 	cout<<"param borde1:"<<param.bordeparam.first<< endl;
@@ -1063,6 +1116,7 @@ int main(){
 		cout<<param.biextensibles[k]<< ";  ";
 		cout<<param.consecutivos[k]<< endl;
 	}
+	*/
 	
 	return 0;
 	}
