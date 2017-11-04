@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <cmath>
-
+#include <cassert>
 
 using namespace std;
 
@@ -1072,9 +1072,9 @@ parametro escribirParametro(int c, parametro param){
 		cout << param.consecutivos[k] ;
 	}
 
-	assert(param.extensiblesprox.size() == k)
+	assert(param.extensiblesprox.size() == k);
 
-	return param
+	return param;
 }
 
 
