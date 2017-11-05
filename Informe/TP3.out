@@ -13,6 +13,17 @@
 \BOOKMARK [3][-]{subsubsection.2.4.2}{Sin poda}{subsection.2.4}% 13
 \BOOKMARK [3][-]{subsubsection.2.4.3}{Con poda}{subsection.2.4}% 14
 \BOOKMARK [1][-]{section.3}{Jugador parametrizable}{}% 15
-\BOOKMARK [1][-]{section.4}{Grid Search}{}% 16
-\BOOKMARK [1][-]{section.5}{Algoritmo Gen\351tico}{}% 17
-\BOOKMARK [1][-]{section.6}{An\341lisis comparativo con paper}{}% 18
+\BOOKMARK [2][-]{subsection.3.1}{El algoritmo}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.1}{El Pseudoc\363digo}{subsection.3.1}% 17
+\BOOKMARK [2][-]{subsection.3.2}{Complejidad}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.3}{Experimentaci\363n}{section.3}% 19
+\BOOKMARK [1][-]{section.4}{Grid Search}{}% 20
+\BOOKMARK [2][-]{subsection.4.1}{El algoritmo}{section.4}% 21
+\BOOKMARK [3][-]{subsubsection.4.1.1}{El Pseudoc\363digo}{subsection.4.1}% 22
+\BOOKMARK [2][-]{subsection.4.2}{Experimentacion}{section.4}% 23
+\BOOKMARK [1][-]{section.5}{Algoritmo Gen\351tico}{}% 24
+\BOOKMARK [2][-]{subsection.5.1}{El algoritmo}{section.5}% 25
+\BOOKMARK [3][-]{subsubsection.5.1.1}{El Pseudoc\363digo}{subsection.5.1}% 26
+\BOOKMARK [2][-]{subsection.5.2}{Experimentacion}{section.5}% 27
+\BOOKMARK [1][-]{section.6}{An\341lisis comparativo con paper}{}% 28
+\BOOKMARK [1][-]{section.7}{Conclusiones}{}% 29
