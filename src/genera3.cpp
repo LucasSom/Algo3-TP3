@@ -1096,7 +1096,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	
 	
 	ofstream myfile;
-	myfile.open ("3b1seleccion2.csv", std::ios_base::app);
+	myfile.open ("3b1seleccion210.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	
@@ -1198,13 +1198,13 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 parametro genetico(int rows, int columns, int c, int p){
 	
 	ofstream myfile;
-	myfile.open ("3b1seleccion2.csv", std::ios_base::app);
+	myfile.open ("3b1seleccion210.csv", std::ios_base::app);
 	//determino parametros que luego podemos modificar segun gustemos
-	int tamanopoblacion=100;
+	int tamanopoblacion=10;
 	float min=-1;
 	float max=1;
-	float pmutar=0.0015;
-	float pcrossover=0.05;
+	float pmutar=0.005;
+	float pcrossover=0.4;
 	int totalgeneraciones=2;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
 	
