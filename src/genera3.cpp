@@ -876,12 +876,13 @@ parametro paramrandom(int c){
 	//todos los de su generacion.
 	//ES BASTANTE MALA, SE PODRIA MEJORAR, QUE JUEGUE CONTRA OTROS TAMBIEN, EXTERNOS
 float fitness1(parametro param, vector<parametro> poblacion, int rows,int  columns, int c,int  p){
-	int noperdio=0;
+	float noperdio=0;
 	for(int i=0;i<poblacion.size();++i){
 		if(juez(rows,columns,c,p, 1, param,poblacion[i]) !=2) {++noperdio;}
 		if(juez(rows,columns,c,p, 2, param, poblacion[i]) !=2) {++noperdio;}
 	}
-	float resultado=noperdio/(2*poblacion.size());
+	float x= 2*poblacion.size();
+	float resultado=noperdio/x;
 	return resultado;	
 }
 	
@@ -892,7 +893,7 @@ float fitness1(parametro param, vector<parametro> poblacion, int rows,int  colum
 	// o tambien ver partidos ganados sobre total jugados, como podria ser jugar contra mejores de viejas generaciones	
 float fitness2(parametro param, vector<parametro> poblacion, int rows, int  columns, int c, int  p, int k){
 	//k es el valor del bonus si es segundo (pues ganar o empatar siendo segundo vale mas que siendo primero)
-	int puntaje=0;
+	float puntaje=0;
 	int pierde=0;
 	int empata=5;
 	int gana=10;
@@ -911,7 +912,9 @@ float fitness2(parametro param, vector<parametro> poblacion, int rows, int  colu
 		if(juez(rows,columns,c,p, 2, param, poblacion[i])==2) puntaje+=pierde+k/2;
 
 	}
-	float resultado=puntaje/(2*poblacion.size());
+	
+	float x=(2*poblacion.size());
+	float resultado = puntaje/x;
 	return resultado;	
 }
 	
@@ -1036,6 +1039,8 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
 vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
+	ofstream myfile;
+	myfile.open ("3b1seleccion2100.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
@@ -1072,6 +1077,22 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 		swap(poblacion[maxpos],poblacion[j]);
 	}
 
+
+	
+	
+	myfile << fitnessValues[maxpos] << ",";	
+	
+	myfile << fitnessValues[0] << ",";	
+	
+	float suma=fitnessValues[0];
+	for(int i=1;i<poblacion.size();++i){
+			suma=suma+fitnessValues[i];
+	}
+	myfile << suma/poblacion.size() << ",";
+	
+	myfile << fitnessValues[poblacion.size()/2] << ",";	
+	myfile.close();
+
 	while (poblacionnueva.size()<poblacion.size()){
 		int x, y;
 		x= rand() % (poblacion.size()-poblacion.size()/2) + poblacion.size()/2;
@@ -1096,7 +1117,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	
 	
 	ofstream myfile;
-	myfile.open ("3b1seleccion210.csv", std::ios_base::app);
+	myfile.open ("3b1seleccion2100.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	
@@ -1115,6 +1136,9 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 		}
 	}
 	poblacionnueva.push_back(poblacion[maxpos]); //elitismo, siempre dejo al mejor
+	
+	
+	myfile << fitnessValues[maxpos] << ",";	
 	
 	float minimo=fitnessValues[0];
 	int minpos=0;
@@ -1145,7 +1169,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	}
 	myfile << fitnessValues[posicion] << ",";
 	
-	
+	myfile.close();
 	
 	
 	
@@ -1188,7 +1212,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	}
 	
 	return poblacionnueva;
-	myfile.close();
+	
 }
 
 
@@ -1198,14 +1222,13 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 parametro genetico(int rows, int columns, int c, int p){
 	
 	ofstream myfile;
-	myfile.open ("3b1seleccion210.csv", std::ios_base::app);
 	//determino parametros que luego podemos modificar segun gustemos
-	int tamanopoblacion=10;
+	int tamanopoblacion=100;
 	float min=-1;
 	float max=1;
 	float pmutar=0.005;
 	float pcrossover=0.4;
-	int totalgeneraciones=2;
+	int totalgeneraciones=10;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
 	
 	
@@ -1221,32 +1244,79 @@ parametro genetico(int rows, int columns, int c, int p){
 	while(generacion<totalgeneraciones){
 		//puse esta como basica pero se puede poner una condicion de corte mucho mejor
 		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
-		myfile << generacion << ",";		  
-		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
 		for(int i=0;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
+		myfile.open ("3b1seleccion2100.csv", std::ios_base::app);
+		myfile << generacion << ",";
+		myfile.close();		  
+		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
+		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
+		myfile.open ("3b1seleccion2100.csv", std::ios_base::app);
+		myfile << "\n";
+		myfile.close();	
+		
 		
 		++generacion;
 		
 	}
 	
-	float maximo=fitness1(poblacion[0],poblacion,rows,columns,c,p);
-	///float maximo=fitness2(poblacion[0],poblacion,rows,columns,c,p,k);
+	
+	
+	myfile.open ("3b1seleccion2100.csv", std::ios_base::app);
+	myfile << generacion << ",";
+	vector<float> fitnessValues;
+	for (int i=0;i<poblacion.size();++i){
+		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+		///fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
+	}
+
+	float maximo=fitnessValues[0];
 	int maxpos=0;
 	for(int i=1;i<poblacion.size();++i){
-
-		float actual =  fitness1(poblacion[i], poblacion, rows, columns, c, p);
-		///float actual =  fitness2(poblacion[i], poblacion, rows, columns, c, p, k);
-		if(actual >maximo){
-			maxpos=i; 
-			maximo=actual;
+		if(fitnessValues[i]>maximo){
+			maximo= fitnessValues[i];
+			maxpos=i;
 		}
 	}
 	
-	return poblacion[maxpos];
+	myfile << fitnessValues[maxpos] << ",";	
+	
+	float minimo=fitnessValues[0];
+	int minpos=0;
+	for(int i=1;i<poblacion.size();++i){
+		if(fitnessValues[i]<minimo){
+			minimo= fitnessValues[i];
+			minpos=i;
+		}
+	}
+	
+	myfile << fitnessValues[minpos] << ",";	
+	
+	
+	float suma=fitnessValues[0];
+	for(int i=1;i<poblacion.size();++i){
+			suma=suma+fitnessValues[i];
+	}
+	myfile << suma/poblacion.size() << ",";
+	
+	
+	int posicion;
+	for(int i=0;i<poblacion.size();++i){
+		int contador=0;
+		for(int j=0;j<poblacion.size();++j){
+			if(fitnessValues[j]<fitnessValues[i]) {++contador;}
+		}
+		if(contador==poblacion.size()/2){posicion=i;}
+	}
+	myfile << fitnessValues[posicion] << ",";
+	
 	myfile.close();
+	
+	
+	
+	return poblacion[maxpos];
+
 }
 
 
@@ -1256,7 +1326,8 @@ int main(){
 	srand((unsigned int)time(NULL));
 
 	parametro param=genetico(6,7,4,50);
-
+	
+	cout<< "SOY CON 100"<< endl; 
 	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
 	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
 	cout<<"param borde1:"<<param.bordeparam.first<< endl;

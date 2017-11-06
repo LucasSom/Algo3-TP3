@@ -828,32 +828,32 @@ int main() {
 	param.libertadparam.second=0;//1
 	
 	param.consecutivos.push_back(0);
-	param.consecutivos.push_back(10);
-	param.consecutivos.push_back(100);
+	param.consecutivos.push_back(0.00000001);
+	param.consecutivos.push_back(0.00001);
 	
 	param.consecparam.first=0;
 	param.consecparam.second=0;
 	
 	
 	param.extensiblesprox.push_back(0);
-	param.extensiblesprox.push_back(200);
-	param.extensiblesprox.push_back(8888888); //esto es ganar para el, tiene que ser +inf
+	param.extensiblesprox.push_back(0.0001);
+	param.extensiblesprox.push_back(1); //esto es ganar para el, tiene que ser +inf
 	
 	param.extproxparam.first=0;
 	param.extproxparam.second=1;
 	
 	
 	param.extensibles.push_back(0);
-	param.extensibles.push_back(10);
-	param.extensibles.push_back(100); 
+	param.extensibles.push_back(0.000001);
+	param.extensibles.push_back(0.0001); 
 	
 	param.extparam.first=0;
 	param.extparam.second=0;
 
 
-	param.biextensibles.push_back(10);
-	param.biextensibles.push_back(1000);
-	param.biextensibles.push_back(88888888); //esto es ganar para el, es +inf
+	param.biextensibles.push_back(0.0000001);
+	param.biextensibles.push_back(0.001);
+	param.biextensibles.push_back(1); //esto es ganar para el, es +inf
 		
 	param.biextparam.first=0;
 	param.biextparam.second=1;

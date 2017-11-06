@@ -279,7 +279,7 @@ Nuevamente, los resultados y conclusiones sobre estos fueron las mismas, lo que 
 
 
 
-\begin{wrapfigure}[10]{R}{0.4\textwidth}
+\begin{wrapfigure}{R}{0.4\textwidth}
 	%\centering
 	\includegraphics[width=0.4\textwidth]{complejidad1.png}
 	\caption{ Gráfico de segundos de ejecución (de cada jugada) dividido $a^b$ en función de $a^b$ para los partidos jugados por el algoritmo con y sin poda en tableros pequeños contra el jugador random.}
@@ -324,19 +324,21 @@ Esta experimentación nos permitió no solo reforzar nuestra hipótesis (justifi
 
 \subsection{Experimentación}
 
-Si bien el grueso del análisis y experimentación sobre este jugador consistirá en buscar buenos parámetros que mejoren al jugador, consideramos relevante reforzar experimentalmente nuestra hipótesis de complejidad teórica esperada. Para esto tomamos mediciones análogas a las del jugador óptimo solo que jugando en más tableros. Se jugó en tableros que comprendían todas las combinaciones factibles con las columnas y filas moviendose entre $2$ y $10$, c moviendose entre $2$ y $\min{columnas,filas}$ y p moviendos entre $2$ y $filas*columnas/2$. En cada jugada, los parametros que determinaban la proxima jugada a realizar se sorteaban aleatoriamente. Todo esto fue para ver experimentalmente que la dependencia que proponíamos en la complejidad dependía efectivamente solo de n y m. Así, igual que antes, realizamos un grafico de tiempo de ejecucion/(filas*$columnas^2$) en funcion de filas*$columnas^2$ donde esperabamos obtener un gráfico constante que reforzaría nuestra hipótesis de que la complejidad (como se justifico teóricamente) era de $\mathcal{O}(N^2 M)$. Este gráfico se puede ver en la Figura 2
 
-
-
-\begin{wrapfigure}[10]{L}{0.4\textwidth}
+\begin{wrapfigure}{L}{0.4\textwidth}
 	%\centering
 	\includegraphics[width=0.4\textwidth]{complejidad2.png}
 	\caption{ Gráfico de segundos de ejecución (de cada jugada) dividido $N^2 *M$ en función de $N^2 * M$ para los partidos jugados por el jugador que utiliza la funcion parametrizable a cada paso. Varian c y p. Columnas y filas menores a 11.}
 \end{wrapfigure}
 
+Si bien el grueso del análisis y experimentación sobre este jugador consistirá en buscar buenos parámetros que mejoren al jugador, consideramos relevante reforzar experimentalmente nuestra hipótesis de complejidad teórica esperada. Para esto tomamos mediciones análogas a las del jugador óptimo solo que jugando en más tableros. Se jugó en tableros que comprendían todas las combinaciones factibles con las columnas y filas moviendose entre $2$ y $10$, c moviendose entre $2$ y $\min{columnas,filas}$ y p moviendos entre $2$ y $filas*columnas/2$. En cada jugada, los parametros que determinaban la proxima jugada a realizar se sorteaban aleatoriamente. Todo esto fue para ver experimentalmente que la dependencia que proponíamos en la complejidad dependía efectivamente solo de n y m. Así, igual que antes, realizamos un grafico de tiempo de ejecucion/(filas*$columnas^2$) en funcion de filas*$columnas^2$ donde esperabamos obtener un gráfico constante que reforzaría nuestra hipótesis de que la complejidad (como se justifico teóricamente) era de $\mathcal{O}(N^2 M)$. Este gráfico se puede ver en la Figura 2
+
+
+
+
 Efectivamente como se puede ver en la Figura 2, pareciera cumplirse la complejidad esperada ya que el gráfico es practicamente constante. Más aún,  al variar por todas sus posibilidades c, p y el parametro de la función, esto refuerza la hipotesis (que se justifico en la explicación del algoritmo) de que esta cota de dependencia no se ve afectada por el parámetro en particular, o la cantidad de fichas que queden, o el c. Sabiendo esto, tenemos la posibilidad de experimentar para tableros de mayor tamaño (ya que no tenemos que repetirlos para distintos c y p). Por esto, se experimento con un c aleatorio (con distribución uniforme, usando rand() de C++) entre 2 y min(columns,rows)  y p=N*M/2 para que no se interrumpa el partido por falta de fichas  y se vario nuevamente las filas y columnas pero ahora el limite superior paso a ser 20 en vez de 10. Nuevamente, se realizo el mismo gráfico que antes con los nuevos datos que se puede ver en la Figura 3.
 
-\begin{wrapfigure}[10]{R}{0.4\textwidth}
+\begin{wrapfigure}{R}{0.4\textwidth}
 	%\centering
 	\includegraphics[width=0.4\textwidth]{complejidad2b.png}
 	\caption{ Gráfico de segundos de ejecución (de cada jugada) dividido $N^2 *M$ en función de $N^2 * M$ para los partidos jugados por el jugador que utiliza la funcion parametrizable a cada paso. Columnas y filas menores a 51.}
@@ -392,8 +394,16 @@ Podemos ver en el gráfico de la Figura 3, que los resultados siguen siendo los 
 
 
 
+USAMOS SELECCION 1 PRIMERO
+-ahi vemos con poblacion de 10, 50 y 100 y que jueguen entre ellos. Con 2.5 horas, 0.005 de mutar, 0.4 de crossover. Con fitnnss 1.
 
 
+-Cambiar con el otro fitnes
+-Quedarse con el mejor fitness y ver distintos indices de mutacion y crossover
+
+LUEGO REPETIR CON SELECCION 2 (puedo aca repetir para solo una populacion)
+
+SI HAY TIEMPO REPETIR PARA TABLEROS DISTINTOS AL CUATRO EN LINEA...
 
 
 
