@@ -923,7 +923,7 @@ float fitness2(parametro param, vector<parametro> poblacion, int rows, int  colu
 	
 //param es el paremtro a mutar, rate indica la proba de mutar, min y max son los rangos en que estan los puntajes
 //de todas las cosas.
-void mutacion(parametro param, float rate, float min, float max){
+void mutacion(parametro& param, float rate, float min, float max){
 	
 	// PARA QE NO SEA MUY CAOTICA LA EVOLUCION ES OTRA OPCION QUE EN VEZ DE QUE MUTE A UN RANDOM CUALQUIER
 	//QUE MUTE A ALGO COMO nuevo=viejo+(float_rand(min,max)*mutSize) DONDE mutSize ES ALGO COMO EL MUTATION RATE,
@@ -1181,10 +1181,11 @@ parametro genetico(int rows, int columns, int c, int p){
 		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
 						  
 		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
 		for(int i=0;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
+		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
+		
 		++generacion;
 	}
 	
