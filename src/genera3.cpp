@@ -1040,7 +1040,7 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	ofstream myfile;
-	myfile.open ("3b1seleccion1100.csv", std::ios_base::app);
+	myfile.open ("prueba.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
@@ -1117,7 +1117,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	
 	
 	ofstream myfile;
-	myfile.open ("3b1seleccion1100.csv", std::ios_base::app);
+	myfile.open ("prueba.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	
@@ -1163,9 +1163,9 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	for(int i=0;i<poblacion.size();++i){
 		int contador=0;
 		for(int j=0;j<poblacion.size();++j){
-			if(fitnessValues[j]<fitnessValues[i]) {++contador;}
+			if(fitnessValues[j]<=fitnessValues[i]) {++contador;}
 		}
-		if(contador==poblacion.size()/2){posicion=i;}
+		if(contador>=poblacion.size()/2){posicion=i;}
 	}
 	myfile << fitnessValues[posicion] << ",";
 	
@@ -1223,7 +1223,7 @@ parametro genetico(int rows, int columns, int c, int p){
 	
 	ofstream myfile;
 	//determino parametros que luego podemos modificar segun gustemos
-	int tamanopoblacion=100;
+	int tamanopoblacion=10;
 	float min=-1;
 	float max=1;
 	float pmutar=0.005;
@@ -1247,12 +1247,12 @@ parametro genetico(int rows, int columns, int c, int p){
 		for(int i=0;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
-		myfile.open ("3b1seleccion1100.csv", std::ios_base::app);
+		myfile.open ("prueba.csv", std::ios_base::app);
 		myfile << generacion << ",";
 		myfile.close();		  
 		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
-		myfile.open ("3b1seleccion1100.csv", std::ios_base::app);
+		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
+		myfile.open ("prueba.csv", std::ios_base::app);
 		myfile << "\n";
 		myfile.close();	
 		
@@ -1263,7 +1263,7 @@ parametro genetico(int rows, int columns, int c, int p){
 	
 	
 	
-	myfile.open ("3b1seleccion1100.csv", std::ios_base::app);
+	myfile.open ("prueba.csv", std::ios_base::app);
 	myfile << generacion << ",";
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
@@ -1305,9 +1305,9 @@ parametro genetico(int rows, int columns, int c, int p){
 	for(int i=0;i<poblacion.size();++i){
 		int contador=0;
 		for(int j=0;j<poblacion.size();++j){
-			if(fitnessValues[j]<fitnessValues[i]) {++contador;}
+			if(fitnessValues[j]<=fitnessValues[i]) {++contador;}
 		}
-		if(contador==poblacion.size()/2){posicion=i;}
+		if(contador>=poblacion.size()/2){posicion=i;}
 	}
 	myfile << fitnessValues[posicion] << ",";
 	
@@ -1327,7 +1327,7 @@ int main(){
 
 	parametro param=genetico(6,7,4,50);
 	
-	cout<< "SOY CON 100"<< endl; 
+	cout<< "SOY CON 10 .csv"<< endl; 
 	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
 	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
 	cout<<"param borde1:"<<param.bordeparam.first<< endl;
