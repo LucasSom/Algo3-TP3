@@ -816,7 +816,7 @@ parametro leerParametroDeValores(int c){
 	parametro param;
 
 	ifstream valores;
-	valores.open ("chebar.txt");
+	valores.open ("3b1seleccion2100.txt");
 	
 
 	valores >> param.esquinaparam.first;
