@@ -392,6 +392,48 @@ Podemos ver en el gráfico de la Figura 3, que los resultados siguen siendo los 
 
 \subsection{Experimentacion}
 
+Primeramente, tratamos de comprender como afectaría el tamaño de las poblaciones. Si bien una población grande tiene como ventaja aportar mucha mas variedad genética, los tiempos de ejecución son mucho mayores. Por su parte, una población pequeña si bien tiene poca variedad genetica, da muchísismas más generaciones en la misma cantidad de tiempo. Se buscó entender que tipo de poblaciones brindaban mejores jugadores en el mismo tiempo. También se busco encontrar que fitness brindaba mejores jugadores y como eran las características de los métodos de seleccion.
+
+Es por esto que se corrio el algoritmo genético para ambos métodos de seleccion y ambas funciones de fitness durante dos horas y media con poblaciones grandes, intermedias y chicas (de 100, 50 y 10 individuos cada una). Las poblaciones de 100 individuos dieron 10 generaciones, las de 50 individuos dieron 37 y las de 10 individuos dieron 750 generaciones en el tiempo indicado. En todos estos casos, la probabilidad de mutar se fijo en 0.005 y la de crossover en 0.4
+
+
+
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{tamaño 10}{\includegraphics[width=0.3\linewidth]{s1f1t10.png}}
+	\subcaptionbox{tamaño 50}	{\includegraphics[width=0.3\linewidth]{s1f1t50.png}}
+	\subcaptionbox{tamaño 100}{\includegraphics[width=0.3\linewidth]{s1f1t100.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 1, fitness 1, pmutar=0.005 pcrossover=0.4}
+\end{figure}
+
+Como podemos observar en la figura 4, efectivamente a mayor tamaño de población menor es la cantidad total de generaciones que se generan en el mismo tiempo (2.5 horas). Tanto en la figura 4.a) y 4.b) podemos ver que hay momentos en los que la población pareciera converger, o sea, tanto el mejor, peor, promedio y media valen 1, que es el máximo valor de fitness que pueden tomar (recordamos que estamos utilizando fitness uno que es la proporcion de partidos no perdidos sobre el total). En ambas, esta situación no se mantiene por el resto de las generaciones ya que hay mutaciones que perturban esta situación. Sin embargo es notable que en todos los casos la media sigue manteniendose muy alta (casi 1, que es el valor maximo) a pesar de haber mutaciones (a excepcion de la mutación que se ve en la figura 4.a) al rededor de la generación  100, 600 y 700). Además de la media, el mejor sigue también manteniendose en valores máximos (a excepcion de las mutaciones mencionadas). Esto puede suceder gracias al elitismo, puesto que aseguramos que el mejor individuo de la generacion pasada se incluya en la nueva generacion asi como esta, sin ser modificado. Estas situaciones en las que cambia el mejor y la media, podrían ser en las que el mejor individuo muta. La otra opcion sería que aparece un nuevo individuo que es no es ni mejor que el que era el mejor ni peor, o sea, a veces le gana y a veces pierde, por lo que ambos no tienen fitness máximo. Esto último pareciera ser menos factible ya que no debería descender tanto la media por solamente un individuo así, a menos que sean varios, lo que es verdaderamente muy poco probable (ya es poco probable que varios muten considerablemente).
+
+La convergencia de la media a un valor cercano al máximo de fitness pareciera ser rápida, en el caso de poblacion de tamaño 50 se da alrededor de la generación 10. En el caso de la de tamaño 10 se da tan solo en la quinta generacion. Esto tiene sentido ya que es menor el tamaño de la población. Por último, en las 2.5 horas transcurridas, se ve un claro aumento de la media en la población de tamaño 100, pero no llegó aún a converger en dicho tiempo.
+
+Más aún cabe notar que una mutación en una población pequeña la afecta mucho (porque es una cantidad de genes mucho mas significativa respecto del total) más que en una población grande.Estos gráficos ayudan claramente a reforzar dicha hipótesis. Esto se puede ver ya que las variaciones repentinas, a mayor tamaño de poblacion son más suaves, ya que en el grafico de la figura 4.a) podemos ver picos muy acentuados en los que desciende hasta por debajo de 0.8, situación que en la figura 4.b) no desciende por debajo de 0.9 siquiera-una vez que convergió- y si observamos la figura 4.c) vemos que la media siempre aumenta, a excepcion de en la generacion 7 donde disminuye casi despreciablemente. 
+
+Cabe destacar que esta poca variabilidad que hay en la funcion de fitness y la rápida convergencia se puede deber no solo a que se tratan por igual las victorias y empates, tanto se empiece o no, sino también a que el método de selección solamente toma los genes de los mejores individuos (de la mitad superior), por lo que la variabilidad es menor. Para tratar de comprender mejor esto, se realizó la misma experiencia con la funcion de fitness2, que distinguía empates de victorias y quien comenzaba.
+
+
+
+
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{tamaño 10}{\includegraphics[width=0.3\linewidth]{s1f2t10.png}}
+	\subcaptionbox{tamaño 50}	{\includegraphics[width=0.3\linewidth]{s1f2t50.png}}
+	\subcaptionbox{tamaño 100}{\includegraphics[width=0.3\linewidth]{s1f2t100.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 1, fitness 2, pmutar=0.005 pcrossover=0.4}
+\end{figure}
+
+Efectivamente como podemos ver en la figura 5, la variabilidad aumenta mucho más al cambiar la función de fitness como esperabamos ya que esta distingue muchas más situaciones.
+
+
+
+
 
 
 USAMOS SELECCION 1 PRIMERO

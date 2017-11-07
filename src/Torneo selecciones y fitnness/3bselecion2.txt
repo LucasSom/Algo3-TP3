@@ -1,0 +1,132 @@
+SOY CON 100 f1 .csv
+param esquina1:-0.0122756
+param esquina2:0.857377
+param borde1:-0.130656
+param borde2:-0.701931
+param centro1:0.328616
+param centro2:-0.604327
+param libertad1:0.174411
+param libertad2:0.564693
+param consec1:-0.458679
+param consec2:-0.691668
+param extprox1:0.642018
+param extprox2:0.0762818
+param ext1:0.639923
+param ext2:0.201215
+param biext1:0.38069
+param biext2:-0.374102
+extprox; ext; biext; consec; 
+0.151955;  0.432889;  -0.201774;  0.0741259
+-0.674306;  0.35181;  -0.00359446;  -0.320976
+0.135308;  -0.731189;  -0.707298;  -0.390008
+
+SOY CON 50 f1 .csv
+param esquina1:0.804767
+param esquina2:-0.0175228
+param borde1:0.071902
+param borde2:-0.919627
+param centro1:0.27936
+param centro2:-0.362455
+param libertad1:0.678455
+param libertad2:0.534923
+param consec1:0.456958
+param consec2:-0.935402
+param extprox1:0.380753
+param extprox2:-0.258694
+param ext1:0.121077
+param ext2:0.0556378
+param biext1:0.521114
+param biext2:0.930395
+extprox; ext; biext; consec; 
+-0.384103;  -0.60608;  -0.0548339;  0.433921
+-0.18772;  0.135408;  0.27684;  -0.363354
+0.438323;  0.413551;  -0.345362;  0.301487
+
+SOY CON 10 f1 .csv
+param esquina1:0.524142
+param esquina2:-0.484971
+param borde1:0.471267
+param borde2:-0.387119
+param centro1:0.724797
+param centro2:-0.314892
+param libertad1:0.273003
+param libertad2:0.936947
+param consec1:-0.356147
+param consec2:-0.394935
+param extprox1:0.99317
+param extprox2:0.424371
+param ext1:0.769373
+param ext2:-0.0797526
+param biext1:0.232419
+param biext2:-0.0332733
+extprox; ext; biext; consec; 
+0.128781;  0.250924;  -0.774668;  -0.557943
+0.166672;  0.251026;  0.425249;  -0.773281
+0.836237;  -0.109812;  -0.62651;  0.970734
+
+SOY CON 100 f2 .csv
+param esquina1:0.316839
+param esquina2:-0.0640948
+param borde1:-0.785192
+param borde2:0.722255
+param centro1:0.463689
+param centro2:0.0139158
+param libertad1:0.581928
+param libertad2:-0.00682783
+param consec1:0.982866
+param consec2:0.278113
+param extprox1:-0.881915
+param extprox2:-0.121332
+param ext1:0.0410463
+param ext2:0.850095
+param biext1:0.766325
+param biext2:-0.942304
+extprox; ext; biext; consec; 
+0.699478;  -0.343481;  -0.782029;  0.36227
+0.452626;  0.116318;  -0.263238;  0.379667
+-0.98741;  0.639606;  -0.49679;  0.749394
+
+SOY CON 50 f2 .csv
+param esquina1:0.512638
+param esquina2:-0.021421
+param borde1:-0.794323
+param borde2:0.851254
+param centro1:0.572553
+param centro2:0.838511
+param libertad1:0.437366
+param libertad2:0.788512
+param consec1:-0.51133
+param consec2:0.630194
+param extprox1:0.516482
+param extprox2:0.850362
+param ext1:0.581745
+param ext2:0.551088
+param biext1:-0.367896
+param biext2:0.789109
+extprox; ext; biext; consec; 
+-0.992775;  -0.678428;  0.0975977;  -0.444847
+-0.0132723;  -0.920862;  -0.0136486;  0.489361
+0.725426;  0.807507;  0.945556;  0.67942
+
+SOY CON 10 f2 .csv
+param esquina1:0.892237
+param esquina2:-0.879351
+param borde1:-0.187819
+param borde2:0.434566
+param centro1:0.374321
+param centro2:-0.604241
+param libertad1:0.953547
+param libertad2:0.169773
+param consec1:-0.0675055
+param consec2:-0.44925
+param extprox1:-0.433432
+param extprox2:0.274419
+param ext1:-0.437982
+param ext2:-0.937823
+param biext1:-0.703698
+param biext2:0.179878
+extprox; ext; biext; consec; 
+-0.469254;  0.83962;  -0.59783;  -0.94602
+0.126893;  -0.0241857;  -0.89648;  0.164537
+-0.786256;  -0.767901;  -0.969727;  -0.450998
+
