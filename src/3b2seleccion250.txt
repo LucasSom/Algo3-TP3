@@ -1,0 +1,21 @@
+SOY CON 50 .csv
+param esquina1:0.315714
+param esquina2:0.643849
+param borde1:0.122715
+param borde2:0.588427
+param centro1:0.11948
+param centro2:0.417158
+param libertad1:0.608203
+param libertad2:0.92645
+param consec1:0.34843
+param consec2:0.570544
+param extprox1:0.464339
+param extprox2:-0.819575
+param ext1:0.177038
+param ext2:-0.211707
+param biext1:-0.441755
+param biext2:-0.374615
+extprox; ext; biext; consec; 
+0.72808;  -0.911374;  -0.765007;  -0.774712
+-0.185827;  0.673635;  -0.160192;  -0.759819
+-0.424177;  0.258278;  0.243446;  -0.111179

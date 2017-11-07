@@ -896,139 +896,180 @@ bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, paramet
 
 //funcion del punto 3.a que busca parametros que optimicen 
 parametro gridsearch(int rows, int columns, int c, int p){
+//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
+	parametro param;
+	
+	param.esquinaparam.first=0;//-10
+	param.esquinaparam.second=0;//-10
+	param.bordeparam.first=0;//-3
+	param.bordeparam.second=0;//-3
+	param.centroparam.first=0;//8
+	param.centroparam.second=0;//8
+	param.libertadparam.first=0;//1
+	param.libertadparam.second=0;//1
+	
+	param.consecutivos.push_back(0);
+	param.consecutivos.push_back(0.00000001);
+	param.consecutivos.push_back(0.00001);
+	
+	param.consecparam.first=0;
+	param.consecparam.second=0;
+	
+	
+	param.extensiblesprox.push_back(0);
+	param.extensiblesprox.push_back(0.0001);
+	param.extensiblesprox.push_back(1); //esto es ganar para el, tiene que ser +inf
+	
+	param.extproxparam.first=0;
+	param.extproxparam.second=1;
+	
+	
+	param.extensibles.push_back(0);
+	param.extensibles.push_back(0.000001);
+	param.extensibles.push_back(0.0001); 
+	
+	param.extparam.first=0;
+	param.extparam.second=0;
 
-	parametro param;	
-	paramrandom(param,c);
+
+	param.biextensibles.push_back(0.0000001);
+	param.biextensibles.push_back(0.001);
+	param.biextensibles.push_back(1); //esto es ganar para el, es +inf
+		
+	param.biextparam.first=0;
+	param.biextparam.second=1;
 	parametro mejor=param;
 
 
 	//le fijamos esto porque sabemos que es importante y si no daba cualquier cosa
 	//param.biextensibles[]
 
+	for (int u=0; u<4; ++u) {
+		for(int k=0;k<c-1;++k){
+			for (float i=-1; i<=1; i=i+0.1) {
+				param.extensiblesprox[k] = i;
+				for (float j=-1; j<=1; j=j+0.1) {
+					param.extensibles[k] = j;
 
-	for(int k=0;k<c-1;++k){
-		for (float i=-1; i<=1; i=i+0.1) {
-			param.extensiblesprox[k] = i;
-			for (float j=-1; j<=1; j=j+0.1) {
-				param.extensibles[k] = j;
+					if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				}
 			}
+			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+			param = mejor;
+
+			for (float l=-1; l<=1; l=l+0.1) {
+				param.biextensibles[k] = l;
+				for (float r=-1; r<=1; r=r+0.1) {
+					param.consecutivos[k] = r;
+					if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				}
+			}
+			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+			param = mejor;
 		}
+
+
+
+		//optimizamos biextparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.biextparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.biextparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
 		param = mejor;
 
-		for (float l=-1; l<=1; l=l+0.1) {
-			param.biextensibles[k] = l;
-			for (float r=-1; r<=1; r=r+0.1) {
-				param.consecutivos[k] = r;
+
+
+		//optimizamos extproxparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.extproxparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.extproxparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}	
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+		
+		//optimizamos extparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.extparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.extparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}	
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+
+
+		//optimizamos equinaparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.esquinaparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.esquinaparam.second = j;
 				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
 			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
 		param = mejor;
+
+
+		//optimizamos bordeparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.bordeparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.bordeparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+		
+		//optimizamos libertadparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.libertadparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.libertadparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}	
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+
+		//optimizamos consecparam	
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.consecparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.consecparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}	
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
+		
+		//optimizamos centroparam
+		for (float i=-1; i<=1; i=i+0.1) {
+			param.centroparam.first = i;
+
+			for (float j=-1; j<=1; j=j+0.1){
+				param.centroparam.second = j;
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+			}
+		}	
+		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
+		param = mejor;
 	}
-
-
-
-	//optimizamos biextparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.biextparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.biextparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-
-
-
-	//optimizamos extproxparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.extproxparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.extproxparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-	
-	//optimizamos extparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.extparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.extparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-
-
-	//optimizamos equinaparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.esquinaparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.esquinaparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-
-
-	//optimizamos bordeparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.bordeparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.bordeparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-	
-	//optimizamos libertadparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.libertadparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.libertadparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-
-	//optimizamos consecparam	
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.consecparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.consecparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-	
-	//optimizamos centroparam
-	for (float i=-1; i<=1; i=i+0.1) {
-		param.centroparam.first = i;
-
-		for (float j=-1; j<=1; j=j+0.1){
-			param.centroparam.second = j;
-			if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
-		}
-	}	
-	//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-	param = mejor;
-
 	
 
 
