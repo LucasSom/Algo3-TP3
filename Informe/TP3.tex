@@ -239,7 +239,13 @@ Así, ejecutando dicho algoritmo la raíz tendrá la información de quién tien
 
 \subsection{Complejidad}
 
+Veremos que la complejidad es $\mathcal{O}(a^b)$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b = \min{|FichasRestantes|,|Casillas Libres En El Tablero|}$ que es en particular acotable por $\mathcal{O}(N\textsuperscript{(N*M)})$ ya que a lo sumo se puede jugar en $N$ columnas (no hay mas en el tablero) y a lo sumo hay $N*M$ casillas libres (o sea, el tablero esta vacío). Cabe aclarar que fichas restantes son la fichas restantes totales (las mias + las suyas). Esto es porque el algoritmo de minimax es como un arbol de Backtracking en el sentido de que checkea todas las posibles sucesiones de jugadas que se pueden dar, considerando tanto lo que yo juego como lo que el juega.
 
+Si bien en total hay  menos de $3\textsuperscript{(N*M)})$ tableros posibles (cada casilla puede estar vacía, o tener una ficha de alguno de los dos jugadores, y acota por arriba pues hay casos que no son posibles, como que haya una ficha encima de una vacía) esto no cuenta la cantidad de posibles partidas que se pueden dar, ya que un mismo tablero podría ser alcanzado de varias formas. Pero a cada paso, cada jugador tiene $N$ opciones de jugada y a lo sumo se juega $N*M$ veces (se llena el tablero) y por ende tenemos $N\textsuperscript{(N*M)}$ estados posibles del tablero. Lo que hace el algoritmo es para cada uno de estos tableros, evaluar si hay o no un ganador y en base a eso establecer un puntaje al tablero que es el que transmite minimax. Este checkeo tiene un costo de $\mathcal{O}(c)$ ya que la función por como la implementamos recibe cual fue la última jugada y sabe que el empate solo se puede dar si no quedan fichas o se lleno el tablero o si esta última jugada logro que algun jugador gane. Checkear las primeras dos condiciones es $\mathcal{O}(1)$ sabiendo la cantidad de fichas que me quedan y de filas y columnas (que es un dato que tenemos guardado). Pero si gano con esa ficha solo hay que verificar las $c$ fichas para todos los sentidos y direcciones (8 en total, 4 direcciones con sus dos sentidos cada una), lo que es $8* \mathcal{O}(c)= \mathcal{O}(c)$. 
+
+Luego dado un tablero, conociendo el valor de minimax de sus hijos, queda tomar o bien maximo o minimo segun corresponda, pero como tiene $N$ hijos a lo sumo (si no es hoja) ya que son las $N$ posibles jugadas inmediatas, esto es $\mathcal{O}(N)$. Esta operación la hacemos para todo nodo, como tambien checkear si hay un ganador. Luego la complejidad total es $|Nodos|*\mathcal{O}(N)*\mathcal{O}(c)$ y hemos visto que $|Nodos|=a^b$ por lo que obtenemos una complejidad $\mathcal{O}(N c a^b)$ lo que es acotable, como hemos visto por $\mathcal{O}(N c N\textsuperscript{(N*M)})=\mathcal{O}(c N\textsuperscript{(N+1)*M)}$ pero si recordamos que $c<\min{N,M}$ podemos deducir que la complejidad es menor que $\mathcal{O}(N\textsuperscript{(N+1)*M)+1)}$.
+
+En cuanto a la complejidad del algoritmo con poda, no hay modificaciones ya que la misma cota es válida puesto que la única diferencia que tiene la poda es que guarda registro de dos valores ($\alpha$ y $\beta$) y los compara a cada paso, lo que es $\mathcal{O}(1)$ y por ende no afecta la complejidad. Si bien la poda corta varias ramas del arbol de minimax, no podemos asegurar una cota de cuantas ramas cortará y por ende la complejidad teórica seguirá siendo la misma. Sin embargo uno espera que la poda se ejecute y varias ramas del arbol no se checkeen, reduciendo asi el tiempo de ejecución en comparación con el algoritmo sin poda.
 
 
 
@@ -270,7 +276,7 @@ Esta experimentación nos permitió reforzar nuestra idea (al menos para estos t
 Para tratar de reforzar experimentalmente la complejidad teorica deducida previamente, se realizo una experimentación en la que se registró para varios tableros de tamaño pequeño (de $2\times2, 3\times3, 4\times4, 2\times3, 3\times2, 2\times4, 4\times2, 5\times2, 2\times5, 2\times6, 2\times7, 2\times8, 6\times2, 7\times2, 8\times2, 3\times4, 4\times3, 3\times5, 5\times3$) ya que para tamaños mayores los tiempos de ejecución fueron inabordables (lo que reforzó en parte la complejidad teorica esperada). Para cada uno de esos tableros, se jugo con fichas de sobra (mas que la cantidad que entraba en el tablero, 88 particularmente) y el $c$ se movio entre $2, 3$ y $4$ siempre y cuando se cumplieran las condiciones del juego. Siempre se jugo contra el jugador random provisto por la cátedra (que con distribucion uniforme decidía aleatoriamente en cual de las $N$ posibles columnas jugar). Para asegurar distintas configuraciones, se repitió cada partido $10$ veces. 
 
 
-Para todos estos juegos se registró a cada jugada del algoritmo el tiempo de ejecución que este tomó en decidir que jugada realizar y se registró una variable que reflejaba un refinamiento de la complejidad esperada. Esta variable se definió como $a^b$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b =|Casillas Libres En El Tablero|$ que es en particular acotable por $N\textsuperscript{(N*M)}$. Luego, se graficó el $tiempo/(a^b)$ en funcion de $a^b$ y se esperaría obtener un grafico acotable por una constante lo que reforzaría la idea de que el aloritmo cumpía la cota propuesta. Se graficó esto en la Figura 1, (junto con su análogo con el algoritmo con poda) y efectivamente se cumplió con lo esperado ya que se ve que el gráfico es prácticamente constante salvo en los primeros valores, lo que tiene sentido y refuerza aún más la hipotesis, porque para esos valores toman mucha más importancia los términos constantes que no dependen de la variable propuesta como complejidad. Al aumentar la variable propuesta, la importancia del termino constante se reduce y pasa a ser constante. Más aún, esa constante es $0$, lo que nos indica que es incluso menor a la complejidad propuesta (o sea que cumple lo pedido, ya que en particular es menor, que es a lo que apunta la notacion $\mathcal{O}$) ya que este método de dividir por la complejidad esperada es muy sensible, ya que da una constante si dividimos por algo que cumpla ser $\theta$, y sino ante una pequeña alteración en la complejidad se refleja claramente en el gráfico (o bien pasa a ser creciente o decreciente). Tiene sentido que sea menor ya que muchas veces el partido termina antes de que completemos efectivamente el tablero (que es la cota que propusimos) y además no siempre tenemos tantas opciones como columnas posibles de jugar ahora (cota que propusimos), sino que con el desarrollo del juego las opciones de columnas posibles van disminuyendo. Igualmente, esto nos permite reforzar claramente nuestra hipotesis de que cumple la complejidad teorica propuesta.
+Para todos estos juegos se registró a cada jugada del algoritmo el tiempo de ejecución que este tomó en decidir que jugada realizar y se registró una variable que reflejaba un refinamiento de la complejidad esperada. Esta variable se definió como $N*c*a^b$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b =\min{|FichasRestantes|,|Casillas Libres En El Tablero|}$ que es en particular acotable por $c*N\textsuperscript{((N+1)*M)}$. Luego, se graficó el $tiempo/(N*c*a^b)$ en funcion de $N*c*a^b$ y se esperaría obtener un grafico acotable por una constante lo que reforzaría la idea de que el aloritmo cumpía la cota propuesta. Se graficó esto en la Figura 1, (junto con su análogo con el algoritmo con poda) y efectivamente se cumplió con lo esperado ya que se ve que el gráfico es prácticamente constante salvo en los primeros valores, lo que tiene sentido y refuerza aún más la hipotesis, porque para esos valores toman mucha más importancia los términos constantes que no dependen de la variable propuesta como complejidad. Al aumentar la variable propuesta, la importancia del termino constante se reduce y pasa a ser constante. Más aún, esa constante es $0$, lo que nos indica que es incluso menor a la complejidad propuesta (o sea que cumple lo pedido, ya que en particular es menor, que es a lo que apunta la notacion $\mathcal{O}$) ya que este método de dividir por la complejidad esperada es muy sensible, ya que da una constante si dividimos por algo que cumpla ser $\theta$, y sino ante una pequeña alteración en la complejidad se refleja claramente en el gráfico (o bien pasa a ser creciente o decreciente). Tiene sentido que sea menor ya que muchas veces el partido termina antes de que completemos efectivamente el tablero (que es la cota que propusimos) y además no siempre tenemos tantas opciones como columnas posibles de jugar ahora (cota que propusimos), sino que con el desarrollo del juego las opciones de columnas posibles van disminuyendo. Igualmente, esto nos permite reforzar claramente nuestra hipotesis de que cumple la complejidad teorica propuesta.
 
 \subsubsection{Con poda}
 En el caso con poda se realizo la misma experimentación para comprobar la optimalidad. Como el algoritmo tardaba un poco menos (por la poda realizada), se realizó (además de con los ya mencionados) con tableros de tamaño $4\times4, 3\times5, 5\times3, 4\times5, 5\times4, 3\times6, 3\times7$ , con los mismos valores de c que antes (y siempre y cuando cumpliera las condiciones del juego). También se varió la cantidad de fichas de la misma forma.
@@ -320,6 +326,14 @@ Esta experimentación nos permitió no solo reforzar nuestra hipótesis (justifi
 
 \subsection{Complejidad}
 
+Veamos que el jugador que presentamos decide que jugada realizar en tiempo$\mathcal{O}(N^2 M)$ que es menor que $\mathcal{O}(N^2 M^2)$ y por ende cumple la complejidad pedida. 
+
+En primer término, veamos que calcular el puntaje de un tablero es $\mathcal{O}(NM)$ puesto que lo unico que hacemos es recorrer todas las filas, columnas y diagonales (que en total son 4 veces, no importa igualmente cuanto sino que es una cantidad constante) y en cada una de ellas contamos cuantas fichas son nuestras y cuantas de el. Pero esto lo repetimos una vez por cada parámetro que tenemos, pero como tenemos finitos (y constantes) parámetros, por lo que pasamos a recorrer una cantidad constante de veces el tablero$\mathcal{O}(c)$. Además checkeamos si ganamos, que como ya hemos visto en la complejidad del jugador optimo es Esto es porque recorrer el tablero es $\mathcal{O}(NM)$ ya que para cada sentido de recorrida, pasamos solo una vez por cada casilla, o sea recorremos $N*M$ casillas; repitiendo esto una cantidad constante de veces (la cantidad de parámetros) y para una cantidad constante de sentidos (cuatro) nos da que recorrimos una cantidad constante de veces $N*M $ casillas, por lo que la complejidad de calcular el puntaje es efectivamente $\mathcal{O}(NM)+\mathcal{O}(c)=\mathcal{O}(NM)$ puesto que $c<\min{N,M}$.
+
+Cabe aclarar aquí que consideramos como un parámetro a los vectores de parámetros (como es el caso de consecutivos) ya que para ellos recorremos solo cuatro veces el tablero (en todos los sentidos) y lo que cambia es donde alojamos cada valor del vector segun cuantas consecutivas encontremos del mismo color. Cabe aclarar también que la operacion para saber que ficha esta en una casilla son $\mathcal{O}(1)$ porque guardamos al tablero en una matriz, esto es fundamental para poder asegurar la complejidad pedida.
+
+ 
+Pero nuestro jugador no hace solo eso, sino que analiza como quedaría el puntaje del tablero para cada una de sus $N$ posibles jugadas y luego se queda el máximo de ellas (esta es la parte golosa). Repite entonces $N$ veces algo  $\mathcal{O}(N M)$ por lo que da una complejidad de $\mathcal{O}(N^2 M)$ y luego calcula el máximo sobre $N$ elementos que suma $\mathcal{O}(N)$ (es recorrer linealmente un vector) y da una complejidad total de $\mathcal{O}(N^2 M) +\mathcal{O}(N) = \mathcal{O}(N^2 M)$.
 
 
 \subsection{Experimentación}
@@ -391,10 +405,15 @@ Podemos ver en el gráfico de la Figura 3, que los resultados siguen siendo los 
 
 
 \subsection{Experimentacion}
+\subsubsection{Contexto} 
 
+
+La experimentacion se realizó toda en la misma computadora, cuyo procesador era Intel Atom$\texttrademark$ CPU N2600 @ 1.60GHz, de 36 bits physical, 48 bits virtual, con una memoria RAM de 2048 MB.  Para experimentar, se calculó el tiempo que tardaba el algoritmo sin considerar el tiempo de lectura y escritura ni el tiempo que llevaba armar la matriz (ya que se leía un dato, se escribía la matriz y luego se leía el siguiente). 
+El tiempo se medía no como tiempo global sino como tiempo de proceso, calculando la cantidad de ticks del reloj (con el tipo clock\_t de C++) y luego se dividía el delta de ticks sobre CLOCKS\_PER\_SEC. En todos los experimentos el tiempo se mide en segundos. 
+\subsubsection{Expermientos} 
 Primeramente, tratamos de comprender como afectaría el tamaño de las poblaciones. Si bien una población grande tiene como ventaja aportar mucha mas variedad genética, los tiempos de ejecución son mucho mayores. Por su parte, una población pequeña si bien tiene poca variedad genetica, da muchísismas más generaciones en la misma cantidad de tiempo. Se buscó entender que tipo de poblaciones brindaban mejores jugadores en el mismo tiempo. También se busco encontrar que fitness brindaba mejores jugadores y como eran las características de los métodos de seleccion.
 
-Es por esto que se corrio el algoritmo genético para ambos métodos de seleccion y ambas funciones de fitness durante dos horas y media con poblaciones grandes, intermedias y chicas (de 100, 50 y 10 individuos cada una). Las poblaciones de 100 individuos dieron 10 generaciones, las de 50 individuos dieron 37 y las de 10 individuos dieron 750 generaciones en el tiempo indicado. En todos estos casos, la probabilidad de mutar se fijo en 0.005 y la de crossover en 0.4
+Es por esto que se corrio el algoritmo genético para ambos métodos de seleccion y ambas funciones de fitness durante dos horas y media con poblaciones grandes, intermedias y chicas (de 100, 50 y 10 individuos cada una). Las poblaciones se inicializaron de forma aleatoria, donde cada parámetro se inicializaba de forma aleatoria como un float entre -1 y 1 (con distribucion uniforme, se utilizo la funcion rand() de C++). Las poblaciones de 100 individuos dieron 10 generaciones, las de 50 individuos dieron 37 y las de 10 individuos dieron 750 generaciones en el tiempo indicado. En todos estos casos, la probabilidad de mutar se fijo en 0.005 y la de crossover en 0.4
 
 
 
@@ -429,33 +448,103 @@ Cabe destacar que esta poca variabilidad que hay en la funcion de fitness y la r
 	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 1, fitness 2, pmutar=0.005 pcrossover=0.4}
 \end{figure}
 
-Efectivamente como podemos ver en la figura 5, la variabilidad aumenta mucho más al cambiar la función de fitness como esperabamos ya que esta distingue muchas más situaciones.
+Efectivamente como podemos ver en la figura 5, la variabilidad aumenta mucho más al cambiar la función de fitness como esperabamos ya que esta distingue muchas más situaciones (distingue empates de victorias y distingue si uno empieza o no). Para todos los tamaños de población la media sufre alteraciones mayores en comparacion con la media de su gráfico análogo con la otra funcion de fitness.
+
+Algo destacable de esta funcion de fitness es que las mutaciones y cambios en generaciones modifican el fitness del mejor, que disminuye varias veces bastante (cosa que practicamente no sucedia con la anterior funcion de fitness -ver Figura 4-). Esto ultimo sucede porque el fitness depende mucho más del resto de los jugadores porque considera más situaciones. Además la convergencia sucede varias generaciones despues que con la primer funcion de fitness (en el caso de poblacion 50 se puede ver una convergencia recien en las ultimas generaciones, las mayores a 30, mientras que con la otra funcion de fitness era a la decima generacion). 
+
+Analizando el gráfico 5.a) podemos ver que las mutaciones afectan mucho más al fitness ya que la media desciende considerablemente, llegando a la mitad de su valor máximo en reiteradas ocasiones.Nuevamente podemos observar que las mutaciones afectan mucho más en poblaciones pequeñas, como se observaba en la figura 4.
+
+Teniendo entonces un análisis de la interacción entre la selección 1 con los dos fitness, repetimos el análisis pero con la seleccion 2.
+
+
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{tamaño 10}{\includegraphics[width=0.3\linewidth]{s2f1t10.png}}
+	\subcaptionbox{tamaño 50}	{\includegraphics[width=0.3\linewidth]{s2f1t50.png}}
+	\subcaptionbox{tamaño 100}{\includegraphics[width=0.3\linewidth]{s2f1t100.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 2, fitness 1, pmutar=0.005 pcrossover=0.4}
+\end{figure}
+
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{tamaño 10}{\includegraphics[width=0.3\linewidth]{s2f2t10.png}}
+	\subcaptionbox{tamaño 50}	{\includegraphics[width=0.3\linewidth]{s2f2t50.png}}
+	\subcaptionbox{tamaño 100}{\includegraphics[width=0.3\linewidth]{s2f2t100.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 2, fitness 2, pmutar=0.005 pcrossover=0.4}
+\end{figure}
+
+En la Figura 6 y 7 podemos ver características que refuerzan que ciertas situaciones se daban segun lo conjeturado. Por ejemplo, nuevamente vemos que el fitness 2 da mayor variabilidad y reduce mas veces el fitness del mejor. Nuevamente podemos ver también que la convergencia es más rápida con la funcion de fitness 1, reforzando la hipótesis de que es porque esta considera menos situaciones (no distingue victoria de empate ni si empiezo o no).
+
+Por último, una importante diferencia entre los gráficos con distintos métodos de seleccion es que los que usan el segundo método peor caso con mucho menor fitness y más variabilidad. Esto tiene sentido, ya que en el método de seleccion 1 solo se reproducían los que eran del 50 \% con mejor fitness, mientras que en el método de seleccion 2 se puede reproducir cualquiera de los que esten en el 80  \% de mejor fitness (ya que el torneo era de tamaño del 20  \% de la poblacion y el 20  \% peor nunca podría ganar alguno). En este sentido, la seleccion 2 si bien aporta más variabilidad, tiene peores jugadores.
+
+
+Tras este análisis, tratamos de entender como afectaban las dos variables que quedaban por ver, que eran el porcentaje de mutación y el de crossover. Para ver como afectaba la probabilidad de mutación, ejecutamos con el primer metodo de selección ya que es el que proveía menor variabilidad genética y perimtiría visualizar mejor como afecta el porcentaje de mutación. También se utilizo la primer funcion de fitness por el mismo motivo. Por esto se ejecuto durante 5 horas, la población de tamaño 50 (intermedia, para tener una cantidad considerable tanto de generaciones como de individuos en la poblacion) con diferentes probabilidade de mutar, con pmutar=0.00001, 0.005, 0.01, 0.05 y 0.1. El crossover se fijo en 0.4
+
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+	\subcaptionbox{pmutar 0.00001}{\includegraphics[width=0.3\linewidth]{muta0.png}}
+	\subcaptionbox{pmutar 0.005}	{\includegraphics[width=0.3\linewidth]{muta1.png}}
+	\subcaptionbox{pmutar 0.01}{\includegraphics[width=0.3\linewidth]{muta2.png}}
+	\subcaptionbox{pmutar 0.1}{\includegraphics[width=0.3\linewidth]{muta3.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 1, fitness 1, pcrossover=0.4}
+\end{figure}
+
+La figura 8 refleja claramente lo esperado. En nuestro algoritmo genético hay operaciones que favorecen la convergencia, como es el proceso de seleccion y crossover y hay en oposición operaciones que favorecen la divergencia como es el caso de la mutación, lo que se puede ver claramente en esta figura. Con menores probabilidades de mutación, la convergencia no solo es mas rapida, sino que los cambios en el fitness una vez que convergio la población (momentos donde cambia la media) son cada vez menos. En la figura 8.d) podemos ver que hay bastantes picos, tanto en la media como en peores mejores y promedio, esto es porque la probabilidad de mutación es altísima (es un 10 \% para cada gen y hay 28 genes por individuo en este tablero) por ende es muy probable que todo individuo mute. En la figura 8.c) la situación es la misma ya que un 1 \% para cada uno de los 28 genes sigue siendo bastante alto (cada individuo tiene un 25 \% de mutar que es es $1- (0.99)^28$ o sea la probabilidad del complemento que es que no haya mutacion en ninguno de los 28 genes). En estas dos figuras no se llega a ver una convergencia en las generaciones que se dieron (podemos conjeturar que un porcentaje de mutacion tan alto no va a permitir esta convergencia). Ya en la figura 8.b) podemos ver que hay  efectivamente convergencia pero como sigue habiendo un porcentaje considerable de mutación, hay generaciones donde se sale de este pico un poco (en algunas desciende un poco la media, en otras solo desciende el peor). Finalmente en la figura 8.a) vemos una convergencia mucho mas rápida y una vez que esta se dio, todos los fitness se mantienen asi durante más de 50 generaciones, esto es porque al poner una probabilidad tan baja, la mutación practicamente no sucede y no hay otras operaciones que permitan divergencia.
+
+
+También, se ejecuto durante 5 horas, la población de tamaño 50 (intermedia, para tener una cantidad considerable tanto de generaciones como de individuos en la poblacion) con diferentes probabilidade de mutar, con pcrossover= 0.4, 0.1, 0.01, 0.00001.  El pmutar se fijo en 0.005
+
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+%	\subcaptionbox{pcrossover 0.00001}{\includegraphics[width=0.3\linewidth]{crossover00.png}}
+%	\subcaptionbox{pcrossover 0.01}{\includegraphics[width=0.3\linewidth]{crossover0.png}}
+%	\subcaptionbox{pcrossover 0.1}	{\includegraphics[width=0.3\linewidth]{crossover1.png}}
+%	\subcaptionbox{pcrossover 0.4}{\includegraphics[width=0.3\linewidth]{crossover2.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 1, fitness 1, pmutar=0.005}
+\end{figure}
+
+DECIR QUE SI NO SE VE NADA, CAMBIAMOS EL CROSSOVER PARA QUE COPIE TAMBIEN LAS COSAS DE ADENTRO DE LOS VECTORES Y QUE ESO PERMITE MAS VARIABILIDAD Y CONVERGENCIA MAS RAPIDA, CONSIDERANDO QUE ESTOS SON LOS PARAMETROS MAS RELEVANTES
+
+\begin{figure}[H]
+	\captionsetup[subfigure]{position=b}
+	\centering
+%	\subcaptionbox{pcrossover 0.00001}{\includegraphics[width=0.3\linewidth]{crossoverB00.png}}
+%	\subcaptionbox{pcrossover 0.01}{\includegraphics[width=0.3\linewidth]{crossoverB0.png}}
+%	\subcaptionbox{pcrossover 0.1}	{\includegraphics[width=0.3\linewidth]{crossoverB1.png}}
+%	\subcaptionbox{pcrossover 0.4}{\includegraphics[width=0.3\linewidth]{crossoverB2.png}}
+	\caption{Gráfico de fitness en funcion de generación. Se gráfica el mejor, peor, la media y el promedio. Seleccion 1, fitness 1, pmutar=0.005}
+\end{figure}
 
 
 
 
-
-
-USAMOS SELECCION 1 PRIMERO
--ahi vemos con poblacion de 10, 50 y 100 y que jueguen entre ellos. Con 2.5 horas, 0.005 de mutar, 0.4 de crossover. Con fitnnss 1.
-
-
--Cambiar con el otro fitnes
--Quedarse con el mejor fitness y ver distintos indices de mutacion y crossover
-
-LUEGO REPETIR CON SELECCION 2 (puedo aca repetir para solo una populacion)
-
-SI HAY TIEMPO REPETIR PARA TABLEROS DISTINTOS AL CUATRO EN LINEA...
+COMPLETAR ACA CON CROSSOVER
 
 
 
+Habiendo comprendido entonces la influencia de los distintos parámetros, tratamos de buscar una combinación de estos que de un buen jugador. Todos los jugadores que fueron generados al final (el mejor de la ultima generacion para cada experimento) compitieron entre ellos.
 
+En los primeros experimentos con 2.5 horas, para cada función de fitness y cada método de selección, hicimos competir a los tres jugadores todos contra todos dos partidos, donde se alternaba quien comenzaba. Para el método de selección 1, con ambas funciones de fitness resultaron ganadores siempre los segundos jugadores y después se vió que jugaban practicamente partidos similares donde jugaban en las casillas de mas cercanas al borde. Como reflejaban los parámetros, se le daba lo que pareciera ser poca importancia a los biextensibles y extensibles en general. Al jugarle a estos jugadores, todos perdieron rapidamente ya que ninguno tomaba el centro, uno armaba rapidamente una linea de dos que sea biextensible y como no era cubierta pasaba a ser una de tres biextensible, lo que sentenciaba la derrota del programa. Aquí no se pudo ver diferencia entre las tres poblaciones a simple vista ya que eran malos jugadores los tres.Pero con el método de selección 2 el panorama fue distinto...
+
+Primero, con la función de fitness 1, el jugador de poblacion inicial de tamaño 100 resulto ser el peor (perdía o empataba, segun empezara o no). Luego los de tamaño 50 y 10 quedaron empatados (ganaba el segundo). Esto nos refuerza nuestra hipotesis de que la poca evolución que presento el de poblacion de tamaño 100 (tan solo 10 generaciones) no permitió que se desarrollen buenos individuos. Luego le jugamos a cada uno de estos dos y resulto que el de tamaño 10 no detectaba biextensibles (al igual que cuando usabamos selección 1) pero el de tamaño 50 si logro detectar biextensibles, jugando mucho mejor que el de 10 y perdiendo porque no pude detectar una linea que era extensible en el próximo turno de tamaño c-1. Esto refuerza la hipótesis de que tener una población de tamaño 10, si bien evolucionaba mucho (dando 750 generaciones) tenía tan poca variabilidad que daba malos jugadores. Más aún, tiene sentido que sean peores porque en la función de fitness (en ambas) evaluo los partidos contra todos los de su generación, por lo que al ser pequeña la población, se jugaban menos partidos y con mas facilidad se obtenía un fitness alto (esta es una clara diferencia respecto del paper, en la que se ahondará más adelante). 
+
+Más aún, con el método de selección 2 y la función de fitness 2, el jugador de la población de tamaño 10 fue el peor del torneo, perdiendo todos los partidos, lo que refuerza nuestra idea. Como vimos, este método y este fitness eran los que presentaban mayor variabilidad, pero al tener una población esto se desaprovechaba, lo que indicaría el motivo de porque la de tamaño 10 perdió todos los partidos. Luego, la de tamaño 50 gano todos los partidos, siendo la mejor de las tres. Esto refuerza más aún nuestra hipótesis de que no conviene una población muy grande ya que permite poca evolución (pocas generaciones) ni una tan pequeña ya que da poca variabilidad; la de tamaño intermedio (50) permite tener tanto una variabilidad como una evolucion considerables. Nuevamente, para ver las estrategias y cuan bueno era cada uno, les jugamos nosotros y el de 100 no tomo el centro ni detecto biextensibles y perdio rapidamente. En el caso del de 10, sucedió lo mismo, no tomo el centro y no detecto biextensibles y perdió rapidamente. Sin embargo, en el caso del de 50, tomo el centro, cubrió extensibles nuestros, no permitió que generaramos biextensibles (quizas no los detecta, pero no lo permitio) y termino ganando ya que hubo un momento que ambos jugadores llenamos el tablero por no poder jugar en una columna ya que ganaría el otro.  Repetimos varios juegos contra este jugador, empezando nostros y notamos que cubría biextensibles al principio del juego, pero avanzado el juego dejaba de hacerlo y perdía por eso. Efectivamente, observando los parámetros podemos ver que le da importancia biextensibles (más a generarlos que evitar que el otro lo haga) y a los extensibles en la proxima (más a taparlos que generarlos), pero no es mucho mayor que otras comparativamente por lo que al haber más características en juego, podría dejarlos de lado. Le daba importancia a jugar en el centro también.
+
+Esta experimentación nos permitió ver que resultaba más efectivo, en la misma cantidad de tiempo, una poblacion de tamaño intermedio (50) que una chica (10) o grande (100) ya que proveía tanto evolución como variabilidad genética. Más aún nos mostro que los método de fitness cobraban más importancia al tener una población mayor (ya que se comípetan más partidos). También nos mostró que dio mejores resultados el proceso de selección 2 lo que tenía sentido ya que aportaba muchísima más variabilidad genética. Dentro del proceso de selección 2 se noto claramente que daba mejores resultados una población intermedia y también que la funcion de fitness 2 era más efectiva (ya que diferenciaba más situaciones, que al jugar partidos solo contra los de nuestra generacion, se volvían importantes estas diferencias) puesto que aportaba más variabilidad.
 
 
 
 
-
-
+DECIR QUE POR ESTO USAMOS SELECCION2 Y FITNESS 2 PARA BUSCAR MEJORES JUGADORES.
+QUE BUSCAMOS POBLACIONES INICIALES MAS VARIADAS PARA ASEGURAR DIVERSAS ESTRATEGIAS QUE SE COMPAREN EN FITNESS.
 
 
 
@@ -463,7 +552,17 @@ SI HAY TIEMPO REPETIR PARA TABLEROS DISTINTOS AL CUATRO EN LINEA...
 
 \section{Análisis comparativo con paper}
 
+En comparacion con el paper, antes que nada cabe destacar que hay grandes diferencias en los juegos. Si bien ambos son de dos jugadores, en el ta-te-ti la cantidad de configuraciones es abarcable (de hecho, sacando los no factibles y via isomorfismos los autores muestran que hay tan solo 827 configuraciones posibles) mientras que en el c en línea esto no sucede por varios motivos. Primero que nada, como podemos variar el tamaño del tablero, la cantidad de configuraciones puede aumentar muchísimo y como la grilla (Salvo contados casos) es mucho mayor, la cantidad de partidas que se pueden dar es mucho mayor ya que si miramos los tableros -factibles o no- el ta te ti presenta $3^9$ y el c en linea $3\textsuperscript{(N*M)}$ donde N*M suele ser mayor que 9 salvo contados casos. Como esta cantidad crece exponencialmente, al aumentar un poco $N$ y $M$ esta cantidad se hace inabarcable por lo que resulta imposible realizar una estrategia similar a la del paper (que mira la configuracion actual y para esa tiene definida que jugada hacer previamente en un arreglo).
 
+Sin embargo, podemos adaptar la estrategia a nuestro juego particular y es por esto que se estableció un sistema de puntos que permitía caracterizar los posibles tableros que se pueden dar tras nuestra jugada y así elegir el que sea el mejor. Y es aquí donde entra la libertad que le damos al jugador para que luego trabaje el algoritmo genético. Esta libertad también existía en el paper y era mucho más flexible aun, de hecho era lo más flexible posible porque dejaba elegir para cada situacion que jugar al algoritmo. En cambio, por la dimensión del problema,  nosotros no podiamos dar tanta flexibilidad ya que resultaría inabarcable; por eseto surge el sistema de puntos, nosotros tomamos ciertas características del tablero y permitimos que luego el algoritmo genético decida la importancia de cada una de esas características y juegue en base a dicha importancia. La función que establecía el puntaje de un tablero es la que en realidad toma los parametros que el genético busco modificar y de hecho, estos parámetros son los que determinan la importancia de cada una de las características que nosotros decidimos. Aquí está la flexibilidad que tiene nuestro jugador (en algun punto, no es tan flexible ya que solo puede variar dentro dela importancia de las características que nosotros determinamos, todas las que no hayamos elegido no las podra distinguir).
+
+Más aún hay una notable diferencia que es que al ser menos flexible y tener que elegir que características uno quiere que distinga el jugador para que luego el genético decida su importancia, pareciera ser muy importante la eleccion de estas características. Efectivamente lo es, pero nos permite ver algo que no sucedía en el paper, que es que poner características de más que no sean relevantes no es algo tan problemático ya que el algoritmo genético luego determinará que son poco o nada importantes. 
+
+Además nosotros tomamos dos funciones de fitness que en esencia eran las mismas que en el paper para poder analizar como esto variaba según el juego. Efectivamente en nuestro juego, el c en línea, pudimos ver que el fitness de puntaje fue más fructífero que el de proporcion de partidos no perdidos. Nuestra hipotesis es que esto sucedió porque distinguía más situaciones (empate de victoria y empezar o ir ultimo). Sin embargo el hecho de que en el paper el sistema de puntéos también distingíua más situaciones y haya resultado peor no contradice esto ya que hay una diferencia esencial en el cálculo de fitness en ambos casos: nuevamente al ser una cantidad abarcable todos los tableros del ta-te-ti en el paper a un jugador se lo hace jugar todos los juegos posibles y se evalúa ahí cuantos no perdió y al ver todas las situaciones es claro que cobra mucha más importancia minimizar las perdidas. Mientras que en el c en línea resulta inabarcable hacer jugar a cada jugador de cada generación todos los partidos posibles (ya hacer jugar a un jugador todos los partidos posibles es caro como la primer jugada de minimax, que en tableros grandes puede tardar muchísimo tiempo en jugar por el crecimiento exponencial que presenta esta cantidad), por lo que importa mucho más tener en cuenta estas diversas situaciones ya que la cantidad de partidos que podemos hacer jugar a un jugador es mucho más acotada.
+
+Incluso esto nos permitió entender porque no tuvieron exito las poblaciones de 10 jugadores ya que ademas de presentar una poca variabilidad, las funciones de fitness se basaban en partidos contra muy pocos jugadores. En este caso, a diferencia del paper, variar los tamaños de las poblaciones si mostró mejoras en los jugadores (no lo hizo en el fitness final del mejor jugador de la ultima generacion). Por el tamaño del problema, nuevamente, resulta imposible encontrar un jugador óptimo, cosa que fue posible por medio del algoritmo genético en un problema mas pequeño como es el del ta-te-ti. Lo que sin embargo se busco hacer es encontrar un buen jugador de c en línea a traves de encontrar los parámetros adecuados para el jugador parametrizable por medio del algoritmo genético.
+
+Esto último va de la mano con lo que miden las funciones de fitness, ya que en el c en línea no fue posible definir una función que midiera realmente cuan bueno era un jugador ya que eso implicaría jugar todos los partidos posibles lo que no era abarcable. Sí permitían ver cuan bueno era un jugador comparativamente en relación con otro/s (lo que se determinaba simplemente haciendolos competir). Por esto, nuestro algoritmo genético con estas funciones de fitness podía dar buenos jugadores pero no óptimos, ya que requeriría en principio alguna medida de cuan bueno es un jugador en todas las situaciones.
 
 \section{Conclusiones}
 

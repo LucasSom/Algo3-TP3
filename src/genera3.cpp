@@ -1006,23 +1006,27 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 	}
 */
 	//muto aleatoriamente los vectores
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
+		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	
 		param.extensiblesprox.push_back(copiode.extensiblesprox[k]);
 	}
 	
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
+		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	
 		param.extensibles.push_back(copiode.extensibles[k]);
 	}
 		
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
+		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	
 		param.biextensibles.push_back(copiode.biextensibles[k]);
 	}
 	
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
 	for(int k=0;k<p1.extensibles.size();++k){
+		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
+	
 		param.consecutivos.push_back(copiode.consecutivos[k]);
 	}
 	
@@ -1040,14 +1044,14 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	ofstream myfile;
-	myfile.open ("3b2seleccion2100.csv", std::ios_base::app);
+	myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
-		//fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-		fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
+		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+	///	fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
 	}
 
 	float maximo=fitnessValues[0];
@@ -1117,7 +1121,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	
 	
 	ofstream myfile;
-	myfile.open ("3b2seleccion2100.csv", std::ios_base::app);
+	myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	
@@ -1223,12 +1227,12 @@ parametro genetico(int rows, int columns, int c, int p){
 	
 	ofstream myfile;
 	//determino parametros que luego podemos modificar segun gustemos
-	int tamanopoblacion=100;
+	int tamanopoblacion=50;
 	float min=-1;
 	float max=1;
 	float pmutar=0.005;
 	float pcrossover=0.4;
-	int totalgeneraciones=10;
+	int totalgeneraciones=75;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
 	
 	
@@ -1247,12 +1251,12 @@ parametro genetico(int rows, int columns, int c, int p){
 		for(int i=0;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
-		myfile.open ("3b2seleccion2100.csv", std::ios_base::app);
+		myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 		myfile << generacion << ",";
 		myfile.close();		  
 		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
-		myfile.open ("3b2seleccion2100.csv", std::ios_base::app);
+		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
+		myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 		myfile << "\n";
 		myfile.close();	
 		
@@ -1263,12 +1267,12 @@ parametro genetico(int rows, int columns, int c, int p){
 	
 	
 	
-	myfile.open ("3b2seleccion2100.csv", std::ios_base::app);
+	myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 	myfile << generacion << ",";
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
-		//fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-		fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
+		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+		///fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
 	}
 
 	float maximo=fitnessValues[0];

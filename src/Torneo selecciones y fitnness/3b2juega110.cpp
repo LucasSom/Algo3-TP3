@@ -929,9 +929,9 @@ int main() {
 
 
 	param = leerParametroDeValores(c);
-
+	cout<<param.extproxparam.first
 	//std::vector<int> board(columns);
-		vector<vector<int>>tablero (columns);
+		vector<vector<int>> tablero (columns);
 		//la primer cordenada del tablero es la columna, y la segunda es la fila
         
         //for(int i=0; i<columns; ++i) board[i] = 0;
