@@ -212,10 +212,10 @@ int enborde(int rows,int columns,const vector<vector<int>>& tablero, int i){
 //cuenta fichas en alguna esquina el jugador i:
 int enesquinas(int rows,int columns,const vector<vector<int>>& tablero, int i){
 	int enesquina=0;
-	if (tablero[0].size()!=0 && tablero[0][0]==i) {--enesquina;} //la esquina inf izq
-	if (tablero[columns-1].size()!=0 && tablero[columns-1][0]==i) {--enesquina;} //la esquina inf der
-	if (tablero[0].size()==rows && tablero[0][rows-1]==i) {--enesquina;} //la esquina sup izq
-	if (tablero[columns-1].size()==rows && tablero[columns-1][rows-1]==i) {--enesquina;} //la esquina sup der
+	if (tablero[0].size()!=0 && tablero[0][0]==i) {++enesquina;} //la esquina inf izq
+	if (tablero[columns-1].size()!=0 && tablero[columns-1][0]==i) {++enesquina;} //la esquina inf der
+	if (tablero[0].size()==rows && tablero[0][rows-1]==i) {++enesquina;} //la esquina sup izq
+	if (tablero[columns-1].size()==rows && tablero[columns-1][rows-1]==i) {++enesquina;} //la esquina sup der
 	return enesquina;
 	
 	}
@@ -958,7 +958,7 @@ parametro leerParametroDeValores(int c, string a){
 parametro gridsearch(int rows, int columns, int c, int p){
 
 	parametro param= leerParametroDeValores(c, "NuestroJugadorBueno.txt");
-
+/*
 	cerr<< param.esquinaparam.first << endl; 
 	cerr<<param.esquinaparam.second<< endl;
 	cerr<<param.bordeparam.first<< endl;
@@ -984,7 +984,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 		cerr<<param.consecutivos[k]<< endl;
 	}
 	
-
+*/
 
 	parametro mejor=param;
 
@@ -1006,9 +1006,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float l=-1; l<=1; l=l+0.1) {
 				param.biextensibles[k] = l;
+				cerr<<l<<endl;
 				for (float r=-1; r<=1; r=r+0.1) {
 					param.consecutivos[k] = r;
-					if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+					
+				//cerr<<param.consecutivos[0]<<endl;
+					if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 				}
 			}
 			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1023,7 +1026,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.biextparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1037,7 +1040,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.extproxparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1049,7 +1052,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.extparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1062,7 +1065,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.esquinaparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1076,7 +1079,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.bordeparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1088,7 +1091,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.libertadparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1100,7 +1103,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.consecparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1112,7 +1115,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (float j=-1; j<=1; j=j+0.1){
 				param.centroparam.second = j;
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {return param;mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1129,7 +1132,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 int escribirParametro(int c, parametro param){
 	
 	ofstream valores;
-	valores.open ("chebar1it.txt");
+	valores.open ("chebarAVER2.txt");
 	
 valores << param.esquinaparam.first << "\n";
 	valores << param.esquinaparam.second << "\n";

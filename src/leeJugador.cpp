@@ -242,10 +242,10 @@ int enborde(int rows,int columns,const vector<vector<int>>& tablero, int i){
 //cuenta fichas en alguna esquina el jugador i:
 int enesquinas(int rows,int columns,const vector<vector<int>>& tablero, int i){
 	int enesquina=0;
-	if (tablero[0].size()!=0 && tablero[0][0]==i) {--enesquina;} //la esquina inf izq
-	if (tablero[columns-1].size()!=0 && tablero[columns-1][0]==i) {--enesquina;} //la esquina inf der
-	if (tablero[0].size()==rows && tablero[0][rows-1]==i) {--enesquina;} //la esquina sup izq
-	if (tablero[columns-1].size()==rows && tablero[columns-1][rows-1]==i) {--enesquina;} //la esquina sup der
+	if (tablero[0].size()!=0 && tablero[0][0]==i) {++enesquina;} //la esquina inf izq
+	if (tablero[columns-1].size()!=0 && tablero[columns-1][0]==i) {++enesquina;} //la esquina inf der
+	if (tablero[0].size()==rows && tablero[0][rows-1]==i) {++enesquina;} //la esquina sup izq
+	if (tablero[columns-1].size()==rows && tablero[columns-1][rows-1]==i) {++enesquina;} //la esquina sup der
 	return enesquina;
 	
 	}
@@ -783,11 +783,18 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int h=0;h<columns;++h){
 		if(tablero[h].size()<rows){ posibles.push_back(h);}
 	}
+	
+	for(int a=0; a<posibles.size();++a){
+		//si voy a perder, la salvo.
+		tablero[posibles[a]].push_back(1);
+		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
+		tablero[posibles[a]].pop_back();
+	}
 		
 	for(int a=0; a<posibles.size();++a){
 		//si voy a perder, la salvo.
 		tablero[posibles[a]].push_back(2);
-		if( perdi(tablero,c,ultimajugada) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
+		if( perdi(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
 	}
 	
@@ -816,7 +823,7 @@ parametro leerParametroDeValores(int c){
 	parametro param;
 
 	ifstream valores;
-	valores.open ("NuestroJugadorBueno.txt");
+	valores.open ("chebar1it.txt");
 	
 
 	valores >> param.esquinaparam.first;
