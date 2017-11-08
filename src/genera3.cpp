@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <ctime>
+#include <string>
 
 
 using namespace std;
@@ -755,13 +756,24 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int h=0;h<columns;++h){
 		if(tablero[h].size()<rows){ posibles.push_back(h);}
 	}
+	
+	
+	for(int a=0; a<posibles.size();++a){
+		//si voy a ganar, lo hago.
+		tablero[posibles[a]].push_back(1);
+		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
+		tablero[posibles[a]].pop_back();
+	}
+	
 		
 	for(int a=0; a<posibles.size();++a){
 		//si voy a perder, la salvo.
 		tablero[posibles[a]].push_back(2);
-		if( perdi(tablero,c,ultimajugada) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
+		if( perdi(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
 	}
+	
+	
 	
 	//si o si hay una jugada posibles pues sino seria empate
 	tablero[posibles[0]].push_back(1);
@@ -1043,15 +1055,15 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
 vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
-	ofstream myfile;
-	myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
+	//ofstream myfile;
+	//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
-		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-	///	fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
+		///fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+		fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
 	}
 
 	float maximo=fitnessValues[0];
@@ -1084,18 +1096,18 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 
 	
 	
-	myfile << fitnessValues[fitnessValues.size()-1] << ",";	
+	//myfile << fitnessValues[fitnessValues.size()-1] << ",";	
 	
-	myfile << fitnessValues[0] << ",";	
+	//myfile << fitnessValues[0] << ",";	
 	
 	float suma=fitnessValues[0];
 	for(int i=1;i<poblacion.size();++i){
 			suma=suma+fitnessValues[i];
 	}
-	myfile << suma/poblacion.size() << ",";
+	//myfile << suma/poblacion.size() << ",";
 	
-	myfile << fitnessValues[poblacion.size()/2] << ",";	
-	myfile.close();
+	//myfile << fitnessValues[poblacion.size()/2] << ",";	
+	//myfile.close();
 
 	while (poblacionnueva.size()<poblacion.size()){
 		int x, y;
@@ -1120,8 +1132,8 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	
-	ofstream myfile;
-	myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
+	//ofstream myfile;
+	//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
 	vector<parametro> poblacionnueva;
 	int k=2;//PARA FITNESS2 EXPERIMENTAR
 	
@@ -1142,7 +1154,7 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 	poblacionnueva.push_back(poblacion[maxpos]); //elitismo, siempre dejo al mejor
 	
 	
-	myfile << fitnessValues[maxpos] << ",";	
+	//myfile << fitnessValues[maxpos] << ",";	
 	
 	float minimo=fitnessValues[0];
 	int minpos=0;
@@ -1153,14 +1165,14 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 		}
 	}
 	
-	myfile << fitnessValues[minpos] << ",";	
+	//myfile << fitnessValues[minpos] << ",";	
 	
 	
 	float suma=fitnessValues[0];
 	for(int i=1;i<poblacion.size();++i){
 			suma=suma+fitnessValues[i];
 	}
-	myfile << suma/poblacion.size() << ",";
+	//myfile << suma/poblacion.size() << ",";
 	
 	
 	int posicion;
@@ -1171,9 +1183,9 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 		}
 		if(contador>=poblacion.size()/2){posicion=i;}
 	}
-	myfile << fitnessValues[posicion] << ",";
+	//myfile << fitnessValues[posicion] << ",";
 	
-	myfile.close();
+	//myfile.close();
 	
 	
 	
@@ -1221,18 +1233,67 @@ vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, floa
 
 
 
+parametro leerParametroDeValores(int c, string a){
+
+	parametro param;
+
+	ifstream valores;
+	valores.open (a);
+	
+
+	valores >> param.esquinaparam.first;
+	valores >> param.esquinaparam.second;
+	valores >> param.bordeparam.first;
+	valores >> param.bordeparam.second;
+	valores >> param.libertadparam.first;
+	valores >> param.libertadparam.second;
+	valores >> param.consecparam.first;
+	valores >> param.consecparam.second;
+	valores >> param.centroparam.first;
+	valores >> param.centroparam.second;
+	valores >> param.extproxparam.first;
+	valores >> param.extproxparam.second;
+	valores >> param.extparam.first;
+	valores >> param.extparam.second;
+	valores >> param.biextparam.first;
+	valores >> param.biextparam.second ;
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		float n;
+		valores >> n;
+		param.extensiblesprox.push_back(n);
+		valores >> n;
+		param.extensibles.push_back(n);
+		valores >> n;
+		param.biextensibles.push_back(n);
+		valores >> n;
+		param.consecutivos.push_back(n);
+	}
+
+
+	return param;
+}
+
+
 
 //EL AGORITMO GENETICO PER SE
 parametro genetico(int rows, int columns, int c, int p){
 	
-	ofstream myfile;
+	//ofstream myfile;
 	//determino parametros que luego podemos modificar segun gustemos
 	int tamanopoblacion=50;
 	float min=-1;
 	float max=1;
 	float pmutar=0.005;
 	float pcrossover=0.4;
-	int totalgeneraciones=75;
+	int totalgeneraciones=150;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
 	
 	
@@ -1240,25 +1301,27 @@ parametro genetico(int rows, int columns, int c, int p){
 	int generacion=1;
 	
 	vector<parametro> poblacion;
-	for(int i=1;i<=tamanopoblacion;++i){
+	poblacion.push_back(leerParametroDeValores(c,"3b2seleccion2100.txt"));
+	poblacion.push_back(leerParametroDeValores(c,"NuestroJugadorBueno.txt"));
+
+	for(int i=3;i<=tamanopoblacion;++i){
 		poblacion.push_back(paramrandom(c));
 	}
 	
-
 	while(generacion<totalgeneraciones){
 		//puse esta como basica pero se puede poner una condicion de corte mucho mejor
 		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
-		for(int i=0;i<poblacion.size();++i){
+		for(int i=1;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
-		myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
-		myfile << generacion << ",";
-		myfile.close();		  
+		//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
+		//myfile << generacion << ",";
+		//myfile.close();		  
 		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		poblacion = seleccion1(poblacion,pcrossover,min,max, rows, columns, c, p);
-		myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
-		myfile << "\n";
-		myfile.close();	
+		poblacion = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
+		//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
+		//myfile << "\n";
+		//myfile.close();	
 		
 		
 		++generacion;
@@ -1267,12 +1330,12 @@ parametro genetico(int rows, int columns, int c, int p){
 	
 	
 	
-	myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
-	myfile << generacion << ",";
+	//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
+	//myfile << generacion << ",";
 	vector<float> fitnessValues;
 	for (int i=0;i<poblacion.size();++i){
-		fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-		///fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
+		///fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
+		fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
 	}
 
 	float maximo=fitnessValues[0];
@@ -1284,7 +1347,7 @@ parametro genetico(int rows, int columns, int c, int p){
 		}
 	}
 	
-	myfile << fitnessValues[maxpos] << ",";	
+	//myfile << fitnessValues[maxpos] << ",";	
 	
 	float minimo=fitnessValues[0];
 	int minpos=0;
@@ -1295,14 +1358,14 @@ parametro genetico(int rows, int columns, int c, int p){
 		}
 	}
 	
-	myfile << fitnessValues[minpos] << ",";	
+	//myfile << fitnessValues[minpos] << ",";	
 	
 	
 	float suma=fitnessValues[0];
 	for(int i=1;i<poblacion.size();++i){
 			suma=suma+fitnessValues[i];
 	}
-	myfile << suma/poblacion.size() << ",";
+	//myfile << suma/poblacion.size() << ",";
 	
 	
 	int posicion;
@@ -1313,9 +1376,9 @@ parametro genetico(int rows, int columns, int c, int p){
 		}
 		if(contador>=poblacion.size()/2){posicion=i;}
 	}
-	myfile << fitnessValues[posicion] << ",";
+	//myfile << fitnessValues[posicion] << ",";
 	
-	myfile.close();
+	//myfile.close();
 	
 	
 	
@@ -1332,28 +1395,26 @@ int main(){
 	parametro param=genetico(6,7,4,50);
 	
 	ofstream mejorcito;
-	mejorcito.open("3b2seleccion2100.txt");
+	mejorcito.open("geneticopostaNOMUTA1.txt");
 
-	mejorcito<< "SOY CON 100 .csv"<< endl; 
-	mejorcito<< "param esquina1:"<< param.esquinaparam.first << endl; 
-	mejorcito<< "param esquina2:"<<param.esquinaparam.second<< endl;
-	mejorcito<<"param borde1:"<<param.bordeparam.first<< endl;
-	mejorcito<<"param borde2:"<<param.bordeparam.second<< endl;
-	mejorcito<<"param centro1:"<<param.centroparam.first << endl;
-	mejorcito<<"param centro2:"<<	param.centroparam.second<< endl;
-	mejorcito<<"param libertad1:"<<	param.libertadparam.first << endl;
-	mejorcito<<"param libertad2:"<<	param.libertadparam.second << endl;
-	mejorcito<<"param consec1:"<<param.consecparam.first << endl;
-	mejorcito<<"param consec2:"<<param.consecparam.second << endl;
-	mejorcito<<"param extprox1:"<<param.extproxparam.first << endl;
-	mejorcito<<"param extprox2:"<<param.extproxparam.second << endl;
-	mejorcito<<"param ext1:"<<param.extparam.first << endl;
-	mejorcito<<"param ext2:"<<param.extparam.second << endl;
-	mejorcito<<"param biext1:"<<param.biextparam.first << endl;
-	mejorcito<<"param biext2:"<<param.biextparam.second << endl;
+	mejorcito<< param.esquinaparam.first << endl; 
+	mejorcito<<param.esquinaparam.second<< endl;
+	mejorcito<<param.bordeparam.first<< endl;
+	mejorcito<<param.bordeparam.second<< endl;
+	mejorcito<<param.centroparam.first << endl;
+	mejorcito<<	param.centroparam.second<< endl;
+	mejorcito<<	param.libertadparam.first << endl;
+	mejorcito<<	param.libertadparam.second << endl;
+	mejorcito<<param.consecparam.first << endl;
+	mejorcito<<param.consecparam.second << endl;
+	mejorcito<<param.extproxparam.first << endl;
+	mejorcito<<param.extproxparam.second << endl;
+	mejorcito<<param.extparam.first << endl;
+	mejorcito<<param.extparam.second << endl;
+	mejorcito<<param.biextparam.first << endl;
+	mejorcito<<param.biextparam.second << endl;
 	
-	mejorcito<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
-	
+
 	for(int k=0;k<3;++k){
 		mejorcito<< param.extensiblesprox[k]<< ";  ";
 		mejorcito<<param.extensibles[k]<< ";  ";
