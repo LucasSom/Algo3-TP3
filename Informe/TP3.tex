@@ -393,16 +393,24 @@ Este primer intento no dio buenos resultados, el jugador resultante no realizaba
 En busca de mejores resultados se realizaron los siguientes cambios para mejorar el conjunto de parámetros resultante de ejecutar el grid search con un jugador inicial aleatorio al cual se le van optimizando un par de parámetros a la vez. El primer cambio fue simplemente iterar la versión anterior varias veces, aprovechando que el recorrer matrices de sólo 2 dimensiones hace al algoritmo más rápido. Como siempre se guarda el mejor jugador hasta el momento y se lo suplanta únicamente si se encontró otro conjunto de parámetros mejor, realizar más iteraciones en el peor caso mantendría la misma solución. El objetivo de este cambio sería darle otra oprtunidad a los parámetros a optimizarse en este nuevo contexto en el cual las otras preferencias del jugador no son las iniciales aleatorias, si no unas calculadas en base a este mismo algoritmo. 
 
 Otra modificación fue 
+PONEMOS  LO DE LO + IMPORTATNTE PRIMERO ??
+
+PONEMOS  LO DE LO + IMPORTATNTE PRIMERO ??
+PONEMOS  LO DE LO + IMPORTATNTE PRIMERO ??
 
 
 
 
+\subsubsection{Grid recomendado}
+
+Incluso con las modificaciones a la idea original, la forma de recorrer la grilla de a pares de parametros resultaba muy acotada, y no llegaba a encontrar buenas combinaciones de valores que resultaran en un jugador bueno. Esto es de esperar ya que si recordamos el tamaño gigante de $ 20^{28}$ posibilidades no hay manera de explorarlo bien en un tiempo razonable. A causa de esto se recurrió a la posibilidad de comenzar el grid search no con un conjunto de parámetros aleatorios, si no con un jugador hecho "a mano", con parámetros medianamente buenos. Con esto se buscaba que el grid search explore opciones cercanas a un conjunto que ya se sabe no es muy malo, de esta forma se intentó evitar la gran cantidad de combinaciones inútiles que el algoritmo estaba recorriendo previamente, y en su lugar mejorar una solución inicial.
 
 
+PONER EL RESULTADO DE ESTO
 
+PONER EL RESULTADO DE ESTO
 
-
-
+PONER EL RESULTADO DE ESTO
 
 
 
