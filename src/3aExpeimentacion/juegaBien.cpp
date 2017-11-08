@@ -809,23 +809,76 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	return maxpos;
 }
 
+
+
+parametro leerParametroDeValores(int c){
+
+	parametro param;
+
+	ifstream valores;
+	valores.open ("paramsBUENOS.txt");
+	
+
+	valores >> param.esquinaparam.first ;
+	valores >> param.esquinaparam.second;
+	valores >> param.bordeparam.first ;
+	valores >> param.bordeparam.second ;
+	valores >> param.libertadparam.first;
+	valores >> param.libertadparam.second;
+	valores >> param.consecparam.first;
+	valores >> param.consecparam.second;
+	valores >> param.centroparam.first;
+	valores >> param.centroparam.second;
+	valores >> param.extproxparam.first;
+	valores >> param.extproxparam.second;
+	valores >> param.extparam.first ;
+	valores >> param.extparam.second ;
+	valores >> param.biextparam.first;
+	valores >> param.biextparam.second ;
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		float n;
+		valores >> n;
+		param.extensiblesprox.push_back(n);
+		valores >> n;
+		param.extensibles.push_back(n);
+		valores >> n;
+		param.biextensibles.push_back(n);
+		valores >> n;
+		param.consecutivos.push_back(n);
+	}
+
+
+	return param;
+}
+
+
+
 	
 //---------------FUNCION MAIN, EL JUGADOR EN SI---------------------
 
 int main() {
 	
+
 	
 	//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
 	parametro param;
 	
-	param.esquinaparam.first=-10;//-10
-	param.esquinaparam.second=-10;//-10
-	param.bordeparam.first=-3;//-3
-	param.bordeparam.second=-3;//-3
-	param.centroparam.first=8;//8
-	param.centroparam.second=8;//8
-	param.libertadparam.first=1;//1
-	param.libertadparam.second=1;//1
+	param.esquinaparam.first=0;//-10
+	param.esquinaparam.second=0;//-10
+	param.bordeparam.first=0;//-3
+	param.bordeparam.second=0;//-3
+	param.centroparam.first=0;//8
+	param.centroparam.second=0;//8
+	param.libertadparam.first=0;//1
+	param.libertadparam.second=0;//1
 	
 	param.consecutivos.push_back(0);
 	param.consecutivos.push_back(10);
@@ -859,6 +912,9 @@ int main() {
 	param.biextparam.second=1;
 	//---------
 
+
+	
+
     //std::default_random_engine generator;
     std::string msg, color, oponent_color, go_first;
     int columns, rows, c, p, move;
@@ -871,7 +927,11 @@ int main() {
         rows = read_int();
         c = read_int();
         p = read_int();
-		//std::vector<int> board(columns);
+
+
+	param = leerParametroDeValores(c);
+
+	//std::vector<int> board(columns);
 		vector<vector<int>>tablero (columns);
 		//la primer cordenada del tablero es la columna, y la segunda es la fila
         
