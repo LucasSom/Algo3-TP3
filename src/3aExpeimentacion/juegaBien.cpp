@@ -809,6 +809,43 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	return maxpos;
 }
 
+int escribirParametro(int c, parametro param){
+	
+	ofstream valores;
+	valores.open ("paramsBUENOS.txt");
+	
+
+	valores << param.esquinaparam.first << "\n";
+	valores << param.esquinaparam.second << "\n";
+	valores << param.bordeparam.first  << "\n";
+	valores << param.bordeparam.second  << "\n";
+	valores << param.libertadparam.first << "\n";
+	valores << param.libertadparam.second << "\n";
+	valores << param.consecparam.first << "\n";
+	valores << param.consecparam.second << "\n";
+	valores << param.centroparam.first << "\n";
+	valores << param.centroparam.second << "\n";
+	valores << param.extproxparam.first << "\n";
+	valores << param.extproxparam.second << "\n";
+	valores << param.extparam.first  << "\n";
+	valores << param.extparam.second  << "\n";
+	valores << param.biextparam.first << "\n";
+	valores << param.biextparam.second  << "\n";
+	
+
+	int k=0;
+	for(k=0;k<c-1;++k){
+		valores << param.extensiblesprox[k] << "\n";
+		valores << param.extensibles[k] << "\n";
+		valores << param.biextensibles[k] << "\n";
+		valores << param.consecutivos[k] << "\n";
+	}
+
+
+
+	return 0;
+}
+
 	
 //---------------FUNCION MAIN, EL JUGADOR EN SI---------------------
 
@@ -818,46 +855,48 @@ int main() {
 	//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
 	parametro param;
 	
-	param.esquinaparam.first=-10;//-10
-	param.esquinaparam.second=-10;//-10
-	param.bordeparam.first=-3;//-3
-	param.bordeparam.second=-3;//-3
-	param.centroparam.first=8;//8
-	param.centroparam.second=8;//8
-	param.libertadparam.first=1;//1
-	param.libertadparam.second=1;//1
+	param.esquinaparam.first=0;//-10
+	param.esquinaparam.second=0;//-10
+	param.bordeparam.first=0;//-3
+	param.bordeparam.second=0;//-3
+	param.centroparam.first=0;//8
+	param.centroparam.second=0;//8
+	param.libertadparam.first=0;//1
+	param.libertadparam.second=0;//1
 	
 	param.consecutivos.push_back(0);
-	param.consecutivos.push_back(10);
-	param.consecutivos.push_back(100);
+	param.consecutivos.push_back(0.00000001);
+	param.consecutivos.push_back(0.00001);
 	
 	param.consecparam.first=0;
 	param.consecparam.second=0;
 	
 	
 	param.extensiblesprox.push_back(0);
-	param.extensiblesprox.push_back(200);
-	param.extensiblesprox.push_back(8888888); //esto es ganar para el, tiene que ser +inf
+	param.extensiblesprox.push_back(0.0001);
+	param.extensiblesprox.push_back(1); //esto es ganar para el, tiene que ser +inf
 	
 	param.extproxparam.first=0;
 	param.extproxparam.second=1;
 	
 	
 	param.extensibles.push_back(0);
-	param.extensibles.push_back(10);
-	param.extensibles.push_back(100); 
+	param.extensibles.push_back(0.000001);
+	param.extensibles.push_back(0.0001); 
 	
 	param.extparam.first=0;
 	param.extparam.second=0;
 
 
-	param.biextensibles.push_back(10);
-	param.biextensibles.push_back(1000);
-	param.biextensibles.push_back(88888888); //esto es ganar para el, es +inf
+	param.biextensibles.push_back(0.0000001);
+	param.biextensibles.push_back(0.001);
+	param.biextensibles.push_back(1); //esto es ganar para el, es +inf
 		
 	param.biextparam.first=0;
 	param.biextparam.second=1;
 	//---------
+
+
 
     //std::default_random_engine generator;
     std::string msg, color, oponent_color, go_first;
