@@ -215,39 +215,24 @@ pair<int,int> minimax(int rows, int columns, int c, int p, vector<vector<int>> t
 		int quienva;
 		if(maximizo) {quienva=1;} else {quienva=2; }
 		tablero2[posibles[i].first].push_back(quienva); //juego el o yo, segun minimice o maximice respectivamente.
-
-		if (maximizo) {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
-			if (posibles[i].second > mejorValorMaximizo) {
+        posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
+		if (maximizo && posibles[i].second > mejorValorMaximizo) {
 				mejorPos = posibles[i].first;
 				mejorValorMaximizo = posibles[i].second;
-			}
-			alfa = max(alfa, mejorValorMaximizo);
+        }
+        if (not maximizo && posibles[i].second < mejorValorMinimizo) {
+            mejorPos = posibles[i].first;
+            mejorValorMinimizo = posibles[i].second;
+        }
+            
+        alfa = max(alfa, mejorValorMaximizo);
+        beta = min(beta, mejorValorMinimizo);
 
-			if (alfa >= beta) {
-				break;
-			}
-
-		} else {
-			posibles[i].second = minimax(rows, columns, c, p-1, tablero2, not maximizo, alfa, beta, posibles[i].first).second;
-			//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
-			if (posibles[i].second < mejorValorMinimizo) {
-				mejorPos = posibles[i].first;
-				mejorValorMinimizo = posibles[i].second;
-			}
-			beta = min(beta, mejorValorMinimizo);
-
-			if (alfa >= beta) {
-				break;
-			}
-		}
+        if (alfa >= beta) {
+            break;
+        }
 	}
-	int mejorValor;
-	if(maximizo) {mejorValor=mejorValorMaximizo;} else {mejorValor=mejorValorMinimizo;}
-	//CAMBIO CHEBAR, DEVUELVO LO QUE ME PIDAN...
-	return make_pair(mejorPos, mejorValor);
-	
-	
+	if(maximizo) {return make_pair(mejorPos, mejorValorMaximizo);} else {return make_pair(mejorPos, mejorValorMinimizo);}
 }
 
 

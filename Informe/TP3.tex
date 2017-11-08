@@ -180,35 +180,8 @@ Lucas Somacal, mail: \textit{lsomacal@gmail.com}, LU: 249/16} % Your name
 
 \section{El Juego}
 \subsection{Descripción}
-El juego es una generalización del popular 4 en línea \footnote{$https://es.wikipedia.org/wiki/Conecta_4$}. Consiste en una grilla de $M$ filas y $N$ columnas en la cual dos jugadores colocan alternadamente una ficha propia (identificada con rojo las de un jugador y azul las del otro). Las fichas se pueden colocar en cualquier columna de la grilla y una vez elegida la columna, esta determina el movimiento, ya que irá a la fila de "más abajo" (la de numeración más baja) que esté desocupada. El objetivo de un jugador será lograr tener un línea recta (diagonal, vertical u horizontal) de $C$ fichas propias. Cuando esto suceda, el jugador ganará el partido. Además, cada jugador dispone de $P$ fichas. En caso de que ambos se queden sin fichas y ninguno haya ganado, la partida finaliza en empate. También se da un empate si la grilla queda llena (y ninguno había ganado). Se trata de una generalización del 4 en línea ya que si tomamos parametros $M=6, N=7, C=4, P=21$ se replicarían las condiciones iniciales del juego.
+El juego es una generalización del popular 4 en línea \footnote{$https://es.wikipedia.org/wiki/Conecta$\_$4$}. Consiste en una grilla de $M$ filas y $N$ columnas en la cual dos jugadores colocan alternadamente una ficha propia (identificada con rojo las de un jugador y azul las del otro). Las fichas se pueden colocar en cualquier columna de la grilla y una vez elegida la columna, esta determina el movimiento, ya que irá a la fila de "más abajo" (la de numeración más baja) que esté desocupada. El objetivo de un jugador será lograr tener un línea recta (diagonal, vertical u horizontal) de $C$ fichas propias. Cuando esto suceda, el jugador ganará el partido. Además, cada jugador dispone de $P$ fichas. En caso de que ambos se queden sin fichas y ninguno haya ganado, la partida finaliza en empate. También se da un empate si la grilla queda llena (y ninguno había ganado). Se trata de una generalización del 4 en línea ya que si tomamos parametros $M=6, N=7, C=4, P=21$ se replicarían las condiciones iniciales del juego.
 \subsubsection{Ejemplos}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -221,20 +194,125 @@ El algoritmo del jugador del punto 1.a brinda un jugador óptimo. Nos asegura qu
 
 Para lograr esto, utilizamos una técnica algorítmica similar al Backtracking en el sentido de que exploramos todas las soluciones posibles y nos quedamos con la óptima. Pero esta vez tenemos dos jugadores interviniendo en la situación donde lo que uno busca es todo lo contrario a lo que busca el otro. Podemos decir que un tablero finalizado tiene 3 puntajes posibles, 1 si ganamos nosotros, 0 si es empate, -1 si ganó el otro (podríamos sino generalizarlo para todo tablero y que haya un cuarto valor que sea inválido si aún no hemos calculado el valor de dicho tablero). Así, lo que sabemos es que turno a turno, uno quiere maximizar el puntaje y el otro minimizarlo. Es por esto que dicha técnica algorítmica se llama Minimax. 
 
-De esta manera, igual que en Backtracking tenemos un arbol de ejecución donde cada nodo es un estado del tablero y la raiz es el tablero vacío. Cada nodo (que no sea hoja) tendrá $N$ hijos donde cada uno representará que la próxima jugada fue en alguna de las $N$ columnas. De esta forma, recorremos todos los tableros posibles. Según quién comience, en el primer nivel trataremos de maximizar o minimizar, en el siguiente lo contrario y así sucesivamente. Todos los niveles impares minimizarán si empieza el contrincante y maximizarán si empieza nuestro jugador. El que maximiza le asignará a su nodo un puntaje que será el máximo de los puntajes de todos sus hijos. Análogamente el que minimiza le asignará a su nodo un puntaje que será el mínimo de los puntajes de todos sus hijos.
+De esta manera, igual que en Backtracking tenemos un árbol de ejecución donde cada nodo es un estado del tablero y la raiz es el tablero vacío. Cada nodo (que no sea hoja) tendrá $N$ hijos donde cada uno representará que la próxima jugada fue en alguna de las $N$ columnas. De esta forma, recorremos todos los tableros posibles. Según quién comience, en el primer nivel trataremos de maximizar o minimizar, en el siguiente lo contrario y así sucesivamente. Todos los niveles impares minimizarán si empieza el contrincante y maximizarán si empieza nuestro jugador. El que maximiza le asignará a su nodo un puntaje que será el máximo de los puntajes de todos sus hijos. Análogamente el que minimiza le asignará a su nodo un puntaje que será el mínimo de los puntajes de todos sus hijos.
 
-Así, ejecutando dicho algoritmo la raíz tendrá la información de quién tiene la estrategia ganadora, o que ambos pueden asegurar el empate según quién empiece y haya un 1, 0 o -1. Esta es la idea general del algoritmo, lo veremos más claro en el siguiente pseudocódigo
-
-\subsubsection{El Pseudocódigo}
-
-
-\subsection{La poda alfa-beta}
-
-
-\subsubsection{El algoritmo}
+Así, ejecutando dicho algoritmo la raíz tendrá la información de quién tiene la estrategia ganadora, o que ambos pueden asegurar el empate según quién empiece y haya un 1, 0 o -1. Esta es la idea general del algoritmo, lo veremos más claro en pseudocódigo.
 
 \subsubsection{El Pseudocódigo}
+Comenzaremos con el \texttt{main} que es donde se hace el intercambio con el juego en sí. Para ello, primero se le ingresan los parámetros del tablero y las condiciones de juego y luego se desarrolla la partida. Esta termina cuando se lee el mensaje "ganaste", "perdiste" o "empataste". En cada iteración del ciclo (es decir, cada turno) se llama a la función \texttt{minimax} (que se detallará luego y es el algoritmo en sí que resuelve el problema).
 
+Antes del ciclo hay un \texttt{If} que es la ejecución del primer turno si empezamos nosotros a jugar ya que el ciclo comienza con la jugada del otro o la finalización del juego. Esto está determinado por un mensaje que se lee al iniciar el ciclo; si es un número, indica en qué columna jugó el adversario, si es el $string$ "ganaste", "perdiste" o "empataste" termina la ejecución.
+
+\begin{algorithm}
+   \caption{main}
+    \begin{algorithmic}[1]
+    \Function{main}{}
+        \State \texttt{leer} parámetros: \textit{color, oponent\_color, columns, rows, c, p}
+        \State inicializar $tablero$
+		\State \texttt{leer} quién empieza
+		\If{empiezo yo}
+			\State $movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
+			\State \texttt{AgregarAtras}($tablero[movida]$, 1)
+			\State resto 1 a $p$
+			\State \texttt{jugar}($movida$)		
+		\EndIf
+        \State \textbf{while} $true$ \textbf{do}
+
+            	\State \texttt{leer} $mensaje$
+            	\If{el $mensaje$ es de finalización}
+            		\State \textbf{break}
+            	\EndIf
+    			\State \texttt{AgregarAtras}($tablero$[movida del otro jugador], 2)        	
+            	\State resto 1 a $p$
+            	\State $movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
+            	\State \texttt{AgregarAtras}($tablero[movida]$, 1)
+            	\State resto 1 a $p$
+    			\State \texttt{jugar}($movida$)
+    \State \textbf{end while}
+    \EndFunction
+
+\end{algorithmic}
+\end{algorithm}
+
+El algoritmo del minimax consiste en...
+
+\begin{algorithm}
+   \caption{minimax}
+    \begin{algorithmic}[1]
+    \Function{minimax}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, \textit{matriz}(\textbf{int} \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} ultimajugada}
+		\If{\texttt{gane}}
+			\State \textbf{return} ($\infty$,1)
+		\EndIf
+		\If{\texttt{perdi}}
+			\State \textbf{return} ($\infty$,-1)
+		\EndIf
+		\If{empate porque no hay más fichas}
+			\State \textbf{return} ($\infty$,0)
+		\EndIf
+		%\State \textit{vector}(pair(\textbf{int},\textbf{int})) posibles = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
+		
+		\If{empate porque se llenó el tablero}
+		    \State \textbf{return} ($\infty$,0)
+		\EndIf
+		
+		\State recursión llamando al siguiente en el árbol de minimax
+		
+		\If{Maximizo}
+		    \State \textbf{return} la columna que da el máximo y su resultado
+		\Else
+		    \State \textbf{return} la columna que da el mínimo y su resultado
+		\EndIf
+		
+    \EndFunction
+
+
+
+
+
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Poda $\alpha$ - $\beta$}
+
+
+\subsubsection{Algoritmo}
+
+
+\subsubsection{Pseudocódigo}
+Para la poda se reutilizó el mismo código y se hizo un cambio al hacer la recursión. Para no copiar todo el pseudocódigo, a continuación se lo presenta con la inicialización previa de las variables \textit{posibles, mejorPos, mejorValorMaximizo} y \textit{mejorValorMinimizo}. $posibles$ es un vector de tuplas de enteros donde cada elemento representa cada columna del tablero. El primer elemento de la tupla es la posición y el segundo es .... Las otras variables se inicializan con los valores del primer elemento de la primera posición de $posibles$, $-\infty$ y $\infty$ respectivamente.
+\begin{algorithm}
+   \caption{minimaxPoda}
+    \begin{algorithmic}[1]
+    \Function{minimaxPoda}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} $\alpha$, \textbf{int} $\beta$, \textbf{int} ultimajugada}
+    \State vector(pair(\textbf{int},\textbf{int})) $posibles$ = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
+    \State \textbf{int} \textit{mejorPos} = $posibles[0]$.first
+    \State \textbf{int} \textit{mejorValorMaximizo} = $-\infty$
+    \State \textbf{int} \textit{mejorValorMinimizo} = $\infty$
+    \For{todos los $posibles$}
+    	\State matriz(\textbf{int}, \textbf{int}) $tablero2$ = $tablero$
+    	\State actualizar $tablero2$ según quién juega
+    	%MEJORAR ESTA LINEAAAAAAAAAA
+    	\State $posibles[i]$.second = recursión con $tablero2$, $p-1$ e invirtiendo el valor de verdad de $maximizo$
+    	\If{$maximizo$ $\land$ $posibles[i]$.second == $mejorValorMaximizo$}
+    		\State actualizo $mejorPos$ y $mejorValorMaximizo$
+    	\EndIf
+    	\If{$\lnot maximizo$ $\land$ $posibles[i]$.second $< mejorValorMinimizo$}
+    		\State actualizo $mejorPos$ y $mejorValorMinimizo$
+    	\EndIf
+    	\State $\alpha$ = max($\alpha$, mejorValorMaximizo)
+    	\State $\beta$ = min($\beta$, mejorValorMinimizo)
+    	\If{$\alpha$ $\geq$ $\beta$}
+    		\State break
+    	\EndIf
+    \EndFor
+    \If{$maximizo$}
+    	\State \textbf{return} ($mejorPos$, $mejorValorMaximizo$)
+    \Else
+    	\State \textbf{return} ($mejorPos$, $mejorValorMinimizo$)
+    \EndIf
+    \EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 
 \subsection{Complejidad}
@@ -321,7 +399,58 @@ Esta experimentación nos permitió no solo reforzar nuestra hipótesis (justifi
 \subsection{El algoritmo}
 
 \subsubsection{El Pseudocódigo}
+En el main a la variable $movida$ se le asigna el resultado de la función \texttt{parametrizable} que es el algoritmo goloso propuesto para esta parte del problema. Esta toma los mismos parámetros que \texttt{minimax} con el agregado del \textbf{parametro} $param$ y devuelve el número de columna que se debe jugar.
 
+La idea es que se asigne un puntaje a cada tablero y de las ocho opciones posibles se tome la de mayor puntaje (esta sería la parte golosa).
+
+En la función se llama a la función \texttt{puntaje} que se verá luego.
+
+La variable $tablero$ se pasa por referencia
+\begin{algorithm}
+\caption{parametrizable}
+    \begin{algorithmic}[1]
+    \Function{parametrizable}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero, \textbf{int} ultimajugada, \textbf{parametro} param}
+    	\State $posibles$ = [0,..,$columnas-1$] - las columnas llenas del $tablero$
+    	\For{$i$ = [0,..,$\lvert posibles \rvert$)}
+    		\If{jugando $posibles[i]$ se evita perder en la siguiente jugada}
+    			\State \textbf{return} $posibles[i]$
+    		\EndIf
+    	\EndFor
+    	\State \textbf{float} $maximoPuntaje$ = \texttt{puntaje}(rows, columns, c, p, tablero, posibles[0], param)
+    	\State \textbf{int} $maxpos$ = $posibles[0]$
+    	
+    	\For{$q$ = [1,..,$\lvert posibles \rvert$)}
+			\State \texttt{AgregarAtrás}($tablero[posibles[q]]$, 1)
+			\If{\texttt{puntaje}($rows$, $columns$, $c$, $p$, $tablero$, $posibles[q]$, $param$)>$maximopuntaje$}
+				actualizar $maximopuntaje$ y $maxpos$
+			\EndIf
+			\State Sacarle el último a $tablero[posibles[q]]$		
+		\EndFor
+		\State \textbf{return} $maxpos$
+    \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+La variable $tablero$ también se pasa por referencia pero como \texttt{const}.
+\begin{algorithm}
+\caption{puntaje}
+    \begin{algorithmic}[1]
+    \Function{puntaje}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero, \textbf{int} ultimajugada, \textbf{parametro} param}
+		\If{ya gané}
+			\State \textbf{return} $\infty$
+		\EndIf    	
+    	\State cuento los que estan en el borde de cada jugador
+    	\State cuento la cantidad de fichas que estan en una esquina de cada jugador
+    	\State cuento la cantidad de fichas en el centro de cada jugador
+		\State cuento la cantidad de casillas libres alrededor de cada ficha de cada jugador
+		\State cuento la cantidad de fichas consecutivas de cada jugador
+		\State cuento cantidad de inmediatemente extensibles en la próxima jugada de cada jugador
+		\State cuento cantidad de  extensibles en cualquier momento de cada jugador
+		\State cuento cantidad de  bi-extensibles (extensibles en ambos sentidos) en cualquier momento de cada jugador
+		\State \textbf{return} \sum cantidad$_{jugador1}*$(puntaje del parámetro)-cantidad$_{jugador2}*$(puntaje del parámetro)
+    \EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 
 \subsection{Complejidad}
@@ -416,7 +545,31 @@ Otra modificación fue
 El algoritmo genético se basa en la teoría genética darwiniana y busca básicamente recrear la evolución de una población. Los individuos más aptos tendrán mayor probabilidad de perdurar a lo largo de las generaciones, transmitiendo asi los genes que hacen que sean más aptos. Se recrea también la mutación que permite que haya cambios en los genes (que pueden ser beneficiosos para la aptitud como no) de forma aleatoria. También se da el crossover, donde los genes de uno de los individuos se cruza con los de otro, generando asi nuevos individuos que no son copia de uno ni de otro sino una mezcla de ambos. Para mayor precisión veamos el pseudocódigo:
 
 \subsubsection{El Pseudocódigo}
-
+\begin{algorithm}
+\caption{genetico}
+\begin{algortithmic}[1]
+	\Function{genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p}
+	\State \textbf{int} $tamanopoblacion$, $totalgeneraciones$, $k$
+	\State \textbf{float} $min$, $max$, $pmutar$, $pcrossover$
+	\State vector(\textbf{parametro}) $poblacion$ = vector de longitud $tamanopoblacion$ donde cada elemento está dado por sendos llamados a \texttt{paramrandom}($c$)
+	\For{$generacion$ = [1..$totalgeneraciones$)}
+		\State poblacion = \texttt{seleccionNatural}
+		\For{$i \in poblacion$}
+			\State \texttt{mutar}(i) con probabilidad $pmutar$
+		\EndFor
+	\EndFor
+	\State \textbf{float} $maximo$ = \texttt{fitness}($poblacion[0]$, $poblacion$, $rows$, $columns$, $c$, $p$)
+	\State \textbf{int} $maxpos$ = 0
+	\For{\textbf{int} $i$ = [1..$poblacion$)}
+		\State \textbf{float} $actual$ = \texttt{fitness}($poblacion[i]$, $poblacion$, $rows$, $columns$, $c$, $p$)
+		\If{$actual>maximo$}
+			\State actualizar $maxpos$ y $maximo$
+		\EndIf
+	\EndFor
+	\State \textbf{return} $poblacion[maxpos]$
+    \EndFunction
+\end{algortithmic}
+\end{algorithm}
 
 \subsection{El algoritmo}
 
