@@ -528,14 +528,11 @@ Otra modificación fue poner los parámetros que consideramos más importantes (
 
 \subsubsection{Grid recomendado}
 
-Incluso con las modificaciones a la idea original, la forma de recorrer la grilla de a pares de parametros resultaba muy acotada, y no llegaba a encontrar buenas combinaciones de valores que resultaran en un jugador bueno. Esto es de esperar ya que si recordamos el tamaño gigante de $ 20^{28}$ posibilidades no hay manera de explorarlo bien en un tiempo razonable. A causa de esto se recurrió a la posibilidad de comenzar el grid search no con un conjunto de parámetros aleatorios, si no con un jugador hecho "a...(line truncated)...
++Incluso con las modificaciones a la idea original, la forma de recorrer la grilla de a pares de parametros resultaba muy acotada, y no llegaba a encontrar buenas combinaciones de valores que resultaran en un jugador bueno. Esto es de esperar ya que si recordamos el tamaño gigante de $ 20^{28}$ posibilidades no hay manera de explorarlo bien en un tiempo razonable. A causa de esto se recurrió a la posibilidad de comenzar el grid search no con un conjunto de parámetros aleatorios, si no con un jugador hecho "a mano", con parámetros medianamente buenos. Con esto se buscaba que el grid search explore opciones cercanas a un conjunto que ya se sabe no es muy malo, de esta forma se intentó evitar la gran cantidad de combinaciones inútiles que el algoritmo estaba recorriendo previamente, y en su lugar mejorar una solución inicial.
 
+Con esta recomendación de parámetros iniciales ya sí se pudieron observar resultados interesantes del grid search. El jugador resultante surge de haber vencido a los valores de entrada, por lo cual no sólo tiene un nivel de juego muy superior a los intentos previos del algoritmo, además mejora por sobre los parámetros de entrada, de forma que finalmente se logró llegar a un algoritmo de optimización de búsqueda por metodo de grid search que efectivamente logre encontrar una solución buscada.
 
-PONER EL RESULTADO DE ESTO
-
-PONER EL RESULTADO DE ESTO
-
-PONER EL RESULTADO DE ESTO
+Como conclusión se pudo concluir que a causa del inmenso espacio de búsqueda resultaba inviable la exploración no asistida del mismo, por esto se recurrió (y se constató que es una alternativa efectiva) a comenzar la exploración desde un punto de partida bueno e ir mejorando el conjunto de parámetros a partir de este input con valores (PALABRA DE QUE LOS SELECCIONAMOS A MANO, PERO PODRIAN HABER SIDO OTROS. COMO ERAAAAA)
 
 
 
