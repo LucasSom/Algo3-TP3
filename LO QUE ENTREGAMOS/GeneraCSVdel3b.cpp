@@ -57,8 +57,8 @@ struct parametro{
 bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	
 	 if(ultimajugada==-1){if(c==1) {return true;}else{return false;}}
-     //CAMBIO CHEBAR, AGREGUE ESTO, COSA QUE SI HAY QUE PONER UNA SOLA Y SOS EL PRIMERO EN JUGAR YA GANASTE
-     //Por si es la primer jugada, nadie gano aun
+     //Por si es la primer jugada, nadie gano aun, salvo sea 1 en linea.
+     
 	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
 	 bool esMio = true;
 		
@@ -647,10 +647,9 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	//el parametro de entrada consecutivos es un vector que tiene en la i coordenada el valor de las tiras de largo i+1. Consecutivos tiene c-1 elementos
 	//idem para extensibles
 	
-	if( gane(tablero,c,ultimajugada)) {return INF;} //si gane da infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
 	
-	//if( perdi(tablero,c,ultimajugada)) {return INFneg;} //si perdi da -infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
-	//NO TIENE SENTIDO, NUNCA VOY A TENER UN TABLERO EN EL QUE YA PERDI, SI ME TOCA JUGAR A MI
+	
+	//el checkeo de si estoy por ganar o me estan por ganar se hace en la funcion parametrizable
 	
 	
 	
@@ -699,45 +698,6 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	total= total + (libres1*param.libertadparam.first-libres2*param.libertadparam.second);
 	total= total + subtotalA;
 	return total;
-	
-	
-	
-	
-	//ideas de puntajes:
-	
-	//--------------HECHO--------------------
-	//cantidad de fichas en los bordes HECHO
-	//cantidad de fichas en las esquinas HECHO
-	//cantidad de fichas en el centro HECHO
-	//contar casillas libres alrededor de cada mia. HECHO
-	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. HECHO 
-	//gano +inf y si pierdo es -inf HECHO
-	//contar TODAS las extensibles, no solo las de la proxima jugada, para cada largo HECHO
-	//cpntar las extensibles en AMBOS sentidos para cada largo HECHO
-	
-	
-	//----------A HACER -----------
-	
-	//EN EXTENSIBLES (en general, no en el caso de inmediatamente extensibles que ese esta bien): 
-	//NO CUENTO ACA SI CON UN MOVIMIENTO DOS DE 1 SE UNEN EN UNA DE 3, HACER ESTO
-	//INCLUSO CREO QUE LA QUE CUENTA EXTENSIBLES ESTA MAL... BUSCAR OTRA FORMA...
-	//soy chebar, creo que solucion esto, contando que dosd e 1 se unen en una de 3 para TODOS los extensibles
-	//y también contando bien todo porque antes estaba medio mal. Lo hice agregando eso de anterior, CHECKEAR
-	// (Esto lo hace la funcion ext)
-	
-
-	//Agregar las biextensibles en el proximo?
-	
-	//hacer parametros para cada jugada, o dividir en etapas y hacer parametros para cada etapa
-	
-	
-	
-	
-	//-------LO HACEMOS DESPUES Y NO TAN UTIL COMO LO DE ARRIBA. IDEAS VIEJAS----------
-	
-	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino, o contar por cada columna..
-	//tratar de maximizar mi putntaje, o minimizar el de el, o maximizar la diferencia (me parece mejor la ultima pero puede ser otro parámetro y que decida entre las tres)
-	//contar si hay lugares consecutivos (al menos dos, uno encima de otro) donde ambos extienden y de que largo
 	
 	
 	}
@@ -941,9 +901,6 @@ float fitness2(parametro param, vector<parametro> poblacion, int rows, int  colu
 //de todas las cosas.
 void mutacion(parametro& param, float rate, float min, float max){
 	
-	// PARA QE NO SEA MUY CAOTICA LA EVOLUCION ES OTRA OPCION QUE EN VEZ DE QUE MUTE A UN RANDOM CUALQUIER
-	//QUE MUTE A ALGO COMO nuevo=viejo+(float_rand(min,max)*mutSize) DONDE mutSize ES ALGO COMO EL MUTATION RATE,
-	// UN PARAMETRO DEL GENETICO Y QU SEA UN VALOR COMO 0.05 0.1 0.2 IDEA PARA EXPERIMENTAR.
 
 	//muto aleatoriamente los parametros que son solo numeros
 	if(float_rand(0,1)<rate){param.esquinaparam.first = float_rand(min,max);}
@@ -1008,15 +965,6 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 		param.biextparam.first = copiode.biextparam.first;
 		param.biextparam.second = copiode.biextparam.second;
 
-	//CHE QUIZAS ESTARIA BUENO QUE PUEDACOPIAR PARTE DE UN VECTOR DE UN PADREY PARTE DEL OTRO NO?
-	//SE HARIA ASI PONELE. OTRA IDEA PARA EXPERIMENTAR
-		/*
-		//muto aleatoriamente los vectores
-	for(int k=0;k<p1.extensibles.size();++k){
-		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.extensiblesprox.push_back(copiode.extensiblesprox[k]);
-	}
-*/
 	//muto aleatoriamente los vectores
 	for(int k=0;k<p1.extensibles.size();++k){
 		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
@@ -1050,9 +998,6 @@ parametro crossover(parametro p1, parametro p2, float rate, float min, float max
 	//idea: quedarse con la mitad de los de mejor fitness.Luego los cruzo agarrando aleatoriamente dos de ellos
 	// hasta que tenga una poblacion del mismo tamaño que antes.
 	// Conservar siempre al mejor individuo copiado tal cual
-	//POSIBLE MODIFICACION, TOMAR ALEATORIOS DONDE CUANTO MAS ARRIBA ESTAS MAS CHANCES TENES. ES FACIL DE HACER.
-	
-	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
 vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	//ofstream myfile;
@@ -1126,9 +1071,6 @@ vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, floa
 	//idea: agarrar varios al azar y elegir el mejor y cruzarlo con otro elegido de la misma forma. Repetir asi
 	//hasta tener todos los que queremos.  Hago como minitorneos y asi elijo a cada padre.
 	//Conservar siempre al mejor individuo copiado tal cual
-	
-	
-	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
 vector<parametro> seleccion2(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
 	
 	
@@ -1291,7 +1233,7 @@ parametro genetico(int rows, int columns, int c, int p){
 	int tamanopoblacion=50;
 	float min=-1;
 	float max=1;
-	float pmutar=0.000001;
+	float pmutar=0.005;
 	float pcrossover=0.4;
 	int totalgeneraciones=100;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
@@ -1313,7 +1255,7 @@ parametro genetico(int rows, int columns, int c, int p){
 	while(generacion<totalgeneraciones){
 		//puse esta como basica pero se puede poner una condicion de corte mucho mejor
 		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
-		for(int i=1;i<poblacion.size();++i){
+		for(int i=0;i<poblacion.size();++i){
 			mutacion(poblacion[i],pmutar, min, max);
 		}
 		//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
@@ -1398,7 +1340,7 @@ int main(){
 	parametro param=genetico(6,7,4,50);
 	
 	ofstream mejorcito;
-	mejorcito.open("BgeneticopostaPMUTA=0.txt");
+	mejorcito.open("BgeneticopostaMUTA1.txt");
 
 	mejorcito<< param.esquinaparam.first << endl; 
 	mejorcito<<param.esquinaparam.second<< endl;

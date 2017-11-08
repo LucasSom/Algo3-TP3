@@ -84,8 +84,8 @@ std::string read_str() {
 bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	
 	 if(ultimajugada==-1){if(c==1) {return true;}else{return false;}}
-     //CAMBIO CHEBAR, AGREGUE ESTO, COSA QUE SI HAY QUE PONER UNA SOLA Y SOS EL PRIMERO EN JUGAR YA GANASTE
-     //Por si es la primer jugada, nadie gano aun
+     //Por si es la primer jugada, nadie gano aun, salvo sea 1 en linea.
+     
 	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
 	 bool esMio = true;
 		
@@ -674,11 +674,7 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	//el parametro de entrada consecutivos es un vector que tiene en la i coordenada el valor de las tiras de largo i+1. Consecutivos tiene c-1 elementos
 	//idem para extensibles
 	
-	if( gane(tablero,c,ultimajugada)) {return INF;} //si gane da infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
-	
-	//if( perdi(tablero,c,ultimajugada)) {return INFneg;} //si perdi da -infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
-	//NO TIENE SENTIDO, NUNCA VOY A TENER UN TABLERO EN EL QUE YA PERDI, SI ME TOCA JUGAR A MI
-	
+	//el checkeo de si gano o pierdo en el proximo turno lo hace la funcion parametrizable
 	
 	
 	//cuento los que estan en el borde, mias y de el.
@@ -726,47 +722,7 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	total= total + (libres1*param.libertadparam.first-libres2*param.libertadparam.second);
 	total= total + subtotalA;
 	return total;
-	
-	
-	
-	
-	//ideas de puntajes:
-	
-	//--------------HECHO--------------------
-	//cantidad de fichas en los bordes HECHO
-	//cantidad de fichas en las esquinas HECHO
-	//cantidad de fichas en el centro HECHO
-	//contar casillas libres alrededor de cada mia. HECHO
-	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. HECHO 
-	//gano +inf y si pierdo es -inf HECHO
-	//contar TODAS las extensibles, no solo las de la proxima jugada, para cada largo HECHO
-	//cpntar las extensibles en AMBOS sentidos para cada largo HECHO
-	
-	
-	//----------A HACER -----------
-	
-	//EN EXTENSIBLES (en general, no en el caso de inmediatamente extensibles que ese esta bien): 
-	//NO CUENTO ACA SI CON UN MOVIMIENTO DOS DE 1 SE UNEN EN UNA DE 3, HACER ESTO
-	//INCLUSO CREO QUE LA QUE CUENTA EXTENSIBLES ESTA MAL... BUSCAR OTRA FORMA...
-	//soy chebar, creo que solucion esto, contando que dosd e 1 se unen en una de 3 para TODOS los extensibles
-	//y también contando bien todo porque antes estaba medio mal. Lo hice agregando eso de anterior, CHECKEAR
-	// (Esto lo hace la funcion ext)
-	
-
-	//Agregar las biextensibles en el proximo?
-	
-	//hacer parametros para cada jugada, o dividir en etapas y hacer parametros para cada etapa
-	
-	
-	
-	
-	//-------LO HACEMOS DESPUES Y NO TAN UTIL COMO LO DE ARRIBA. IDEAS VIEJAS----------
-	
-	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino, o contar por cada columna..
-	//tratar de maximizar mi putntaje, o minimizar el de el, o maximizar la diferencia (me parece mejor la ultima pero puede ser otro parámetro y que decida entre las tres)
-	//contar si hay lugares consecutivos (al menos dos, uno encima de otro) donde ambos extienden y de que largo
-	
-	
+		
 	}
 
 
@@ -783,13 +739,13 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int h=0;h<columns;++h){
 		if(tablero[h].size()<rows){ posibles.push_back(h);}
 	}
-	
+		
 	for(int a=0; a<posibles.size();++a){
-		//si voy a perder, la salvo.
+		//si puedo ganar, gano
 		tablero[posibles[a]].push_back(1);
 		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
-	}
+	}	
 		
 	for(int a=0; a<posibles.size();++a){
 		//si voy a perder, la salvo.
@@ -816,113 +772,15 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	return maxpos;
 }
 
-
-
-parametro leerParametroDeValores(int c){
-
-	parametro param;
-
-	ifstream valores;
-	valores.open ("geneticopostaMUTA1.txt");
-	
-
-	valores >> param.esquinaparam.first;
-	valores >> param.esquinaparam.second;
-	valores >> param.bordeparam.first;
-	valores >> param.bordeparam.second;
-	valores >> param.libertadparam.first;
-	valores >> param.libertadparam.second;
-	valores >> param.consecparam.first;
-	valores >> param.consecparam.second;
-	valores >> param.centroparam.first;
-	valores >> param.centroparam.second;
-	valores >> param.extproxparam.first;
-	valores >> param.extproxparam.second;
-	valores >> param.extparam.first;
-	valores >> param.extparam.second;
-	valores >> param.biextparam.first;
-	valores >> param.biextparam.second ;
-	
-	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
-	//caracteristica va entre -1 y 1.
-	vector<float> vacio;
-	param.consecutivos=vacio;
-	param.extensibles=vacio;
-	param.extensiblesprox=vacio;
-	param.biextensibles=vacio;
-	for(int k=0;k<c-1;++k){
-		float n;
-		valores >> n;
-		param.extensiblesprox.push_back(n);
-		valores >> n;
-		param.extensibles.push_back(n);
-		valores >> n;
-		param.biextensibles.push_back(n);
-		valores >> n;
-		param.consecutivos.push_back(n);
-	}
-
-
-	return param;
-}
-
-
-
 	
 //---------------FUNCION MAIN, EL JUGADOR EN SI---------------------
 
 int main() {
 	
-
 	
-	//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
+	//hay que declarar el parametro que le vamos a pasar y darle el valor que querramos luego
 	parametro param;
 	
-	param.esquinaparam.first=0;//-10
-	param.esquinaparam.second=0;//-10
-	param.bordeparam.first=0;//-3
-	param.bordeparam.second=0;//-3
-	param.centroparam.first=0;//8
-	param.centroparam.second=0;//8
-	param.libertadparam.first=0;//1
-	param.libertadparam.second=0;//1
-	
-	param.consecutivos.push_back(0);
-	param.consecutivos.push_back(10);
-	param.consecutivos.push_back(100);
-	
-	param.consecparam.first=0;
-	param.consecparam.second=0;
-	
-	
-	param.extensiblesprox.push_back(0);
-	param.extensiblesprox.push_back(200);
-	param.extensiblesprox.push_back(8888888); //esto es ganar para el, tiene que ser +inf
-	
-	param.extproxparam.first=0;
-	param.extproxparam.second=1;
-	
-	
-	param.extensibles.push_back(0);
-	param.extensibles.push_back(10);
-	param.extensibles.push_back(100); 
-	
-	param.extparam.first=0;
-	param.extparam.second=0;
-
-
-	param.biextensibles.push_back(10);
-	param.biextensibles.push_back(1000);
-	param.biextensibles.push_back(88888888); //esto es ganar para el, es +inf
-		
-	param.biextparam.first=0;
-	param.biextparam.second=1;
-	//---------
-
-
-	
-
-    //std::default_random_engine generator;
     std::string msg, color, oponent_color, go_first;
     int columns, rows, c, p, move;
 
@@ -934,22 +792,15 @@ int main() {
         rows = read_int();
         c = read_int();
         p = read_int();
-
-
-	param = leerParametroDeValores(c);
-
-	//std::vector<int> board(columns);
 		vector<vector<int>>tablero (columns);
 		//la primer cordenada del tablero es la columna, y la segunda es la fila
         
-        //for(int i=0; i<columns; ++i) board[i] = 0;
 		
-		p=2*p;//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
+		p=2*p;//Cuento fichas totales
         go_first = read_str();
         if (go_first == "vos") {
             move = parametrizable(rows, columns, c, p, tablero, -1, param);
             tablero[move].push_back(1); //juego yo
-            //board[move]++;
             --p;
             send(move);
         }
@@ -960,11 +811,9 @@ int main() {
                 break;
             }
 			tablero[std::stoi(msg)].push_back(2);//juega el
-			--p; //CAMBIO CHEBAR FICHAS AHORA CUENTO FICHAS TOTALES
-            //board[std::stoi(msg)]++;
+			--p; //Cuento fichas totales
             move = parametrizable(rows, columns, c, p, tablero, std::stoi(msg), param);
             tablero[move].push_back(1); //juego yo
-            //board[move]++;
             --p;
             send(move);
         }
