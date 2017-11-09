@@ -203,33 +203,33 @@ Comenzaremos con el \texttt{main} que es donde se hace el intercambio con el jue
 
 Antes del ciclo hay un \texttt{If} que es la ejecución del primer turno si empezamos nosotros a jugar ya que el ciclo comienza con la jugada del otro o la finalización del juego. Esto está determinado por un mensaje que se lee al iniciar el ciclo; si es un número, indica en qué columna jugó el adversario, si es el $string$ ''ganaste'', ''perdiste'' o ''empataste'' termina la ejecución.
 
+
 \begin{algorithm}
-
-    \Function{main}{}
-        \State \texttt{leer} parámetros: \textit{color, oponent\_color, columns, rows, c, p}
-        \State inicializar $tablero$
-		\State \texttt{leer} quién empieza
-		\If{empiezo yo}
-			\State $movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
-			\State \texttt{AgregarAtras}($tablero[movida]$, 1)
-			\State resto 1 a $p$
-			\State \texttt{jugar}($movida$)		
-		\EndIf
-        \State \textbf{while} $true$ \textbf{do}
-
-            	\State \texttt{leer} $mensaje$
-            	\If{el $mensaje$ es de finalización}
-            		\State \textbf{break}
-            	\EndIf
-    			\State \texttt{AgregarAtras}($tablero$[movida del otro jugador], 2)        	
-            	\State resto 1 a $p$
-            	\State $movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
-            	\State \texttt{AgregarAtras}($tablero[movida]$, 1)
-            	\State resto 1 a $p$
-    			\State \texttt{jugar}($movida$)
-    \State \textbf{end while}
-    \EndFunction
-
+	\texttt{leer} parámetros: \textit{color, oponent\_color, columns, rows, c, p}
+    inicializar $tablero$
+	\texttt{leer} quién empieza
+	\If{empiezo yo}
+		{
+		$movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
+		\texttt{AgregarAtras}($tablero[movida]$, 1)
+		resto 1 a $p$
+		\texttt{jugar}($movida$)		
+		}
+    \While{$true$}
+    	{
+    	\texttt{leer} $mensaje$
+        \If{el $mensaje$ es de finalización}
+        	{
+        	\textbf{break}
+            }
+        \texttt{AgregarAtras}($tablero$[movida del otro jugador], 2)        	
+		resto 1 a $p$
+        $movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
+        \texttt{AgregarAtras}($tablero[movida]$, 1)
+        resto 1 a $p$
+    	\texttt{jugar}($movida$)
+    	}
+    \caption{Main}   
 \end{algorithm}
 
 El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero es la columna donde se consigue el mejor valor posible, es decir, la jugada óptima desde el tablero de entrada, y el segundo es el mejor valor que se puede conseguir al hacer esa jugada. Se usaron los valores 1, 0 y -1 para asignar los valores respectivos a ganar, empatar o perder. Además, se usó $\infty$ como número de relleno cuando todavía no se había inicializado.
@@ -398,6 +398,7 @@ Esta experimentación nos permitió no solo reforzar nuestra hipótesis (justifi
 
 
 \subsection{El algoritmo}
+\textbf{NUEVO}
 El algoritmo consiste basicamente en establecer un sistema de puntos para cada tablero, donde se miden solamente ciertas características que decidimos nosotros. A cada una de esas características se le asignara una importancia. El jugador es goloso en el proximo paso, o sea, evalúa todas las opciones que tiene para jugar (todas las columnas donde se puede jugar) y se queda con la que tenga un tablero que le da el mayor puntaje. La libertad que tiene el jugador es la importancia de cada característica, que es lo que luego se buscara optimizar. Las características que decidimos considerar fueron cantidad de fichas en la columna central, en algun borde, en alguna esquina; cantidad de fichas consecutivas de tamaño 1,2,..,c-1; cantidad de fichas consecutivas de tamaño 1,2,..,c-1 que se pueden extender;  cantidad de fichas consecutivas de tamaño 1,2,..,c-1 que se pueden extender en el próximo turno (extensiblesprox);  y cantidad de fichas consecutivas de tamaño 1,2,..,c-1 que se pueden extender en ambos sentidos (biextensibles). Cada una de estas características se considero para los dos jugadores.
 \subsubsection{El Pseudocódigo}
 En el \texttt{main} a la variable $movida$ se le asigna el resultado de la función \texttt{parametrizable} que es el algoritmo goloso propuesto para esta parte del problema. Esta toma los mismos parámetros que \texttt{minimax} con el agregado del \textbf{parametro} $param$ y devuelve el número de columna que se debe jugar.
@@ -455,6 +456,7 @@ La variable $tablero$, como en \texttt{parametrizable} también se pasa por refe
 
 \end{algorithm}
 
+\textbf{NUEVO}
 Cabe aclarar que contar la cantidad de fichas en determinadas posiciones es simplemente recorrer el tablero en busqueda de esas posiciones. De forma similar, contar las consecutivas es mirar todas las filas columnas y diagonales que hay en el tablero y recorrerlas, contando las consecutivas de un jugador (es recorrer todo el tablero 4 veces, una horizontalmente, otra vertical, una en diagonal desde arriba a la izquierda hacia abajo a la derecha y la ultima en diagonal desde arriba a la derecha hacia abajo a la izquierda). Teniendo esto en cuenta es simple chequear si cada una de estas tiras es extensible o bi extensible, viendo simplemente si sus casillas por donde podrían seguir estan vacías o no (si existen, cosa que podría no suceder en caso de estar en el borde del tablero) y para ver si son extensibles en el proximo turno es cuestion de analizar si estas casillas tienen debajo alguna ficha o son la primera de su columna (o sea si se puede jugar ahí en el próximo turno).
 
 \subsection{Complejidad}
@@ -468,37 +470,6 @@ Cabe aclarar aquí que consideramos como un parámetro a los vectores de paráme
  
 Pero nuestro jugador no hace solo eso, sino que analiza cómo quedaría el puntaje del tablero para cada una de sus $N$ posibles jugadas y luego se queda el máximo de ellas (esta es la parte golosa). Repite entonces $N$ veces algo  $\mathcal{O}(N M)$ por lo que da una complejidad de $\mathcal{O}(N^2 M)$ y luego calcula el máximo sobre $N$ elementos que suma $\mathcal{O}(N)$ (es recorrer linealmente un vector) y da una complejidad total de $\mathcal{O}(N^2 M) +\mathcal{O}(N) = \mathcal{O}(N^2 M)$.
 
-
-Como muestra el pseudocódigo, el algoritmo lo que hace es establecer un tamaño de población e inicializa de alguna manera (en principio de forma aleatoria) a todos estos individuos. En nuestro caso, nuestros individuos son una estructura que contiene un valor particular para cada uno de los parámetros que tomaba la funcion del jugador parametrizable.
-
-Hasta que se cumpla una condicion de corte (en principio una cantidad fija de generaciones, pero esta variará también siendo un tiempo, o podría ser también cierta condicion de convergencia), se generarán nuevas poblaciones, que serán la próxima generacion. Cada generación sufre un proceso de mutación y para dar lugar a una nueva, se da un proceso de selección que determina pares de individuos con los cuales se realizará el crossover dando lugar asi a un nuevo individuo que será parte de la próxima generación.
-
-Para decidir a que individuos seleccionar, se utiliza una función de fitness que basicamente decide (de alguna forma) cuan apto es un individuo. A partir de estos valores, el proceso de selección decidirá quienes seran los que darán lugar a la nueva generacion (en general, los más aptos son los que tienen mas probabilidad de dar descendencia, ya que sus genes dan individuos más aptos).
-
-A lo largo de toda la experimentación utilizamos diversas funciones de estas que detallamos a continuacion
-
-\begin{itemize}
-\item \textbf{\underline{Crossover:}} Consiste en dados dos individuos (padres, dos estructuras de parámetros), generar un nuevo individuo que cada gen (cada parámetro particular) sea o bien de un padre o bien del otro. En nuestro caso toma un valor pcrossover que indica la probabilidad de que se cambie el padre del cual se estan copiando los genes. El primer gen lo copia del primer padre pasado por parámetro, y cada vez que va al siguiente gen, sortea un numero (con una función random de distribución uniforme, rand() de C++) en $[0,1]$ y si el resultado cae en $[0,pcrossover]$ copia el siguiente gen del otro padre y sino sigue copiando del mismo. En principio, como los vectores que son parámetros (extensibles, extensiblesprox, biextensibles, consecutivos) presentan una clara relación entre ellos decidimos que sean tomados como un gen entero (o bien se copia el vector de un padre o bien del otro)
-
-\item \textbf{\underline{Mutación:}} Consiste en dado un individuo, cambiar cada uno de sus genes en base a alguna distribución de probabilidad. En nuestro caso, la funcion tomaba un valor pmutar. De forma análoga al crossover para cada gen se sorteaba un numero y si caía en $[0,pmutar]$ ese gen mutaba y pasaba a tomar un nuevo valor aleatorio (generado con la funcion rand() de C++) entre un valor min y max que eran los valores minimos y máximos que podía tomar el puntaje.
-
-
-\item \textbf{\underline{Selección 1:}} Consiste en calcular el fitness de todos los individuos de la población y para los que esten en una proporcion de los que tienen mas fitness (se fijo inicialmente en la mitad con más fitness) tomar dos aleatoriamente (con distribución uniforme, usando rand() de C++) y a esos aplicarles crossover obteniendo así un individuo de la nueva poblacion. Repetimos este proceso de tomar dos aleatoriamente de ese grupo hasta que la nueva población tenga el mismo tamaño que la anterior. Siempre se incluye tal cual estaba en la nueva generación al mejor de la anterior (esto es elitismo, propiciamos que el mejor de todos se mantenga). Notar que si bien siempre se deja como estaba, este individuo (si no lo evitamos) podría sufrir alguna pequeña mutación.
-
-\item \textbf{\underline{Selección 2:}} Consiste en generar grupos de un cierto tamaño (que se fijo inicialmente en el 20\% de la poblacion) tomando a sus integrantes de toda la población (con distribución uniforme, usando rand() de C++). Luego dado un grupo se elegía al mas apto dentro de ese grupo (al que tuviera mayor fitness), se repetía lo mismo obteniendo un segundo individuo (obtenido desde un nuevo grupo) y luego se realizaba crossover con estos dos obteniendo un individuo de la nueva generacion. El proceso se repetía hasta que la nueva generación tuviera el mismo tamaño que la anterior. Nuevamente se utilizó elitismo, dejando en la nueva población tal cual estaba al mejor de la anterior
-
-\item \textbf{\underline{Fitness 1:}} Se hace jugar a cada individuo contra todos los de su poblacion dos partidos, donde en uno empieza y en el otro va segundo. Se cuenta la cantidad de partidos en los que no perdió y se los divide por la cantidad de partidos jugados para normalizarlos (queda el fitness en [0,1] y además permite que quede en el mismo rango para disintos tamaños de población).
-
-
-\item \textbf{\underline{Fitness 2:}} La idea de esta función de fitness es establecer un sistema de puntos. Nuevamente se hace jugar a cada individuo contra todos los de su población dos partidos, donde en uno empieza y en otro va segundo. Se da un puntaje según pierda gana o empata (pierde=0; empata=5; gana=10) y se da un bonus si se empieza segundo ya que suponemos que en tableros medianamente grandes es una ventaja comenzar (BonusPierde=1; BonusEmpata=2; BonusGana=4). Luego, se divide al puntaje sobre la cantidad de partidos jugados (para poder tener los mismos valores de fitness en poblaciones de distintos tamaños).
-
-
-
-
-
-
-
-\end{itemize}
 \subsection{Experimentación}
 
 
@@ -605,7 +576,7 @@ El algoritmo genético se basa en la teoría genética darwiniana y busca básic
 \end{algortithmic}
 \end{algorithm}
 
-En el pseudocódigo anterior se hicieror llamadas a las siguientes funciones:
+En el pseudocódigo anterior se hicieroN llamadas a las siguientes funciones:
 
 \begin{itemize}
 \item \texttt{paramrandom}: asigna aleatoriamente un número entre -1 y 1 a cada parámetro
@@ -613,6 +584,33 @@ En el pseudocódigo anterior se hicieror llamadas a las siguientes funciones:
 \item \texttt{mutar}: para cada parámetro, si un número aleatorio entre 0 y 1 es menor que la probabilidad de mutar $pmutar$ entonces se vuelve a randomizar ese parámetro.
 \item \texttt{fitness}: 
 \end{itemize}
+
+\textbf{NUEVO}
+
+Como muestra el pseudocódigo, el algoritmo lo que hace es establecer un tamaño de población e inicializa de alguna manera (en principio de forma aleatoria) a todos estos individuos. En nuestro caso, nuestros individuos son una estructura que contiene un valor particular para cada uno de los parámetros que tomaba la funcion del jugador parametrizable.
+
+Hasta que se cumpla una condicion de corte (en principio una cantidad fija de generaciones, pero esta variará también siendo un tiempo, o podría ser también cierta condicion de convergencia), se generarán nuevas poblaciones, que serán la próxima generacion. Cada generación sufre un proceso de mutación y para dar lugar a una nueva, se da un proceso de selección que determina pares de individuos con los cuales se realizará el crossover dando lugar asi a un nuevo individuo que será parte de la próxima generación.
+
+Para decidir a que individuos seleccionar, se utiliza una función de fitness que basicamente decide (de alguna forma) cuan apto es un individuo. A partir de estos valores, el proceso de selección decidirá quienes seran los que darán lugar a la nueva generacion (en general, los más aptos son los que tienen mas probabilidad de dar descendencia, ya que sus genes dan individuos más aptos).
+
+A lo largo de toda la experimentación utilizamos diversas funciones de estas que detallamos a continuacion
+
+\begin{itemize}
+\item \textbf{\underline{Crossover:}} Consiste en dados dos individuos (padres, dos estructuras de parámetros), generar un nuevo individuo que cada gen (cada parámetro particular) sea o bien de un padre o bien del otro. En nuestro caso toma un valor pcrossover que indica la probabilidad de que se cambie el padre del cual se estan copiando los genes. El primer gen lo copia del primer padre pasado por parámetro, y cada vez que va al siguiente gen, sortea un numero (con una función random de distribución uniforme, rand() de C++) en $[0,1]$ y si el resultado cae en $[0,pcrossover]$ copia el siguiente gen del otro padre y sino sigue copiando del mismo. En principio, como los vectores que son parámetros (extensibles, extensiblesprox, biextensibles, consecutivos) presentan una clara relación entre ellos decidimos que sean tomados como un gen entero (o bien se copia el vector de un padre o bien del otro)
+
+\item \textbf{\underline{Mutación:}} Consiste en dado un individuo, cambiar cada uno de sus genes en base a alguna distribución de probabilidad. En nuestro caso, la funcion tomaba un valor pmutar. De forma análoga al crossover para cada gen se sorteaba un numero y si caía en $[0,pmutar]$ ese gen mutaba y pasaba a tomar un nuevo valor aleatorio (generado con la funcion rand() de C++) entre un valor min y max que eran los valores minimos y máximos que podía tomar el puntaje.
+
+
+\item \textbf{\underline{Selección 1:}} Consiste en calcular el fitness de todos los individuos de la población y para los que esten en una proporcion de los que tienen mas fitness (se fijo inicialmente en la mitad con más fitness) tomar dos aleatoriamente (con distribución uniforme, usando rand() de C++) y a esos aplicarles crossover obteniendo así un individuo de la nueva poblacion. Repetimos este proceso de tomar dos aleatoriamente de ese grupo hasta que la nueva población tenga el mismo tamaño que la anterior. Siempre se incluye tal cual estaba en la nueva generación al mejor de la anterior (esto es elitismo, propiciamos que el mejor de todos se mantenga). Notar que si bien siempre se deja como estaba, este individuo (si no lo evitamos) podría sufrir alguna pequeña mutación.
+
+\item \textbf{\underline{Selección 2:}} Consiste en generar grupos de un cierto tamaño (que se fijo inicialmente en el 20\% de la poblacion) tomando a sus integrantes de toda la población (con distribución uniforme, usando rand() de C++). Luego dado un grupo se elegía al mas apto dentro de ese grupo (al que tuviera mayor fitness), se repetía lo mismo obteniendo un segundo individuo (obtenido desde un nuevo grupo) y luego se realizaba crossover con estos dos obteniendo un individuo de la nueva generacion. El proceso se repetía hasta que la nueva generación tuviera el mismo tamaño que la anterior. Nuevamente se utilizó elitismo, dejando en la nueva población tal cual estaba al mejor de la anterior
+
+\item \textbf{\underline{Fitness 1:}} Se hace jugar a cada individuo contra todos los de su poblacion dos partidos, donde en uno empieza y en el otro va segundo. Se cuenta la cantidad de partidos en los que no perdió y se los divide por la cantidad de partidos jugados para normalizarlos (queda el fitness en [0,1] y además permite que quede en el mismo rango para disintos tamaños de población).
+
+
+\item \textbf{\underline{Fitness 2:}} La idea de esta función de fitness es establecer un sistema de puntos. Nuevamente se hace jugar a cada individuo contra todos los de su población dos partidos, donde en uno empieza y en otro va segundo. Se da un puntaje según pierda gana o empata (pierde=0; empata=5; gana=10) y se da un bonus si se empieza segundo ya que suponemos que en tableros medianamente grandes es una ventaja comenzar (BonusPierde=1; BonusEmpata=2; BonusGana=4). Luego, se divide al puntaje sobre la cantidad de partidos jugados (para poder tener los mismos valores de fitness en poblaciones de distintos tamaños).
+\end{itemize}
+
 
 \subsection{El algoritmo}
 

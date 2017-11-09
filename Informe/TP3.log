@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.5)  8 NOV 2017 14:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.4.5)  8 NOV 2017 19:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -989,79 +989,26 @@ File: pgflibraryarrows.meta.code.tex 2015/05/13 v3.0.1a (rcs-revision 1.13)
 \pgfarrowwidth=\dimen186
 \pgfarrowlinewidth=\dimen187
 )))
-(/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
-Package: algorithm2e 2013/01/06 v5.00 algorithms environments
-\c@AlgoLine=\count145
+(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 )
-\algocf@hangindent=\skip63
-
-(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
-Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
-)
-(/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
-Package: relsize 2013/03/29 ver 4.1
-)
-********************************************************
-Package `algorithm2e' Release 5.1 -- october 19 2015 --
-- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
-- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
-subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
-- Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
-********************************************************
-\skiptotal=\skip64
-\skiplinenumber=\skip65
-\skiprule=\skip66
-\skiphlne=\skip67
-\skiptext=\skip68
-\skiplength=\skip69
-\algomargin=\skip70
-\skipalgocfslide=\skip71
-\algowidth=\dimen188
-\inoutsize=\dimen189
-\inoutindent=\dimen190
-\interspacetitleruled=\dimen191
-\interspacealgoruled=\dimen192
-\interspacetitleboxruled=\dimen193
-\algocf@ruledwidth=\skip72
-\algocf@inoutbox=\box66
-\algocf@inputbox=\box67
-\AlCapSkip=\skip73
-\AlCapHSkip=\skip74
-\algoskipindent=\skip75
-\algocf@nlbox=\box68
-\algocf@hangingbox=\box69
-\algocf@untilbox=\box70
-\algocf@skipuntil=\skip76
-\algocf@capbox=\box71
-\algoheightruledefault=\skip77
-\algoheightrule=\skip78
-\algotitleheightruledefault=\skip79
-\algotitleheightrule=\skip80
-\c@algocfline=\count146
-\c@algocfproc=\count147
-\c@algocf=\count148
-\algocf@algoframe=\box72
-\algocf@algobox=\box73
-) (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
-Package: algpseudocode 
-
 (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count149
-\c@ALG@rem=\count150
-\c@ALG@nested=\count151
-\ALG@tlm=\skip81
-\ALG@thistlm=\skip82
-\c@ALG@Lnr=\count152
-\c@ALG@blocknr=\count153
-\c@ALG@storecount=\count154
-\c@ALG@tmpcounter=\count155
-\ALG@tmplength=\skip83
+\c@ALG@line=\count145
+\c@ALG@rem=\count146
+\c@ALG@nested=\count147
+\ALG@tlm=\skip63
+\ALG@thistlm=\skip64
+\c@ALG@Lnr=\count148
+\c@ALG@blocknr=\count149
+\c@ALG@storecount=\count150
+\c@ALG@tmpcounter=\count151
+\ALG@tmplength=\skip65
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
 )
@@ -1070,16 +1017,16 @@ zlibrarycalc.code.tex
 File: tikzlibrarycalc.code.tex 2013/07/15 v3.0.1a (rcs-revision 1.9)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen194
-\WF@size=\dimen195
-\c@WF@wrappedlines=\count156
-\WF@box=\box74
+\wrapoverhang=\dimen188
+\WF@size=\dimen189
+\c@WF@wrappedlines=\count152
+\WF@box=\box66
 \WF@everypar=\toks41
 Package: wrapfig 2003/01/31  v 3.6
 )
 (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
-\c@lips@count=\count157
+\c@lips@count=\count153
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
@@ -1090,50 +1037,50 @@ Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 67.
-\captionmargin=\dimen196
-\captionmargin@=\dimen197
-\captionwidth=\dimen198
-\caption@tempdima=\dimen199
-\caption@indent=\dimen256
-\caption@parindent=\dimen257
-\caption@hangindent=\dimen258
+\captionmargin=\dimen190
+\captionmargin@=\dimen191
+\captionwidth=\dimen192
+\caption@tempdima=\dimen193
+\caption@indent=\dimen194
+\caption@parindent=\dimen195
+\caption@hangindent=\dimen196
 )
-\c@ContinuedFloat=\count158
+\c@ContinuedFloat=\count154
 Package caption Info: hyperref package is loaded.
 Package caption Info: wrapfig package is loaded.
 )
-\c@subfigure=\count159
-\c@subtable=\count160
+\c@subfigure=\count155
+\c@subtable=\count156
 )
 (/usr/share/texlive/texmf-dist/tex/latex/sidecap/sidecap.sty
 Package: sidecap 2003/06/06 v1.6f SideCap Package (RN/HjG)
-\SC@BOXWD=\dimen259
-\SC@CAPWD=\dimen260
-\SC@tempdima=\dimen261
-\SC@tempdimb=\dimen262
-\c@SC@C=\count161
-\SC@BOX=\box75
+\SC@BOXWD=\dimen197
+\SC@CAPWD=\dimen198
+\SC@tempdima=\dimen199
+\SC@tempdimb=\dimen256
+\c@SC@C=\count157
+\SC@BOX=\box67
 )
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count162
+\c@float@type=\count158
 \float@exts=\toks42
-\float@box=\box76
+\float@box=\box68
 \@float@everytoks=\toks43
-\@floatcapt=\box77
+\@floatcapt=\box69
 )
-\c@teo=\count163
+\c@teo=\count159
 
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-\fancy@headwidth=\skip84
-\f@ncyO@elh=\skip85
-\f@ncyO@erh=\skip86
-\f@ncyO@olh=\skip87
-\f@ncyO@orh=\skip88
-\f@ncyO@elf=\skip89
-\f@ncyO@erf=\skip90
-\f@ncyO@olf=\skip91
-\f@ncyO@orf=\skip92
+\fancy@headwidth=\skip66
+\f@ncyO@elh=\skip67
+\f@ncyO@erh=\skip68
+\f@ncyO@olh=\skip69
+\f@ncyO@orh=\skip70
+\f@ncyO@elf=\skip71
+\f@ncyO@erf=\skip72
+\f@ncyO@olf=\skip73
+\f@ncyO@orf=\skip74
 )
 
 LaTeX Warning: Unused global option(s):
@@ -1161,16 +1108,16 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 113.
 LaTeX Font Info:    ... okay on input line 113.
  (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count164
-\scratchdimen=\dimen263
-\scratchbox=\box78
-\nofMPsegments=\count165
-\nofMParguments=\count166
+\scratchcounter=\count160
+\scratchdimen=\dimen257
+\scratchbox=\box70
+\nofMPsegments=\count161
+\nofMParguments=\count162
 \everyMPshowfont=\toks44
-\MPscratchCnt=\count167
-\MPscratchDim=\dimen264
-\MPnumerator=\count168
-\makeMPintoPDFobject=\count169
+\MPscratchCnt=\count163
+\MPscratchDim=\dimen258
+\MPnumerator=\count164
+\makeMPintoPDFobject=\count165
 \everyMPtoPDFconversion=\toks45
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1189,7 +1136,7 @@ e
 ))
 LaTeX Info: Redefining \. on input line 113.
 LaTeX Info: Redefining \% on input line 113.
-\AtBeginShipoutBox=\box79
+\AtBeginShipoutBox=\box71
 Package hyperref Info: Link coloring OFF on input line 113.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -1198,7 +1145,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count170
+\c@section@level=\count166
 )
 LaTeX Info: Redefining \ref on input line 113.
 LaTeX Info: Redefining \pageref on input line 113.
@@ -1223,20 +1170,20 @@ Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 126.
 )
-\CenteringLeftskip=\skip93
-\RaggedLeftLeftskip=\skip94
-\RaggedRightLeftskip=\skip95
-\CenteringRightskip=\skip96
-\RaggedLeftRightskip=\skip97
-\RaggedRightRightskip=\skip98
-\CenteringParfillskip=\skip99
-\RaggedLeftParfillskip=\skip100
-\RaggedRightParfillskip=\skip101
-\JustifyingParfillskip=\skip102
-\CenteringParindent=\skip103
-\RaggedLeftParindent=\skip104
-\RaggedRightParindent=\skip105
-\JustifyingParindent=\skip106
+\CenteringLeftskip=\skip75
+\RaggedLeftLeftskip=\skip76
+\RaggedRightLeftskip=\skip77
+\CenteringRightskip=\skip78
+\RaggedLeftRightskip=\skip79
+\RaggedRightRightskip=\skip80
+\CenteringParfillskip=\skip81
+\RaggedLeftParfillskip=\skip82
+\RaggedRightParfillskip=\skip83
+\JustifyingParfillskip=\skip84
+\CenteringParindent=\skip85
+\RaggedLeftParindent=\skip86
+\RaggedRightParindent=\skip87
+\JustifyingParindent=\skip88
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 148.
 
@@ -1415,357 +1362,616 @@ Package babel Info: Redefining spanish shorthand "?
  [2
 
 ]
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.218 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.224             	\EndIf
-                         
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+! LaTeX Error: Environment algorithm undefined.
 
-
-Overfull \hbox (17.0pt too wide) detected at line 235
-[][] 
- []
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.245 		\EndIf
-              
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.245 		\EndIf
-              
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.245 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.247 			\State \textbf
-                       {return} ($\infty$,-1)
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.247 			\State \textbf
-                       {return} ($\infty$,-1)
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@3 
-l.248 		\EndIf
-              
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.248 		\EndIf
-              
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.248 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@3 
-l.250 			\State \textbf
-                       {return} ($\infty$,0)
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.250 			\State \textbf
-                       {return} ($\infty$,0)
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@4 
-l.251 		\EndIf
-              
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.251 		\EndIf
-              
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.251 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@4 
-l.255 		    \State \textbf
-                          {return} ($\infty$,0)
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.255 		    \State \textbf
-                          {return} ($\infty$,0)
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.256 		\EndIf
-              
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.256 		\EndIf
-              
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.256 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.258 		\State
-               recursión llamando al siguiente en el árbol de minimax
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.258 		\State
-               recursión llamando al siguiente en el árbol de minimax
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.261 		    \State \textbf
-                          {return} la columna que da el máximo y su resultado
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.261 		    \State \textbf
-                          {return} la columna que da el máximo y su resultado
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.263 		    \State \textbf
-                          {return} la columna que da el mínimo y su resultado
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.263 		    \State \textbf
-                          {return} la columna que da el mínimo y su resultado
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.264 		\EndIf
-              
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.264 		\EndIf
-              
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.264 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.266     \EndFunction
-                      
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.266     \EndFunction
-                      
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFunction@0 
-l.266     \EndFunction
-                      
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.272 \end{algorithmic}
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.207 \begin{algorithm}
                        
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
-! Missing = inserted for \ifnum.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.272 \end{algorithmic}
-                       
-I was expecting to see `<', `=', or `>'. Didn't.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@5 
-l.272 \end{algorithmic}
-                       
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-
-Overfull \hbox (17.0pt too wide) detected at line 273
-[][] 
- []
-
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 275.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 275.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 275.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 275.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 275.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 275.
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 275.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\alpha' on input line 275.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 275.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 275.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\beta' on input line 275.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 275.
-
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 278.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 278.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 278.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 278.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 278.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 278.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 281.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 281.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 281.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 281.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 281.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 281.
 ! Missing \endcsname inserted.
 <to be read again> 
                    \ALG@currentblock@0 
-l.286     \Function
+l.211 	\If
+          {empiezo yo}
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.211 	\If
+          {empiezo yo}
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.211 	\If
+          {empiezo yo}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 211
+[][]
+ []
+
+
+Overfull \hbox (37.96565pt too wide) in paragraph at lines 211--218
+[]\OT1/cmr/bx/n/10.95 if \OT1/cmr/m/n/10.95 em-pie-zo yo \OT1/cmr/bx/n/10.95 th
+en  $\OML/cmm/m/it/10.95 movida$ \OT1/cmr/m/n/10.95 = \OT1/cmtt/m/n/10.95 minim
+ax\OT1/cmr/m/n/10.95 ($\OML/cmm/m/it/10.95 rows$\OT1/cmr/m/n/10.95 , $\OML/cmm/
+m/it/10.95 columns$\OT1/cmr/m/n/10.95 , $\OML/cmm/m/it/10.95 c$\OT1/cmr/m/n/10.
+95 , $\OML/cmm/m/it/10.95 p$\OT1/cmr/m/n/10.95 , $\OML/cmm/m/it/10.95 tablero$\
+OT1/cmr/m/n/10.95 , \OT1/cmr/bx/n/10.95 true\OT1/cmr/m/n/10.95 , -1).first \OT1
+/cmtt/m/n/10.95 AgregarAtras\OT1/cmr/m/n/10.95 ($\OML/cmm/m/it/10.95 tablero\OT
+1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 movida\OT1/cmr/m/n/10.95 ]$,
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.218     \While
+                {$true$}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 218
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.221         \If
+                 {el $mensaje$ es de finalización}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 221
+[][]
+ []
+
+
+! Package caption Error: \caption outside float.
+
+See the caption package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.232     \caption
+                  {Main}
+If you do not understand this error, please take a closer look
+at the documentation of the `caption' package, especially the
+section about errors.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.233 \end{algorithm}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (118.66478pt too wide) in paragraph at lines 237--238
+[]\OT1/cmr/m/n/10.95 REVISARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+RRRRRRRRRRRRRRRRRR 
+ []
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.239 \begin{algorithm}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@3 
+l.241     \Function
+                   {minimax}{\textbf{int} rows, \textbf{int} columns, \textb...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.241     \Function
+                   {minimax}{\textbf{int} rows, \textbf{int} columns, \textb...
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.241     \Function
+                   {minimax}{\textbf{int} rows, \textbf{int} columns, \textb...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 241
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.242 		\If
+           {\texttt{gane}}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 242
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.243 			\State
+                \textbf{return} ($\infty$,1)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 243
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.244 		\EndIf
+              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 244
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.245 		\If
+           {\texttt{perdi}}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 245
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.246 			\State
+                \textbf{return} ($\infty$,-1)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 246
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.247 		\EndIf
+              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 247
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.248 		\If
+           {empate porque no hay más fichas}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 248
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.249 			\State
+                \textbf{return} ($\infty$,0)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 249
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.250 		\EndIf
+              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 250
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.253 		\If
+           {empate porque se llenó el tablero}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 253
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.254 		    \State
+                   \textbf{return} ($\infty$,0)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 254
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.255 		\EndIf
+              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 255
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.257 		\State
+               recursión llamando al siguiente en el árbol de minimax
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 257
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.259 		\If
+           {Maximizo}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 259
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.260 		    \State
+                   \textbf{return} (columna del máximo, máximo)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 260
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.261 		\Else
+             
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 261
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.262 		    \State
+                   \textbf{return} (columna del máximo, máximo)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 262
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.263 		\EndIf
+              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 263
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.265     \EndFunction
+                      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 265
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.270 \end{algorithm}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 273.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 273.
+[3]
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 276.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 276.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 276.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 276.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 276.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\alpha' on input line 276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\beta' on input line 276.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 276.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 279.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 279.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 279.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 279.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 279.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 279.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 282.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 282.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 282.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 282.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 282.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 282.
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.285 \begin{algorithm}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@3 
+l.287     \Function
                    {minimaxPoda}{\textbf{int} rows, \textbf{int} columns, \t...
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
@@ -1773,288 +1979,675 @@ not appear between \csname and \endcsname.
 ! Extra \endcsname.
 \ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
                                                   \relax \def \ALG@thisblock...
-l.286     \Function
+l.287     \Function
                    {minimaxPoda}{\textbf{int} rows, \textbf{int} columns, \t...
 I'm ignoring this, since I wasn't doing a \csname.
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.298     	\EndIf
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.301     	\EndIf
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.306     	\EndIf
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.287     \Function
+                   {minimaxPoda}{\textbf{int} rows, \textbf{int} columns, \t...
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFor@0 
-l.307     \EndFor
-                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.312     \EndIf
+
+Underfull \hbox (badness 10000) detected at line 287
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.288     \State
+                 vector(pair(\textbf{int},\textbf{int})) $posibles$ = [(1, $...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 288
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.289     \State
+                 \textbf{int} \textit{mejorPos} = $posibles[0]$.first
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 289
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.290     \State
+                 \textbf{int} \textit{mejorValorMaximizo} = $-\infty$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 290
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.291     \State
+                 \textbf{int} \textit{mejorValorMinimizo} = $\infty$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 291
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.292     \For
+              {todos los $posibles$}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 292
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.293     	\State
+                  matriz(\textbf{int}, \textbf{int}) $tablero2$ = $tablero$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 293
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.294     	\State
+                  actualizar $tablero2$ según quién juega
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 294
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.296     	\State
+                  $posibles[i]$.second = recursión con $tablero2$, $p-1$ e ...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 296
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.297     	\If
+              {$maximizo$ $\land$ $posibles[i]$.second == $mejorValorMaximizo$}
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 297
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.298     		\State
+                   actualizo $mejorPos$ y $mejorValorMaximizo$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 298
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.299     	\EndIf
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 299
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.300     	\If
+              {$\lnot maximizo$ $\land$ $posibles[i]$.second $< mejorValorMi...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 300
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.301     		\State
+                   actualizo $mejorPos$ y $mejorValorMinimizo$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 301
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.302     	\EndIf
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 302
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.303     	\State
+                  $\alpha$ = max($\alpha$, mejorValorMaximizo)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 303
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.304     	\State
+                  $\beta$ = min($\beta$, mejorValorMinimizo)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 304
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.305     	\If
+              {$\alpha$ $\geq$ $\beta$}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 305
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.306     		\State
+                   break
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 306
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.307     	\EndIf
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 307
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.308     \EndFor
+                 
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 308
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.309     \If
+             {$maximizo$}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 309
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.310     	\State
+                  \textbf{return} ($mejorPos$, $mejorValorMaximizo$)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 310
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.311     \Else
+               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 311
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.312     	\State
+                  \textbf{return} ($mejorPos$, $mejorValorMinimizo$)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 312
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.313     \EndIf
                 
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.314 \end{algorithmic}
-                       
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing = inserted for \ifnum.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.314 \end{algorithmic}
-                       
-I was expecting to see `<', `=', or `>'. Didn't.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.314 \end{algorithmic}
-                       
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
 
-Overfull \hbox (17.0pt too wide) detected at line 315
-[][] 
+Underfull \hbox (badness 10000) detected at line 313
+[][]
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 318.
+(babel)             in language  on input line 314.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 318.
+(babel)             in language  on input line 314.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 318.
+(babel)             in language  on input line 314.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 318.
+(babel)             in language  on input line 314.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 318.
+(babel)             in language  on input line 314.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 318.
+(babel)             in language  on input line 314.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 314.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 314.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 314.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 314.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 314.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 314.
+[4]
 
-Overfull \hbox (195.0371pt too wide) in paragraph at lines 320--321
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.314     \EndFunction
+                      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 314
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.316 \end{algorithm}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 319.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 319.
+! Missing } inserted.
+<inserted text> 
+                }
+l.321 ...le Jugar|$ y $b = \min{|FichasRestantes|$
+                                                  , $|Casillas Libres En El ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Extra }, or forgotten $.
+l.321 ...ntes|$, $|Casillas Libres En El Tablero|}
+                                                  $ que es en particular aco...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+
+Overfull \hbox (49.51556pt too wide) in paragraph at lines 321--322
 []\OT1/cmr/m/n/10.95 Veremos que la com-ple-ji-dad es $\OMS/cmsy/m/n/10.95 O\OT
 1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 a[]\OT1/cmr/m/n/10.95 )$ don-de $\OML/cmm/
 m/it/10.95 a \OT1/cmr/m/n/10.95 = \OMS/cmsy/m/n/10.95 j\OML/cmm/m/it/10.95 Colu
 mnasDondeEsPosibleJugar\OMS/cmsy/m/n/10.95 j$ \OT1/cmr/m/n/10.95 y $\OML/cmm/m/
-it/10.95 b \OT1/cmr/m/n/10.95 = [] []$
+it/10.95 b \OT1/cmr/m/n/10.95 = [] []$,
  []
 
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 331.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 333.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 333.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 333.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 333.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 333.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
-[3]
+(babel)             in language  on input line 333.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 339.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 339.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 339.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 339.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 339.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 339.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
- [4]
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 341.
+[5]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 321.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 321.
- [5]
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 330.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 330.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 330.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 330.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 330.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 330.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 332.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 332.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 332.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 332.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 332.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 332.
+(babel)             in language  on input line 356.
+ [6]
+! Missing } inserted.
+<inserted text> 
+                }
+l.358 ...ble Jugar|$ y $b =\min{|FichasRestantes|$
+                                                  , $|Casillas Libres En El ...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
+! Extra }, or forgotten $.
+l.358 ...ntes|$, $|Casillas Libres En El Tablero|}
+                                                  $ que es en particular aco...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
 
-LaTeX Warning: Command \texttrademark invalid in math mode on input line 335.
-
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 338.
+(babel)             in language  on input line 360.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 338.
+(babel)             in language  on input line 360.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 338.
+(babel)             in language  on input line 360.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 338.
+(babel)             in language  on input line 360.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 338.
+(babel)             in language  on input line 360.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 338.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 340.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 340.
-[6]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 355.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 355.
- [7]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 359.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 359.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 359.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 359.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 359.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 359.
- <complejidad1.png, id=230, 420.57124pt x 271.0125pt>
+(babel)             in language  on input line 360.
+<complejidad1.png, id=211, 420.57124pt x 271.0125pt>
 File: complejidad1.png Graphic file (type png)
-
-<use complejidad1.png>
-Package pdftex.def Info: complejidad1.png used on input line 368.
+ <use complejidad1.png>
+Package pdftex.def Info: complejidad1.png used on input line 369.
 (pdftex.def)             Requested size: 201.81291pt x 130.04729pt.
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 376.
@@ -2080,611 +2673,71 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 376.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 376.
- [8]
+
+[7]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 397.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 399.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 399.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 399.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 399.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 399.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 399.
+(babel)             in language  on input line 400.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 401.
+(babel)             in language  on input line 403.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 401.
+(babel)             in language  on input line 403.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 401.
+(babel)             in language  on input line 403.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 401.
+(babel)             in language  on input line 403.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 401.
+(babel)             in language  on input line 403.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 401.
-
-! Argument of \algocf@Ifstrip has an extra }.
-<inserted text> 
-                \par 
-l.415     		\If{
-                jugando $posibles[i]$ se evita perder en la siguiente jugada}
-I've run across a `}' that doesn't seem to match anything.
-For example, `\def\a#1{...}' and `\a}' would produce
-this error. If you simply proceed now, the `\par' that
-I've just inserted will cause me to report a runaway
-argument that might be the root of the problem. But if
-your `}' was spurious, just type `2' and it will go away.
-
-Runaway argument?
-! Paragraph ended before \algocf@Ifstrip was complete.
-<to be read again> 
-                   \par 
-l.415     		\If{
-                jugando $posibles[i]$ se evita perder en la siguiente jugada}
-I suspect you've forgotten a `}', causing me to apply this
-control sequence to too much text. How can we recover?
-My plan is to forget the whole thing and hope for the best.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.417     		\EndIf
-                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFor@0 
-l.418     	\EndFor
-                  
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.426 			\EndIf
-               
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFor@0 
-l.428 		\EndFor
-               
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+(babel)             in language  on input line 403.
 
 
-Overfull \hbox (17.0pt too wide) detected at line 432
-[][] 
- []
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.441 		\EndIf
-              
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.441 		\EndIf
-              
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.441 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.442     	\State
-                  cuento los que estan en el borde de cada jugador
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.442     	\State
-                  cuento los que estan en el borde de cada jugador
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.443     	\State
-                  cuento la cantidad de fichas que estan en una esquina de c...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.443     	\State
-                  cuento la cantidad de fichas que estan en una esquina de c...
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.444     	\State
-                  cuento la cantidad de fichas en el centro de cada jugador
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.444     	\State
-                  cuento la cantidad de fichas en el centro de cada jugador
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.445 		\State
-               cuento la cantidad de casillas libres alrededor de cada ficha...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.445 		\State
-               cuento la cantidad de casillas libres alrededor de cada ficha...
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.446 		\State
-               cuento la cantidad de fichas consecutivas de cada jugador
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.446 		\State
-               cuento la cantidad de fichas consecutivas de cada jugador
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.447 		\State
-               cuento cantidad de inmediatemente extensibles en la próxima ...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.447 		\State
-               cuento cantidad de inmediatemente extensibles en la próxima ...
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.448 		\State
-               cuento cantidad de  extensibles en cualquier momento de cada ...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.448 		\State
-               cuento cantidad de  extensibles en cualquier momento de cada ...
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.449 		\State
-               cuento cantidad de  bi-extensibles (extensibles en ambos sent...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.449 		\State
-               cuento cantidad de  bi-extensibles (extensibles en ambos sent...
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.450 		\State
-               \textbf{return} \sum cantidad$_{jugador1}*$(puntaje del pará...
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.450 		\State
-               \textbf{return} \sum cantidad$_{jugador1}*$(puntaje del pará...
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.450 		\State \textbf{return} \sum
-                                    cantidad$_{jugador1}*$(puntaje del pará...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.450 		\State \textbf{return} \sum cantidad$_
-                                              {jugador1}*$(puntaje del pará...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.451     \EndFunction
-                      
-The control sequence marked <to be read again> should
-not appear between \csname and \endcsname.
-
-! Extra \endcsname.
-\ALG@makenobeginrepeat ...LG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.451     \EndFunction
-                      
-I'm ignoring this, since I wasn't doing a \csname.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFunction@0 
-l.451     \EndFunction
-                      
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.452 \end{algorithmic}
-                       
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Missing = inserted for \ifnum.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.452 \end{algorithmic}
-                       
-I was expecting to see `<', `=', or `>'. Didn't.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@2 
-l.452 \end{algorithmic}
-                       
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-
-Overfull \hbox (17.0pt too wide) detected at line 453
-[][] 
- []
-
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 454.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 454.
-[9 <./complejidad1.png>]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 456.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 456.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 456.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 456.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 456.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 456.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 468.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 468.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 468.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 468.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 468.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 468.
- <complejidad2.png, id=245, 411.5375pt x 271.0125pt>
-File: complejidad2.png Graphic file (type png)
-
-<use complejidad2.png>
-Package pdftex.def Info: complejidad2.png used on input line 473.
-(pdftex.def)             Requested size: 201.81291pt x 132.90067pt.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 477.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 477.
- [10]
-<complejidad2b.png, id=254, 411.5375pt x 271.0125pt>
-File: complejidad2b.png Graphic file (type png)
- <use complejidad2b.png>
-Package pdftex.def Info: complejidad2b.png used on input line 486.
-(pdftex.def)             Requested size: 201.81291pt x 132.90067pt.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 497.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 497.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 497.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 497.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 497.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 497.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 501.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 501.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 501.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 501.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 501.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 501.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 503.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 503.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 503.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 503.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 503.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 503.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 509.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 509.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 509.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 509.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 509.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 509.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 511.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 511.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 511.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 511.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 511.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 511.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 514.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 514.
-
-[11 <./complejidad2.png> <./complejidad2b.png>]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 520.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 520.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 520.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 520.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 520.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 520.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 529.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 529.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 529.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 529.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 529.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 529.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 536.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 536.
- [12]
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 547.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 547.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 547.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 547.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 547.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 547.
-
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 551.
-
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 551.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 551.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 551.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 551.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 551.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 551.
-
-! LaTeX Error: Environment algortithmic undefined.
+! LaTeX Error: Environment algorithm undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.554 \begin{algortithmic}
-                          [1]
+l.411 \begin{algorithm}
+                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 ! Missing \endcsname inserted.
 <to be read again> 
-                   \ALG@currentblock@2 
-l.555 	\Function
-                {genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{...
+                   \ALG@currentblock@3 
+l.413     \Function
+                   {parametrizable}{\textbf{int} rows, \textbf{int} columns,...
 The control sequence marked <to be read again> should
 not appear between \csname and \endcsname.
 
 ! Extra \endcsname.
 \ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
                                                   \relax \def \ALG@thisblock...
-l.555 	\Function
-                {genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{...
+l.413     \Function
+                   {parametrizable}{\textbf{int} rows, \textbf{int} columns,...
 I'm ignoring this, since I wasn't doing a \csname.
 
 
@@ -2694,14 +2747,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.555 	\Function
-                {genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{...
+l.413     \Function
+                   {parametrizable}{\textbf{int} rows, \textbf{int} columns,...
 
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
-Underfull \hbox (badness 10000) detected at line 555
+Underfull \hbox (badness 10000) detected at line 413
 [][]
  []
 
@@ -2712,8 +2765,891 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.556 	\State
-              \textbf{int} $tamanopoblacion$, $totalgeneraciones$, $k$
+l.414     	\State
+                  $posibles$ = [0,..,$columnas-1$] - las columnas llenas del...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 414
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.415     	\For
+               {$i$ = [0,..,$\lvert posibles \rvert$)}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 415
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.416     		\If
+               {jugando $posibles[i]$ se evita perder en la siguiente jugada}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 416
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.417     			\State
+                    \textbf{return} $posibles[i]$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 417
+[][]
+ []
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 418.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 418.
+[8 <./complejidad1.png>]
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.418     		\EndIf
+                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 418
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.419     	\EndFor
+                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 419
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.420     	\State
+                  \textbf{float} $maximoPuntaje$ = \texttt{puntaje}(rows, co...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 420
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.421     	\State
+                  \textbf{int} $maxpos$ = $posibles[0]$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 421
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.423     	\For
+               {$q$ = [1,..,$\lvert posibles \rvert$)}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 423
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.424 			\State
+                \texttt{AgregarAtrás}($tablero[posibles[q]]$, 1)
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 424
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.425 			\If
+            {\texttt{puntaje}($rows$, $columns$, $c$, $p$, $tablero$, $posib...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 425
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.427 			\EndIf
+               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 427
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.428 			\State
+                Sacarle el último a $tablero[posibles[q]]$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 428
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.429 		\EndFor
+               
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 429
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.430 		\State
+               \textbf{return} $maxpos$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 430
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.431     \EndFunction
+                      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 431
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.433 \end{algorithm}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.441 \begin{algorithm}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@3 
+l.442     \Function
+                   {puntaje}{\textbf{int} rows, \textbf{int} columns, \textb...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.442     \Function
+                   {puntaje}{\textbf{int} rows, \textbf{int} columns, \textb...
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.442     \Function
+                   {puntaje}{\textbf{int} rows, \textbf{int} columns, \textb...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 442
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.443 		\If
+           {\texttt{gane}}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 443
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.444 			\State
+                \textbf{return} $\infty$
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 444
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.445 		\EndIf
+              
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 445
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.446     	\State
+                  contar los que estan en el borde de cada jugador
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 446
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.447     	\State
+                  contar la cantidad de fichas que estan en una esquina de c...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 447
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.448     	\State
+                  contar la cantidad de fichas en el centro de cada jugador
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 448
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.449 		\State
+               contar la cantidad de casillas libres alrededor de cada ficha...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 449
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.450 		\State
+               contar la cantidad de fichas consecutivas de cada jugador
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 450
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.451 		\State
+               contar cantidad de inmediatemente extensibles en la próxima ...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 451
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.452 		\State
+               contar cantidad de  extensibles en cualquier momento de cada ...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 452
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.453 		\State
+               contar cantidad de  bi-extensibles (extensibles en ambos sent...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 453
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.454 		\State
+               \textbf{return} \sum cantidad$_{jugador1}*$(puntaje del pará...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 454
+[][]
+ []
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.454 		\State \textbf{return} \sum
+                                    cantidad$_{jugador1}*$(puntaje del pará...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.454 		\State \textbf{return} \sum cantidad$_
+                                              {jugador1}*$(puntaje del pará...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.455     \EndFunction
+                      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 455
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.457 \end{algorithm}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 461.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 461.
+[9]
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 462.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 462.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 462.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 462.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 462.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 462.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 473.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 473.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 473.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 473.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 473.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 473.
+ <complejidad2.png, id=228, 411.5375pt x 271.0125pt>
+File: complejidad2.png Graphic file (type png)
+ <use complejidad2.png>
+Package pdftex.def Info: complejidad2.png used on input line 478.
+(pdftex.def)             Requested size: 201.81291pt x 132.90067pt.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 487.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 487.
+
+[10] <complejidad2b.png, id=233, 411.5375pt x 271.0125pt>
+File: complejidad2b.png Graphic file (type png)
+
+<use complejidad2b.png>
+Package pdftex.def Info: complejidad2b.png used on input line 491.
+(pdftex.def)             Requested size: 201.81291pt x 132.90067pt.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 502.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 502.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 502.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 502.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 502.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 502.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 506.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 506.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 506.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 506.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 506.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 506.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 508.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 508.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 508.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 508.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 508.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 508.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 514.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 514.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 514.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 514.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 514.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 514.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 516.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 516.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 516.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 516.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 516.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 516.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 521.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 521.
+ [11 <./complejidad2.png> <./complejidad2b.png>]
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 525.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 525.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 525.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 525.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 525.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 525.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 548.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 548.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 548.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 548.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 548.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 548.
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 552.
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 552.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 552.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 552.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 552.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 552.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 552.
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.553 \begin{algorithm}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! Package caption Error: \caption outside float.
+
+See the caption package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.554 \caption
+              {genetico}
+If you do not understand this error, please take a closer look
+at the documentation of the `caption' package, especially the
+section about errors.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Environment algortithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.555 \begin{algortithmic}
+                          [1]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endcsname inserted.
+<to be read again> 
+                   \ALG@currentblock@3 
+l.556 	\Function
+                {genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{...
+The control sequence marked <to be read again> should
+not appear between \csname and \endcsname.
+
+! Extra \endcsname.
+\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
+                                                  \relax \def \ALG@thisblock...
+l.556 	\Function
+                {genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{...
+I'm ignoring this, since I wasn't doing a \csname.
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.556 	\Function
+                {genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{...
+
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2730,7 +3666,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.557 	\State
-              \textbf{float} $min$, $max$, $pmutar$, $pcrossover$
+              \textbf{int} $tamanopoblacion$, $totalgeneraciones$, $k$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2747,8 +3683,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.558 	\State
-              vector(\textbf{parametro}) $poblacion$ = vector de longitud $t...
-
+              \textbf{float} $min$, $max$, $pmutar$, $pcrossover$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2764,8 +3699,26 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.560 		\State p
-                oblacion = \texttt{seleccionNatural}
+l.559 	\State
+              vector(\textbf{parametro}) $poblacion$ = vector de longitud $t...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 559
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.560 	\For
+           {$generacion$ = [1..$totalgeneraciones$)}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2781,8 +3734,25 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.562 			\State \texttt
-                       {mutar}(i) con probabilidad $pmutar$
+l.561 		\State
+               poblacion = \texttt{seleccion}
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 561
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.562 		\For
+            {$i \in poblacion$}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2798,8 +3768,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.563 		\EndFor
-               
+l.563 			\State
+                \texttt{mutar}($i$) con probabilidad $pmutar$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2808,15 +3778,6 @@ Underfull \hbox (badness 10000) detected at line 563
 [][]
  []
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFor@0 
-l.563 		\EndFor
-               
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
@@ -2824,8 +3785,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.564 	\EndFor
-              
+l.564 		\EndFor
+               
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2834,15 +3795,6 @@ Underfull \hbox (badness 10000) detected at line 564
 [][]
  []
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFor@0 
-l.564 	\EndFor
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
@@ -2850,9 +3802,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.565 	\State
-              \textbf{float} $maximo$ = \texttt{fitness}($poblacion[0]$, $po...
-
+l.565 	\EndFor
+              
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2869,7 +3820,8 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.566 	\State
-              \textbf{int} $maxpos$ = 0
+              \textbf{float} $maximo$ = \texttt{fitness}($poblacion[0]$, $po...
+
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2885,9 +3837,25 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.568 		\State \textbf
-                      {float} $actual$ = \texttt{fitness}($poblacion[i]$, $p...
+l.567 	\State
+              \textbf{int} $maxpos$ = 0
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
 
+
+Underfull \hbox (badness 10000) detected at line 567
+[][]
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.568 	\For
+           {\textbf{int} $i$ = [1..$poblacion$)}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2903,8 +3871,51 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.570 			\State a
-                 ctualizar $maxpos$ y $maximo$
+l.569 		\State
+               \textbf{float} $actual$ = \texttt{fitness}($poblacion[i]$, $p...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 569
+[][]
+ []
+
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 570.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 570.
+[12]
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.570 		\If
+           {$actual>maximo$}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2920,8 +3931,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.571 		\EndIf
-              
+l.571 			\State
+                actualizar $maxpos$ y $maximo$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2930,15 +3941,6 @@ Underfull \hbox (badness 10000) detected at line 571
 [][]
  []
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndIf@0 
-l.571 		\EndIf
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
@@ -2946,7 +3948,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.572 	\EndFor
+l.572 		\EndIf
               
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2956,15 +3958,6 @@ Underfull \hbox (badness 10000) detected at line 572
 [][]
  []
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndFor@0 
-l.572 	\EndFor
-              
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
@@ -2972,8 +3965,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.573 	\State
-              \textbf{return} $poblacion[maxpos]$
+l.573 	\EndFor
+              
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -2989,8 +3982,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.574     \EndFunction
-                      
+l.574 	\State
+              \textbf{return} $poblacion[maxpos]$
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -3000,210 +3993,215 @@ Underfull \hbox (badness 10000) detected at line 574
  []
 
 
-! LaTeX Error: \begin{lrbox} on input line 553 ended by \end{algortithmic}.
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.575 \end{algortithmic}
+l.575     \EndFunction
+                      
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Underfull \hbox (badness 10000) detected at line 575
+[][]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algortithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.576 \end{algortithmic}
                         
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.577 \end{algorithm}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 578.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 578.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 578.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 578.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 578.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 578.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 602.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 581.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 581.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 581.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 581.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 581.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 581.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 581.
+(babel)             in language  on input line 602.
 [13]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 619.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 619.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 619.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 619.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 602.
+(babel)             in language  on input line 619.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 602.
- [14]
+(babel)             in language  on input line 619.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 612.
+(babel)             in language  on input line 627.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 612.
+(babel)             in language  on input line 627.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 612.
+(babel)             in language  on input line 627.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 612.
+(babel)             in language  on input line 627.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 612.
+(babel)             in language  on input line 627.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 612.
- <s1f1t10.png, id=282, 390.45876pt x 279.0425pt>
+(babel)             in language  on input line 627.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 627.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 627.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 627.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 627.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 627.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 627.
+ [14] <s1f1t10.png, id=255, 390.45876pt x 279.0425pt>
 File: s1f1t10.png Graphic file (type png)
  <use s1f1t10.png>
-Package pdftex.def Info: s1f1t10.png used on input line 627.
+Package pdftex.def Info: s1f1t10.png used on input line 634.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<s1f1t50.png, id=283, 390.45876pt x 279.0425pt>
+<s1f1t50.png, id=256, 390.45876pt x 279.0425pt>
 File: s1f1t50.png Graphic file (type png)
  <use s1f1t50.png>
-Package pdftex.def Info: s1f1t50.png used on input line 628.
+Package pdftex.def Info: s1f1t50.png used on input line 635.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<s1f1t100.png, id=284, 393.47pt x 279.0425pt>
+<s1f1t100.png, id=257, 393.47pt x 279.0425pt>
 File: s1f1t100.png Graphic file (type png)
  <use s1f1t100.png>
-Package pdftex.def Info: s1f1t100.png used on input line 629.
+Package pdftex.def Info: s1f1t100.png used on input line 636.
 (pdftex.def)             Requested size: 151.36353pt x 107.3444pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 634.
+(babel)             in language  on input line 647.
  [15 <./s1f1t10.png> <./s1f1t50.png> <./s1f1t100.png>]
-<s1f2t10.png, id=294, 387.4475pt x 279.0425pt>
+<s1f2t10.png, id=266, 387.4475pt x 279.0425pt>
 File: s1f2t10.png Graphic file (type png)
  <use s1f2t10.png>
-Package pdftex.def Info: s1f2t10.png used on input line 648.
+Package pdftex.def Info: s1f2t10.png used on input line 655.
 (pdftex.def)             Requested size: 151.36353pt x 109.01347pt.
 
-<s1f2t50.png, id=295, 387.4475pt x 279.0425pt>
+<s1f2t50.png, id=267, 387.4475pt x 279.0425pt>
 File: s1f2t50.png Graphic file (type png)
  <use s1f2t50.png>
-Package pdftex.def Info: s1f2t50.png used on input line 649.
+Package pdftex.def Info: s1f2t50.png used on input line 656.
 (pdftex.def)             Requested size: 151.36353pt x 109.01347pt.
 
-<s1f2t100.png, id=296, 390.45876pt x 279.0425pt>
+<s1f2t100.png, id=268, 390.45876pt x 279.0425pt>
 File: s1f2t100.png Graphic file (type png)
  <use s1f2t100.png>
-Package pdftex.def Info: s1f2t100.png used on input line 650.
+Package pdftex.def Info: s1f2t100.png used on input line 657.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 658.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 658.
- [16 <./s1f2t10.png> <./s1f2t50.png> <./s1f2t100.png>]
-<s2f1t10.png, id=305, 390.45876pt x 279.0425pt>
+
+<s2f1t10.png, id=269, 390.45876pt x 279.0425pt>
 File: s2f1t10.png Graphic file (type png)
  <use s2f1t10.png>
-Package pdftex.def Info: s2f1t10.png used on input line 667.
+Package pdftex.def Info: s2f1t10.png used on input line 674.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<s2f1t50.png, id=306, 390.45876pt x 279.0425pt>
+<s2f1t50.png, id=270, 390.45876pt x 279.0425pt>
 File: s2f1t50.png Graphic file (type png)
  <use s2f1t50.png>
-Package pdftex.def Info: s2f1t50.png used on input line 668.
+Package pdftex.def Info: s2f1t50.png used on input line 675.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<s2f1t100.png, id=307, 393.47pt x 279.0425pt>
+<s2f1t100.png, id=271, 393.47pt x 279.0425pt>
 File: s2f1t100.png Graphic file (type png)
  <use s2f1t100.png>
-Package pdftex.def Info: s2f1t100.png used on input line 669.
+Package pdftex.def Info: s2f1t100.png used on input line 676.
 (pdftex.def)             Requested size: 151.36353pt x 107.3444pt.
 
-<s2f2t10.png, id=308, 387.4475pt x 279.0425pt>
+<s2f2t10.png, id=272, 387.4475pt x 279.0425pt>
 File: s2f2t10.png Graphic file (type png)
  <use s2f2t10.png>
-Package pdftex.def Info: s2f2t10.png used on input line 677.
+Package pdftex.def Info: s2f2t10.png used on input line 684.
 (pdftex.def)             Requested size: 151.36353pt x 109.01347pt.
 
-<s2f2t50.png, id=309, 387.4475pt x 279.0425pt>
+<s2f2t50.png, id=273, 387.4475pt x 279.0425pt>
 File: s2f2t50.png Graphic file (type png)
  <use s2f2t50.png>
-Package pdftex.def Info: s2f2t50.png used on input line 678.
+Package pdftex.def Info: s2f2t50.png used on input line 685.
 (pdftex.def)             Requested size: 151.36353pt x 109.01347pt.
 
-<s2f2t100.png, id=310, 390.45876pt x 279.0425pt>
+<s2f2t100.png, id=274, 390.45876pt x 279.0425pt>
 File: s2f2t100.png Graphic file (type png)
  <use s2f2t100.png>
-Package pdftex.def Info: s2f2t100.png used on input line 679.
+Package pdftex.def Info: s2f2t100.png used on input line 686.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 689.
@@ -3229,322 +4227,343 @@ Package babel Info: Redefining spanish shorthand "!
 (babel)             in language  on input line 689.
 Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 689.
- [17 <./s2f1t10.png> <./s2f1t50.png> <./s2f1t100.png> <./s2f2t10.png> <./s2f2t5
-0.png> <./s2f2t100.png>] <muta0.png, id=323, 390.45876pt x 279.0425pt>
+ [16 <./s1f2t10.png> <./s1f2t50.png> <./s1f2t100.png> <./s2f1t10.png> <./s2f1t5
+0.png> <./s2f1t100.png>] <muta0.png, id=287, 390.45876pt x 279.0425pt>
 File: muta0.png Graphic file (type png)
  <use muta0.png>
-Package pdftex.def Info: muta0.png used on input line 694.
+Package pdftex.def Info: muta0.png used on input line 701.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<muta1.png, id=324, 390.45876pt x 279.0425pt>
+<muta1.png, id=288, 390.45876pt x 279.0425pt>
 File: muta1.png Graphic file (type png)
  <use muta1.png>
-Package pdftex.def Info: muta1.png used on input line 695.
+Package pdftex.def Info: muta1.png used on input line 702.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<muta2.png, id=325, 390.45876pt x 279.0425pt>
+<muta2.png, id=289, 390.45876pt x 279.0425pt>
 File: muta2.png Graphic file (type png)
  <use muta2.png>
-Package pdftex.def Info: muta2.png used on input line 696.
+Package pdftex.def Info: muta2.png used on input line 703.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<muta3.png, id=326, 390.45876pt x 279.0425pt>
+<muta3.png, id=290, 390.45876pt x 279.0425pt>
 File: muta3.png Graphic file (type png)
  <use muta3.png>
-Package pdftex.def Info: muta3.png used on input line 697.
+Package pdftex.def Info: muta3.png used on input line 704.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
-
-<crossover00.png, id=327, 390.45876pt x 279.0425pt>
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 707.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 707.
+ [17 <./s2f2t10.png> <./s2f2t50.png> <./s2f2t100.png>]
+<crossover00.png, id=299, 390.45876pt x 279.0425pt>
 File: crossover00.png Graphic file (type png)
  <use crossover00.png>
-Package pdftex.def Info: crossover00.png used on input line 709.
+Package pdftex.def Info: crossover00.png used on input line 716.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<crossover0.png, id=328, 390.45876pt x 279.0425pt>
+<crossover0.png, id=300, 390.45876pt x 279.0425pt>
 File: crossover0.png Graphic file (type png)
  <use crossover0.png>
-Package pdftex.def Info: crossover0.png used on input line 710.
+Package pdftex.def Info: crossover0.png used on input line 717.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<crossover1.png, id=329, 390.45876pt x 279.0425pt>
+<crossover1.png, id=301, 390.45876pt x 279.0425pt>
 File: crossover1.png Graphic file (type png)
  <use crossover1.png>
-Package pdftex.def Info: crossover1.png used on input line 711.
+Package pdftex.def Info: crossover1.png used on input line 718.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<crossover2.png, id=330, 390.45876pt x 279.0425pt>
+<crossover2.png, id=302, 390.45876pt x 279.0425pt>
 File: crossover2.png Graphic file (type png)
  <use crossover2.png>
-Package pdftex.def Info: crossover2.png used on input line 712.
+Package pdftex.def Info: crossover2.png used on input line 719.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 715.
+(babel)             in language  on input line 722.
 
 [18 <./muta0.png> <./muta1.png> <./muta2.png> <./muta3.png>]
-<crossoverB00.png, id=341, 390.45876pt x 279.0425pt>
+<crossoverB00.png, id=313, 390.45876pt x 279.0425pt>
 File: crossoverB00.png Graphic file (type png)
  <use crossoverB00.png>
-Package pdftex.def Info: crossoverB00.png used on input line 723.
+Package pdftex.def Info: crossoverB00.png used on input line 730.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<crossoverB0.png, id=342, 390.45876pt x 279.0425pt>
+<crossoverB0.png, id=314, 390.45876pt x 279.0425pt>
 File: crossoverB0.png Graphic file (type png)
  <use crossoverB0.png>
-Package pdftex.def Info: crossoverB0.png used on input line 724.
+Package pdftex.def Info: crossoverB0.png used on input line 731.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<crossoverB1.png, id=343, 390.45876pt x 279.0425pt>
+<crossoverB1.png, id=315, 390.45876pt x 279.0425pt>
 File: crossoverB1.png Graphic file (type png)
  <use crossoverB1.png>
-Package pdftex.def Info: crossoverB1.png used on input line 725.
+Package pdftex.def Info: crossoverB1.png used on input line 732.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 
-<crossoverB2.png, id=344, 390.45876pt x 279.0425pt>
+<crossoverB2.png, id=316, 390.45876pt x 279.0425pt>
 File: crossoverB2.png Graphic file (type png)
  <use crossoverB2.png>
-Package pdftex.def Info: crossoverB2.png used on input line 726.
+Package pdftex.def Info: crossoverB2.png used on input line 733.
 (pdftex.def)             Requested size: 151.36353pt x 108.17043pt.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 729.
+(babel)             in language  on input line 736.
 
 [19 <./crossover00.png> <./crossover0.png> <./crossover1.png> <./crossover2.png
 >]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 741.
+(babel)             in language  on input line 748.
  [20 <./crossoverB00.png> <./crossoverB0.png> <./crossoverB1.png> <./crossoverB
 2.png>]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 749.
+(babel)             in language  on input line 756.
  [21]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 754.
+(babel)             in language  on input line 761.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 754.
+(babel)             in language  on input line 761.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 754.
+(babel)             in language  on input line 761.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 754.
+(babel)             in language  on input line 761.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 754.
+(babel)             in language  on input line 761.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 754.
+(babel)             in language  on input line 761.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 763.
+(babel)             in language  on input line 770.
  [22]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 768.
+(babel)             in language  on input line 775.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 768.
+(babel)             in language  on input line 775.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 768.
+(babel)             in language  on input line 775.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 768.
+(babel)             in language  on input line 775.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 768.
+(babel)             in language  on input line 775.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 768.
+(babel)             in language  on input line 775.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
  [23]
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
 Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 778.
+(babel)             in language  on input line 785.
  [24]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 778.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 778.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 785.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 785.
  (./TP3.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 778.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 778.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 785.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 785.
 Package rerunfilecheck Info: File `TP3.out' has not changed.
-(rerunfilecheck)             Checksum: 8016C4A99F52E514287A41296FE61062;2083.
+(rerunfilecheck)             Checksum: 437C04654E8418784E8BE3DF7B43EF6E;2007.
  ) 
 Here is how much of TeX's memory you used:
- 22382 strings out of 493029
- 409209 string characters out of 6136234
- 608002 words of memory out of 5000000
- 25388 multiletter control sequences out of 15000+600000
- 17738 words of font info for 69 fonts, out of 8000000 for 9000
+ 21454 strings out of 493029
+ 394147 string characters out of 6136235
+ 574682 words of memory out of 5000000
+ 24492 multiletter control sequences out of 15000+600000
+ 16902 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,11n,84p,2139b,595s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,8n,84p,2151b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmtt10.pfb>
-Output written on TP3.pdf (25 pages, 1486689 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on TP3.pdf (25 pages, 1275876 bytes).
 PDF statistics:
- 465 PDF objects out of 1000 (max. 8388607)
- 360 compressed objects within 4 object streams
- 88 named destinations out of 1000 (max. 500000)
- 404 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 425 PDF objects out of 1000 (max. 8388607)
+ 323 compressed objects within 4 object streams
+ 68 named destinations out of 1000 (max. 500000)
+ 396 words of extra memory for PDF output out of 10000 (max. 10000000)
 
