@@ -823,7 +823,7 @@ parametro leerParametroDeValores(int c){
 	parametro param;
 
 	ifstream valores;
-	valores.open ("geneticopostaMUTA1.txt");
+	valores.open ("3b2seleccion250.txt");
 	
 
 	valores >> param.esquinaparam.first;
