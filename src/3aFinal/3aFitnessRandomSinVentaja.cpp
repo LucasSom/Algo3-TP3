@@ -783,6 +783,51 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 	}
 }
 
+//devuelve la cantidad de veces que el parametro de entrada le ganó a un jugador Random en cien partidos.
+int juezRandom (int rows, int columns, int c, int p, parametro param){
+	
+	int rta = 0;
+
+	for (int m=0; m<100; ++m) {
+
+		vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
+		p=2*p; //cuento fichas totales
+		int ultimajugada=-1;
+		int LeTocaA = 1;
+		if (m>50) {LeTocaA=2;} //para que los ultimos 50 partidos los empiece el random
+
+		while (true) {
+			if(gane(tablero, c, ultimajugada)) {++rta; break;} //gano el 1
+			if(perdi(tablero, c, ultimajugada)) {break;} //perdio el 1, gano el 2
+			if(p==0){break;} //empate no hay mas fichas
+			bool lleno=true;
+			int h=0;
+			while( h<columns && lleno){
+				if(tablero[h].size()<rows){ lleno=false;}
+				++h;
+			}
+			if (lleno) {break;} //empate se lleno el tablero y no gano nadie
+			
+
+			int move;
+			if(LeTocaA==1){ 
+				move = parametrizable(rows, columns, c, p, tablero, ultimajugada, param);
+				tablero[move].push_back(LeTocaA); //juega quien corresponda
+				LeTocaA=2;
+			}else{
+				move = rand() % columns;
+				tablero[move].push_back(LeTocaA); //juega quien corresponda
+				LeTocaA=1;
+			}
+			--p;
+			ultimajugada=move;
+		}
+
+	}
+
+	return rta;
+}
+
 
 
 //----------------- GRID SEARCH------------------------
@@ -831,31 +876,6 @@ void paramrandom(parametro& param, int c){
 		param.consecutivos.push_back(float_rand(min,max));
 	}
 }
-
-
-//se fija si un jugador desafiante le gana al jugador mejor
-bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, parametro desafiante){
-
-	int empiezaDesafiante = juez(rows,columns,c,p,1,desafiante,mejor);
-	int empiezaCampeon = juez(rows,columns,c,p,1,mejor,desafiante);
-
-	if(empiezaDesafiante==1 && empiezaCampeon==2) {
-		//si le gana al mejor hasta ahora siendo primero y segundo
-		return true;// pasa a ser el nuevo mejor		
-	}
-	
-	if(empiezaDesafiante==1 && empiezaCampeon==0) {
-		//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
-		return true;// pasa a ser el nuevo mejor
-	}
-
-	if(empiezaDesafiante==0 && empiezaCampeon==2) {
-		//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente
-		return true;// pasa a ser el nuevo mejor
-	}
-	return false;
-}
-
 
 
 
@@ -942,10 +962,19 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	
 */
 
+	ofstream porcentajes;
+	porcentajes.open ("porcentajes3aRandomSinVentaja.txt");
+	porcentajes << "mejorNumero,porcentaje" << endl;
+
+
 	parametro mejor=param;
+	int porcentajeCampeon;
+	porcentajeCampeon = juezRandom(rows,columns,c,p,mejor);
+	int z=1; //me dice cuantos campeones fui cambiando hasta el momento
+	porcentajes << z << "," << porcentajeCampeon << endl;
 
 
-	vector<float> valoresDiscretos = {-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1}
+	vector<float> valoresDiscretos = {-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
 
 	///for (int u=0; u<4; ++u){
 		for(int k=0;k<c-1;++k){
@@ -953,7 +982,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.extensiblesprox[k] = valoresDiscretos[i];
 				for (int j=0; j<valoresDiscretos.size(); ++j) {
 					param.extensibles[k] = valoresDiscretos[j];
-					if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}				
+					int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}				
 				}
 			}
 			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -963,7 +998,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.biextensibles[k] = valoresDiscretos[l];
 				for (int r=0; r<valoresDiscretos.size(); ++r) {
 				param.biextensibles[k] = valoresDiscretos[r];
-					if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+					int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 				}
 			}
 			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -974,11 +1015,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 		//optimizamos biextparam
 		for (int i=0; i<valoresDiscretos.size(); ++i) {
-				param.extensiblesprox[k] = valoresDiscretos[i];
+				param.biextparam.first = valoresDiscretos[i];
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.biextparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+				if (porcentajeDesafiante>porcentajeCampeon) {mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -992,7 +1034,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.extproxparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1004,7 +1052,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.extparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1017,7 +1071,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.esquinaparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1031,7 +1091,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.bordeparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1043,7 +1109,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.libertadparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1055,7 +1127,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.consecparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1067,7 +1145,13 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.centroparam.second = valoresDiscretos[j];
-				if (nuevoCampeon(rows, columns, c, p, mejor, param)) {mejor = param;}
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
+						mejor = param;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
+					}	
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1084,7 +1168,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 int escribirParametro(int c, parametro param){
 	
 	ofstream valores;
-	valores.open ("chebarAVER2.txt");
+	valores.open ("jugador3aRandomSinVentaja.txt");
 	
 valores << param.esquinaparam.first << "\n";
 	valores << param.esquinaparam.second << "\n";
