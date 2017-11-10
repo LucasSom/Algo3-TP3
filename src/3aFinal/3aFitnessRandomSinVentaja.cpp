@@ -879,6 +879,30 @@ void paramrandom(parametro& param, int c){
 
 
 
+//se fija si un jugador desafiante le gana al jugador mejor
+bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, parametro desafiante){
+
+	int empiezaDesafiante = juez(rows,columns,c,p,1,desafiante,mejor);
+	int empiezaCampeon = juez(rows,columns,c,p,1,mejor,desafiante);
+
+	if(empiezaDesafiante==1 && empiezaCampeon==2) {
+		//si le gana al mejor hasta ahora siendo primero y segundo
+		return true;// pasa a ser el nuevo mejor		
+	}
+	
+	if(empiezaDesafiante==1 && empiezaCampeon==0) {
+		//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
+		return true;// pasa a ser el nuevo mejor
+	}
+
+	if(empiezaDesafiante==0 && empiezaCampeon==2) {
+		//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente
+		return true;// pasa a ser el nuevo mejor
+	}
+	return false;
+}
+
+
 parametro leerParametroDeValores(int c, string a){
 
 	parametro param;
@@ -933,7 +957,8 @@ parametro leerParametroDeValores(int c, string a){
 //funcion del punto 3.a que busca parametros que optimicen 
 parametro gridsearch(int rows, int columns, int c, int p){
 
-	parametro param= leerParametroDeValores(c, "NuestroJugadorBueno.txt");
+	parametro param;
+	paramrandom(param,c);
 /*
 	cerr<< param.esquinaparam.first << endl; 
 	cerr<<param.esquinaparam.second<< endl;

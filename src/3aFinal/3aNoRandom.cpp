@@ -947,7 +947,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 	vector<float> valoresDiscretos = {-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
 
-	///for (int u=0; u<4; ++u){
+	for (int u=0; u<10; ++u){
 		for(int k=0;k<c-1;++k){
 			for (int i=0; i<valoresDiscretos.size(); ++i) {
 				param.extensiblesprox[k] = valoresDiscretos[i];
@@ -1073,7 +1073,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
 		param = mejor;
 
-	///}
+	}
 
 
 	return mejor;
