@@ -27,7 +27,7 @@
 \usepackage{multicol}
 \usepackage{tikz-cd}
 \usepackage{amsmath}
-%\usepackage[linesnumbered,ruled]{algorithm2e}
+\usepackage[linesnumbered,ruled]{algorithm2e}
 \usepackage{algpseudocode}
 \usetikzlibrary{calc}
 \usetikzlibrary{matrix}
@@ -206,27 +206,41 @@ Antes del ciclo hay un \texttt{If} que es la ejecución del primer turno si empe
 
 \begin{algorithm}
 	\texttt{leer} parámetros: \textit{color, oponent\_color, columns, rows, c, p}
+	
     inicializar $tablero$
+
 	\texttt{leer} quién empieza
+
 	\If{empiezo yo}
 		{
 		$movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
+
 		\texttt{AgregarAtras}($tablero[movida]$, 1)
+
 		resto 1 a $p$
+
 		\texttt{jugar}($movida$)		
 		}
+
     \While{$true$}
     	{
     	\texttt{leer} $mensaje$
+
         \If{el $mensaje$ es de finalización}
         	{
         	\textbf{break}
             }
+
         \texttt{AgregarAtras}($tablero$[movida del otro jugador], 2)        	
+
 		resto 1 a $p$
+
         $movida$ = \texttt{minimax}($rows$, $columns$, $c$, $p$, $tablero$, \textbf{true}, -1).first
+
         \texttt{AgregarAtras}($tablero[movida]$, 1)
+
         resto 1 a $p$
+
     	\texttt{jugar}($movida$)
     	}
     \caption{Main}   
@@ -237,36 +251,42 @@ El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero
 REVISARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 
 \begin{algorithm}
+	\SetKwInOut{Input}{Input}
 
-    \Function{minimax}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, \textit{matriz}(\textbf{int} \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} ultimajugada}
+
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, \textit{matriz}(\textbf{int} \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} ultimajugada}
+    
 		\If{\texttt{gane}}
-			\State \textbf{return} ($\infty$,1)
-		\EndIf
+			{
+			\textbf{return} ($\infty$,1)
+			}
+
 		\If{\texttt{perdi}}
-			\State \textbf{return} ($\infty$,-1)
-		\EndIf
+			{
+			\textbf{return} ($\infty$,-1)
+			}
+
 		\If{empate porque no hay más fichas}
-			\State \textbf{return} ($\infty$,0)
-		\EndIf
-		%\State \textit{vector}(pair(\textbf{int},\textbf{int})) posibles = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
-		
-		\If{empate porque se llenó el tablero}
-		    \State \textbf{return} ($\infty$,0)
-		\EndIf
-		
-		\State recursión llamando al siguiente en el árbol de minimax
-		
-		\If{Maximizo}
-		    \State \textbf{return} (columna del máximo, máximo)
-		\Else
-		    \State \textbf{return} (columna del máximo, máximo)
-		\EndIf
-		
-    \EndFunction
+			{
+			\textbf{return} ($\infty$,0)
+			}
 
+		\If{empate porque se llen\'o el tablero}
+			{
+		    \textbf{return} ($\infty$,0)
+		    }
+		
+		recursión llamando al siguiente en el árbol de minimax
+		
+		\eIf{Maximizo}
+			{
+		    \textbf{return} (columna del máximo, máximo)
+			}
+			{
+		    \textbf{return} (columna del máximo, máximo)
+			}
 
-
-
+\caption{Minimax}
 \end{algorithm}
 
 Las funciones \texttt{gane} y \texttt{perdi} devuelven \textbf{true} si con la jugada se gana la partida o se pierde, respectivamente. Ambas consisten en llamar a la funcion \texttt{ganoJugador} pasándole como jugador al 1 o al 2 respectivamente. Esta función va verificando las distintas condiciones de victoria para el jugador que se le pasó por parámetro (es decir, si con la última jugada se forma $c$ en línea vertical, horizontal o diagonal) hasta que encuentre alguna devoliendo \textbf{true}. Si no encuentra, devuelve \textbf{false}.
@@ -283,46 +303,68 @@ Las funciones \texttt{gane} y \texttt{perdi} devuelven \textbf{true} si con la j
 Para la poda se reutilizó el mismo código y se hizo un cambio al hacer la recursión. Para no copiar todo el pseudocódigo, a continuación se lo presenta con la inicialización previa de las variables \textit{posibles, mejorPos, mejorValorMaximizo} y \textit{mejorValorMinimizo}. $posibles$ es un vector de tuplas de enteros donde cada elemento representa una columna del tablero. El primer elemento de la tupla es la columna en sí y el segundo es .... Las otras variables se inicializan con los valores del primer elemento de la primera posición de $posibles$, $-\infty$ y $\infty$ respectivamente.
 
 \begin{algorithm}
+	\SetKwInOut{Input}{Input}
 
-    \Function{minimaxPoda}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} $\alpha$, \textbf{int} $\beta$, \textbf{int} ultimajugada}
-    \State vector(pair(\textbf{int},\textbf{int})) $posibles$ = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
-    \State \textbf{int} \textit{mejorPos} = $posibles[0]$.first
-    \State \textbf{int} \textit{mejorValorMaximizo} = $-\infty$
-    \State \textbf{int} \textit{mejorValorMinimizo} = $\infty$
+
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} $\alpha$, \textbf{int} $\beta$, \textbf{int} ultimajugada}
+    
+    vector(pair(\textbf{int},\textbf{int})) $posibles$ = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
+    
+    \textbf{int} \textit{mejorPos} = $posibles[0]$.first
+    
+    \textbf{int} \textit{mejorValorMaximizo} = $-\infty$
+    
+    \textbf{int} \textit{mejorValorMinimizo} = $\infty$
+    
     \For{todos los $posibles$}
-    	\State matriz(\textbf{int}, \textbf{int}) $tablero2$ = $tablero$
-    	\State actualizar $tablero2$ según quién juega
+    	{
+    	matriz(\textbf{int}, \textbf{int}) $tablero2$ = $tablero$
+    	
+    	actualizar $tablero2$ según quién juega
+    	
     	%MEJORAR ESTA LINEAAAAAAAAAA
-    	\State $posibles[i]$.second = recursión con $tablero2$, $p-1$ e invirtiendo el valor de verdad de $maximizo$
+    	
+    	$posibles[i]$.second = recursión con $tablero2$, $p-1$ e invirtiendo el valor de verdad de $maximizo$
+    	
     	\If{$maximizo$ $\land$ $posibles[i]$.second == $mejorValorMaximizo$}
-    		\State actualizo $mejorPos$ y $mejorValorMaximizo$
-    	\EndIf
+    		{
+    		actualizo $mejorPos$ y $mejorValorMaximizo$
+    		}
     	\If{$\lnot maximizo$ $\land$ $posibles[i]$.second $< mejorValorMinimizo$}
-    		\State actualizo $mejorPos$ y $mejorValorMinimizo$
-    	\EndIf
-    	\State $\alpha$ = max($\alpha$, mejorValorMaximizo)
-    	\State $\beta$ = min($\beta$, mejorValorMinimizo)
+    		{
+    		actualizo $mejorPos$ y $mejorValorMinimizo$
+    		}
+    		
+    	$\alpha$ = max($\alpha$, mejorValorMaximizo)
+    	
+    	$\beta$ = min($\beta$, mejorValorMinimizo)
+    	
     	\If{$\alpha$ $\geq$ $\beta$}
-    		\State break
-    	\EndIf
-    \EndFor
-    \If{$maximizo$}
-    	\State \textbf{return} ($mejorPos$, $mejorValorMaximizo$)
-    \Else
-    	\State \textbf{return} ($mejorPos$, $mejorValorMinimizo$)
-    \EndIf
-    \EndFunction
+    		{
+    		break
+    		}
+    	}
+    	
+    \eIf{$maximizo$}
+		{    	
+    	\textbf{return} ($mejorPos$, $mejorValorMaximizo$)
+    	}
+    	{
+    	\textbf{return} ($mejorPos$, $mejorValorMinimizo$)
+    	}
+    
+    \caption{minimaxPoda}
 
 \end{algorithm}
 
 
 \subsection{Complejidad}
 
-Veremos que la complejidad es $\mathcal{O}(a^b)$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b = \min{|FichasRestantes|$, $|Casillas Libres En El Tablero|}$ que es en particular acotable por $\mathcal{O}(N\textsuperscript{(N*M)})$ ya que a lo sumo se puede jugar en $N$ columnas (no hay mas en el tablero) y a lo sumo hay $N*M$ casillas libres (o sea, el tablero esta vacío). Cabe aclarar que fichas restantes son la fichas restantes totales (las mias + las suyas). Esto es porque el algoritmo de minimax es como un arbol de Backtracking en el sentido de que checkea todas las posibles sucesiones de jugadas que se pueden dar, considerando tanto lo que yo juego como lo que el juega.
+Veremos que la complejidad es $\mathcal{O}(a^b)$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b =$ mín $\{|FichasRestantes|$, $|Casillas Libres En El Tablero|\}$ que es en particular acotable por $\mathcal{O}(N\textsuperscript{(N*M)})$ ya que a lo sumo se puede jugar en $N$ columnas (no hay mas en el tablero) y a lo sumo hay $N*M$ casillas libres (o sea, el tablero esta vacío). Cabe aclarar que fichas restantes son la fichas restantes totales (las mias + las suyas). Esto es porque el algoritmo de minimax es como un arbol de Backtracking en el sentido de que checkea todas las posibles sucesiones de jugadas que se pueden dar, considerando tanto lo que yo juego como lo que el juega.
 
 Si bien en total hay  menos de $3\textsuperscript{(N*M)})$ tableros posibles (cada casilla puede estar vacía, o tener una ficha de alguno de los dos jugadores, y acota por arriba pues hay casos que no son posibles, como que haya una ficha encima de una vacía) esto no cuenta la cantidad de posibles partidas que se pueden dar, ya que un mismo tablero podría ser alcanzado de varias formas. Pero a cada paso, cada jugador tiene $N$ opciones de jugada y a lo sumo se juega $N*M$ veces (se llena el tablero) y por ende tenemos $N\textsuperscript{(N*M)}$ estados posibles del tablero. Lo que hace el algoritmo es para cada uno de estos tableros, evaluar si hay o no un ganador y en base a eso establecer un puntaje al tablero que es el que transmite minimax. Este checkeo tiene un costo de $\mathcal{O}(c)$ ya que la función por como la implementamos recibe cual fue la última jugada y sabe que el empate solo se puede dar si no quedan fichas o se lleno el tablero o si esta última jugada logro que algun jugador gane. Checkear las primeras dos condiciones es $\mathcal{O}(1)$ sabiendo la cantidad de fichas que me quedan y de filas y columnas (que es un dato que tenemos guardado). Pero si gano con esa ficha solo hay que verificar las $c$ fichas para todos los sentidos y direcciones (8 en total, 4 direcciones con sus dos sentidos cada una), lo que es $8* \mathcal{O}(c)= \mathcal{O}(c)$. 
 
-Luego dado un tablero, conociendo el valor de minimax de sus hijos, queda tomar o bien maximo o minimo segun corresponda, pero como tiene $N$ hijos a lo sumo (si no es hoja) ya que son las $N$ posibles jugadas inmediatas, esto es $\mathcal{O}(N)$. Esta operación la hacemos para todo nodo, como tambien checkear si hay un ganador. Luego la complejidad total es $|Nodos|*\mathcal{O}(N)*\mathcal{O}(c)$ y hemos visto que $|Nodos|=a^b$ por lo que obtenemos una complejidad $\mathcal{O}(N c a^b)$ lo que es acotable, como hemos visto por $\mathcal{O}(N c N\textsuperscript{(N*M)})=\mathcal{O}(c N\textsuperscript{(N+1)*M})$ pero si recordamos que $c<\min{N,M}$ podemos deducir que la complejidad es menor que $\mathcal{O}(N\textsuperscript{((N+1)*M)+1})$.
+Luego dado un tablero, conociendo el valor de minimax de sus hijos, queda tomar o bien maximo o minimo segun corresponda, pero como tiene $N$ hijos a lo sumo (si no es hoja) ya que son las $N$ posibles jugadas inmediatas, esto es $\mathcal{O}(N)$. Esta operación la hacemos para todo nodo, como tambien checkear si hay un ganador. Luego la complejidad total es $|Nodos|*\mathcal{O}(N)*\mathcal{O}(c)$ y hemos visto que $|Nodos|=a^b$ por lo que obtenemos una complejidad $\mathcal{O}(N c a^b)$ lo que es acotable, como hemos visto por $\mathcal{O}(N c N\textsuperscript{(N*M)})=\mathcal{O}(c N\textsuperscript{(N+1)*M})$ pero si recordamos que $c<$ mín$\{N,M\}$ podemos deducir que la complejidad es menor que $\mathcal{O}(N\textsuperscript{((N+1)*M)+1})$.
 
 En cuanto a la complejidad del algoritmo con poda, no hay modificaciones ya que la misma cota es válida puesto que la única diferencia que tiene la poda es que guarda registro de dos valores ($\alpha$ y $\beta$) y los compara a cada paso, lo que es $\mathcal{O}(1)$ y por ende no afecta la complejidad. Si bien la poda corta varias ramas del arbol de minimax, no podemos asegurar una cota de cuantas ramas cortará y por ende la complejidad teórica seguirá siendo la misma. Sin embargo uno espera que la poda se ejecute y varias ramas del arbol no se checkeen, reduciendo asi el tiempo de ejecución en comparación con el algoritmo sin poda.
 
@@ -355,7 +397,7 @@ Esta experimentación nos permitió reforzar nuestra idea (al menos para estos t
 Para tratar de reforzar experimentalmente la complejidad teorica deducida previamente, se realizó una experimentación en la que se registró para varios tableros de tamaño pequeño (de $2\times2, 3\times3, 4\times4, 2\times3, 3\times2, 2\times4, 4\times2, 5\times2, 2\times5, 2\times6, 2\times7, 2\times8, 6\times2, 7\times2, 8\times2, 3\times4, 4\times3, 3\times5, 5\times3$) ya que para tamaños mayores los tiempos de ejecución fueron inabordables (lo que reforzó en parte la complejidad teórica esperada). Para cada uno de esos tableros, se jugo con fichas de sobra (más que la cantidad que entraba en el tablero, 88 particularmente) y el $c$ se movió entre $2, 3$ y $4$ siempre y cuando se cumplieran las condiciones del juego. Además, siempre se jugó contra el jugador random provisto por la cátedra (que con distribución uniforme decidía aleatoriamente en cuál de las $N$ posibles columnas jugar). Para asegurar distintas configuraciones, se repitió cada partido $10$ veces. 
 
 
-Para todos estos juegos se registró a cada jugada del algoritmo el tiempo de ejecución que este tomó en decidir qué jugada realizar y se registró una variable que reflejaba un refinamiento de la complejidad esperada. Esta variable se definió como $N*c*a^b$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b =\min{|FichasRestantes|$, $|Casillas Libres En El Tablero|}$ que es en particular acotable por $c*N\textsuperscript{((N+1)*M)}$. Luego, se graficó el $tiempo/(N*c*a^b)$ en funcion de $N*c*a^b$. Se esperaría obtener un gráfico acotable por una constante que reforzaría la idea de que el aloritmo cumple la cota propuesta. Se graficó, pues, esto en la Figura 1, (junto con su análogo con el algoritmo con poda) y efectivamente se cumplió con lo esperado ya que se ve que el gráfico es prácticamente constante salvo en los primeros valores, lo que tiene sentido y refuerza aún más la hipótesis, porque para esos valores toman mucha más importancia los términos constantes que no dependen de la variable propuesta como complejidad. Al aumentar la variable propuesta, la importancia del término constante se reduce y pasa a ser constante. Más aún, esa constante es $0$, lo que nos indica que es incluso menor a la complejidad propuesta (o sea que cumple lo pedido, ya que en particular es menor, que es a lo que apunta la notación $\mathcal{O}$) ya que este método de dividir por la complejidad esperada es muy sensible, ya que da una constante si dividimos por algo que cumpla ser $\mathcal{\theta}$, y sino ante una pequeña alteración en la complejidad se refleja claramente en el gráfico (o bien pasa a ser creciente o decreciente). Tiene sentido que sea menor ya que muchas veces el partido termina antes de que completemos efectivamente el tablero (que es la cota que propusimos) y además no siempre tenemos tantas opciones como columnas posibles de jugar ahora (cota que propusimos), sino que con el desarrollo del juego las opciones de columnas posibles van disminuyendo. Igualmente, esto nos permite reforzar claramente nuestra hipótesis de que cumple la complejidad teórica propuesta.
+Para todos estos juegos se registró a cada jugada del algoritmo el tiempo de ejecución que este tomó en decidir qué jugada realizar y se registró una variable que reflejaba un refinamiento de la complejidad esperada. Esta variable se definió como $N*c*a^b$ donde $a=|Columnas Donde Es Posible Jugar|$ y $b =$ mín$\{|FichasRestantes|$, $|Casillas Libres En El Tablero|\}$ que es en particular acotable por $c*N\textsuperscript{((N+1)*M)}$. Luego, se graficó el $tiempo/(N*c*a^b)$ en funcion de $N*c*a^b$. Se esperaría obtener un gráfico acotable por una constante que reforzaría la idea de que el aloritmo cumple la cota propuesta. Se graficó, pues, esto en la Figura 1, (junto con su análogo con el algoritmo con poda) y efectivamente se cumplió con lo esperado ya que se ve que el gráfico es prácticamente constante salvo en los primeros valores, lo que tiene sentido y refuerza aún más la hipótesis, porque para esos valores toman mucha más importancia los términos constantes que no dependen de la variable propuesta como complejidad. Al aumentar la variable propuesta, la importancia del término constante se reduce y pasa a ser constante. Más aún, esa constante es $0$, lo que nos indica que es incluso menor a la complejidad propuesta (o sea que cumple lo pedido, ya que en particular es menor, que es a lo que apunta la notación $\mathcal{O}$) ya que este método de dividir por la complejidad esperada es muy sensible, ya que da una constante si dividimos por algo que cumpla ser $\mathcal{\theta}$, y sino ante una pequeña alteración en la complejidad se refleja claramente en el gráfico (o bien pasa a ser creciente o decreciente). Tiene sentido que sea menor ya que muchas veces el partido termina antes de que completemos efectivamente el tablero (que es la cota que propusimos) y además no siempre tenemos tantas opciones como columnas posibles de jugar ahora (cota que propusimos), sino que con el desarrollo del juego las opciones de columnas posibles van disminuyendo. Igualmente, esto nos permite reforzar claramente nuestra hipótesis de que cumple la complejidad teórica propuesta.
 
 \subsubsection{Con poda}
 En el caso con poda se realizó la misma experimentación para comprobar la optimalidad. Como el algoritmo tardaba un poco menos (por la poda realizada), se realizó (además de con los ya mencionados) con tableros de tamaño $4\times4, 3\times5, 5\times3, 4\times5, 5\times4, 3\times6, 3\times7$ , con los mismos valores de $c$ que antes (siempre y cuando cumpliera las condiciones del juego). También se varió la cantidad de fichas de la misma forma.
@@ -409,26 +451,43 @@ En la función se llama a la función \texttt{puntaje} que se verá luego.
 
 La variable $tablero$ se pasa por referencia.
 \begin{algorithm}
+	\SetKwInOut{Input}{Input}
 
-    \Function{parametrizable}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero, \textbf{int} ultimajugada, \textbf{parametro} param}
-    	\State $posibles$ = [0,..,$columnas-1$] - las columnas llenas del $tablero$
+
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero, \textbf{int} ultimajugada, \textbf{parametro} param}
+    
+    	$posibles$ = [0,..,$columnas-1$] - las columnas llenas del $tablero$
+
     	\For{$i$ = [0,..,$\lvert posibles \rvert$)}
+    		{
+
     		\If{jugando $posibles[i]$ se evita perder en la siguiente jugada}
-    			\State \textbf{return} $posibles[i]$
-    		\EndIf
-    	\EndFor
-    	\State \textbf{float} $maximoPuntaje$ = \texttt{puntaje}(rows, columns, c, p, tablero, posibles[0], param)
-    	\State \textbf{int} $maxpos$ = $posibles[0]$
+    			{
+    			\textbf{return} $posibles[i]$
+    			}
+    		}
+
+    	\textbf{float} $maximoPuntaje$ = \texttt{puntaje}(rows, columns, c, p, tablero, posibles[0], param)
+
+    	\textbf{int} $maxpos$ = $posibles[0]$
     	
     	\For{$q$ = [1,..,$\lvert posibles \rvert$)}
-			\State \texttt{AgregarAtrás}($tablero[posibles[q]]$, 1)
-			\If{\texttt{puntaje}($rows$, $columns$, $c$, $p$, $tablero$, $posibles[q]$, $param$)>$maximopuntaje$}
+    		{
+
+			\texttt{AgregarAtrás}($tablero[posibles[q]]$, 1)
+
+			\If{\texttt{puntaje}($rows$, $columns$, $c$, $p$, $tablero$, $posibles[q]$, $param$)$> maximopuntaje$}
+				{
 				actualizar $maximopuntaje$ y $maxpos$
-			\EndIf
-			\State Sacarle el último a $tablero[posibles[q]]$		
-		\EndFor
-		\State \textbf{return} $maxpos$
-    \EndFunction
+				}
+
+			Sacarle el último a $tablero[posibles[q]]$		
+			}
+
+		\textbf{return} $maxpos$
+    
+    
+    \caption{parametrizable}
 
 \end{algorithm}
 
@@ -439,20 +498,37 @@ Previamente se verifica si con la jugada se gana o no. Si es así, el puntaje es
 
 La variable $tablero$, como en \texttt{parametrizable} también se pasa por referencia pero como \texttt{const}.
 \begin{algorithm}
-    \Function{puntaje}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero, \textbf{int} ultimajugada, \textbf{parametro} param}
+	\SetKwInOut{Input}{Input}
+
+
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero, \textbf{int} ultimajugada, \textbf{parametro} param}
+ 
+
 		\If{\texttt{gane}}
-			\State \textbf{return} $\infty$
-		\EndIf    	
-    	\State contar los que estan en el borde de cada jugador
-    	\State contar la cantidad de fichas que estan en una esquina de cada jugador
-    	\State contar la cantidad de fichas en el centro de cada jugador
-		\State contar la cantidad de casillas libres alrededor de cada ficha de cada jugador
-		\State contar la cantidad de fichas consecutivas de cada jugador
-		\State contar cantidad de inmediatemente extensibles en la próxima jugada de cada jugador
-		\State contar cantidad de  extensibles en cualquier momento de cada jugador
-		\State contar cantidad de  bi-extensibles (extensibles en ambos sentidos) en cualquier momento de cada jugador
-		\State \textbf{return} \sum cantidad$_{jugador1}*$(puntaje del parámetro)-cantidad$_{jugador2}*$(puntaje del parámetro)
-    \EndFunction
+			{
+			\textbf{return} $\infty$
+			}    	
+
+    	contar los que estan en el borde de cada jugador
+
+    	contar la cantidad de fichas que estan en una esquina de cada jugador
+
+    	contar la cantidad de fichas en el centro de cada jugador
+
+		contar la cantidad de casillas libres alrededor de cada ficha de cada jugador
+
+		contar la cantidad de fichas consecutivas de cada jugador
+
+		contar cantidad de inmediatemente extensibles en la próxima jugada de cada jugador
+
+		contar cantidad de  extensibles en cualquier momento de cada jugador
+
+		contar cantidad de  bi-extensibles (extensibles en ambos sentidos) en cualquier momento de cada jugador
+
+		\textbf{return} $\sum$ cantidad$_{jugador1}*$(puntaje del parámetro)-cantidad$_{jugador2}*$(puntaje del parámetro)
+		
+		
+    \caption{puntaje}
 
 \end{algorithm}
 
@@ -463,7 +539,7 @@ Cabe aclarar que contar la cantidad de fichas en determinadas posiciones es simp
 
 Veamos que el jugador que presentamos decide que jugada realizar en tiempo$\mathcal{O}(N^2 M)$ que es menor que $\mathcal{O}(N^2 M^2)$ y por ende cumple la complejidad pedida. 
 
-En primer término, veamos que calcular el puntaje de un tablero es $\mathcal{O}(NM)$ puesto que lo único que hacemos es recorrer todas las filas, columnas y diagonales (que en total son 4 veces, no importa igualmente cuánto sino que es una cantidad constante) y en cada una de ellas contamos cuántas fichas son nuestras y cuántas de él. Pero esto lo repetimos una vez por cada parámetro que tenemos, pero como tenemos finitos (y constantes) parámetros, por lo que pasamos a recorrer una cantidad constante de veces el tablero $\mathcal{O}(c)$. Además, chequeamos si ganamos, que como ya hemos visto en la complejidad del jugador óptimo es Esto es porque recorrer el tablero es $\mathcal{O}(NM)$ ya que para cada sentido de recorrida, pasamos solo una vez por cada casilla, o sea recorremos $N*M$ casillas; repitiendo esto una cantidad constante de veces (la cantidad de parámetros) y para una cantidad constante de sentidos (cuatro) nos da que recorrimos una cantidad constante de veces $N*M $ casillas, por lo que la complejidad de calcular el puntaje es efectivamente $\mathcal{O}(NM)+\mathcal{O}(c)=\mathcal{O}(NM)$ puesto que $c<\min{N,M}$.
+En primer término, veamos que calcular el puntaje de un tablero es $\mathcal{O}(NM)$ puesto que lo único que hacemos es recorrer todas las filas, columnas y diagonales (que en total son 4 veces, no importa igualmente cuánto sino que es una cantidad constante) y en cada una de ellas contamos cuántas fichas son nuestras y cuántas de él. Pero esto lo repetimos una vez por cada parámetro que tenemos, pero como tenemos finitos (y constantes) parámetros, por lo que pasamos a recorrer una cantidad constante de veces el tablero $\mathcal{O}(c)$. Además, chequeamos si ganamos, que como ya hemos visto en la complejidad del jugador óptimo es Esto es porque recorrer el tablero es $\mathcal{O}(NM)$ ya que para cada sentido de recorrida, pasamos solo una vez por cada casilla, o sea recorremos $N*M$ casillas; repitiendo esto una cantidad constante de veces (la cantidad de parámetros) y para una cantidad constante de sentidos (cuatro) nos da que recorrimos una cantidad constante de veces $N*M $ casillas, por lo que la complejidad de calcular el puntaje es efectivamente $\mathcal{O}(NM)+\mathcal{O}(c)=\mathcal{O}(NM)$ puesto que $c<$ mín$\{N,M\}$.
 
 Cabe aclarar aquí que consideramos como un parámetro a los vectores de parámetros (como es el caso de consecutivos) ya que para ellos recorremos solo cuatro veces el tablero (en todos los sentidos) y lo que cambia es dónde alojamos cada valor del vector según cuántas consecutivas encontremos del mismo color. Cabe aclarar también que la operación para saber qué ficha está en una casilla es $\mathcal{O}(1)$ porque guardamos al tablero en una matriz, esto es fundamental para poder asegurar la complejidad pedida.
 
@@ -479,12 +555,12 @@ Pero nuestro jugador no hace solo eso, sino que analiza cómo quedaría el punta
 	\caption{ Gráfico de segundos de ejecución (de cada jugada) dividido $N^2 *M$ en función de $N^2 * M$ para los partidos jugados por el jugador que utiliza la función parametrizable a cada paso. Varian $c$ y $p$. Columnas y filas menores a 11.}
 \end{wrapfigure}
 
-Si bien el grueso del análisis y experimentación sobre este jugador consistirá en buscar buenos parámetros que mejoren al jugador, consideramos relevante reforzar experimentalmente nuestra hipótesis de complejidad teórica esperada. Para esto tomamos mediciones análogas a las del jugador óptimo solo que jugando en más tableros. Se jugó en tableros que comprendían todas las combinaciones factibles con las columnas y filas moviéndose entre $2$ y $10$, $c$ moviendose entre $2$ y $\min{columnas,filas}$ y $p$ moviéndose entre $2$ y $filas*columnas/2$. En cada jugada, los parámetros que determinaban la próxima jugada a realizar se sorteaban aleatoriamente. Todo esto fue para ver experimentalmente que la dependencia que proponíamos en la complejidad dependía efectivamente solo de $n$ y $m$. Así, igual que antes, realizamos un gráfico de tiempo de ejecución/(filas*columnas$^2$) en función de filas*columnas$^2$ donde esperábamos obtener un gráfico constante que reforzaría nuestra hipótesis de que la complejidad (como se justificó teóricamente) era de $\mathcal{O}(N^2 M)$. Este gráfico se puede ver en la Figura 2.
+Si bien el grueso del análisis y experimentación sobre este jugador consistirá en buscar buenos parámetros que mejoren al jugador, consideramos relevante reforzar experimentalmente nuestra hipótesis de complejidad teórica esperada. Para esto tomamos mediciones análogas a las del jugador óptimo solo que jugando en más tableros. Se jugó en tableros que comprendían todas las combinaciones factibles con las columnas y filas moviéndose entre $2$ y $10$, $c$ moviendose entre $2$ y mín$\{columnas,filas\}$ y $p$ moviéndose entre $2$ y $filas*columnas/2$. En cada jugada, los parámetros que determinaban la próxima jugada a realizar se sorteaban aleatoriamente. Todo esto fue para ver experimentalmente que la dependencia que proponíamos en la complejidad dependía efectivamente solo de $n$ y $m$. Así, igual que antes, realizamos un gráfico de tiempo de ejecución/(filas*columnas$^2$) en función de filas*columnas$^2$ donde esperábamos obtener un gráfico constante que reforzaría nuestra hipótesis de que la complejidad (como se justificó teóricamente) era de $\mathcal{O}(N^2 M)$. Este gráfico se puede ver en la Figura 2.
 
 
 
 
-Efectivamente, como se puede ver en la Figura 2, pareciera cumplirse la complejidad esperada ya que el gráfico es practicamente constante. Más aún, al variar por todas sus posibilidades $c$, $p$ y el parámetro de la función, esto refuerza la hipótesis (que se justificó en la explicación del algoritmo) de que esta cota de dependencia no se ve afectada por el parámetro en particular, o la cantidad de fichas que queden, o el $c$. Sabiendo esto, tenemos la posibilidad de experimentar para tableros de mayor tamaño (ya que no tenemos que repetirlos para distintos $c$ y $p$). Por esto, se experimentó con un $c$ aleatorio (con distribución uniforme, usando \texttt{rand()} de C++) entre 2 y $\min{columns,rows}$, y $p=N*\frac{M}{2}$ para que no se interrumpa el partido por falta de fichas y se varió nuevamente las filas y columnas pero ahora el límite superior paso a ser 20 en vez de 10. Nuevamente, se realizó el mismo gráfico que antes con los nuevos datos que se puede ver en la Figura 3.
+Efectivamente, como se puede ver en la Figura 2, pareciera cumplirse la complejidad esperada ya que el gráfico es practicamente constante. Más aún, al variar por todas sus posibilidades $c$, $p$ y el parámetro de la función, esto refuerza la hipótesis (que se justificó en la explicación del algoritmo) de que esta cota de dependencia no se ve afectada por el parámetro en particular, o la cantidad de fichas que queden, o el $c$. Sabiendo esto, tenemos la posibilidad de experimentar para tableros de mayor tamaño (ya que no tenemos que repetirlos para distintos $c$ y $p$). Por esto, se experimentó con un $c$ aleatorio (con distribución uniforme, usando \texttt{rand()} de C++) entre 2 y mín$\{columns,rows\}$, y $p=N*\frac{M}{2}$ para que no se interrumpa el partido por falta de fichas y se varió nuevamente las filas y columnas pero ahora el límite superior paso a ser 20 en vez de 10. Nuevamente, se realizó el mismo gráfico que antes con los nuevos datos que se puede ver en la Figura 3.
 
 \begin{wrapfigure}{R}{0.4\textwidth}
 	%\centering
@@ -554,29 +630,51 @@ El algoritmo genético se basa en la teoría genética darwiniana y busca básic
 
 \subsubsection{El Pseudocódigo}
 \begin{algorithm}
+\SetKwInOut{Input}{Input}
+
+
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p}
+ 
+
+
 \caption{genetico}
-\begin{algortithmic}[1]
-	\Function{genetico}{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p}
-	\State \textbf{int} $tamanopoblacion$, $totalgeneraciones$, $k$
-	\State \textbf{float} $min$, $max$, $pmutar$, $pcrossover$
-	\State vector(\textbf{parametro}) $poblacion$ = vector de longitud $tamanopoblacion$ donde cada elemento está dado por sendos llamados a \texttt{paramrandom}($c$)
+
+	\textbf{int} $tamanopoblacion$, $totalgeneraciones$, $k$
+
+	\textbf{float} $min$, $max$, $pmutar$, $pcrossover$
+
+	vector(\textbf{parametro}) $poblacion$ = vector de longitud $tamanopoblacion$ donde cada elemento está dado por sendos llamados a \texttt{paramrandom}($c$)
+
 	\For{$generacion$ = [1..$totalgeneraciones$)}
-		\State poblacion = \texttt{seleccion}
+
+		{
+
+		poblacion = \texttt{seleccion}
+
 		\For{$i \in poblacion$}
-			\State \texttt{mutar}($i$) con probabilidad $pmutar$
-		\EndFor
-	\EndFor
-	\State \textbf{float} $maximo$ = \texttt{fitness}($poblacion[0]$, $poblacion$, $rows$, $columns$, $c$, $p$)
-	\State \textbf{int} $maxpos$ = 0
+			{
+			\texttt{mutar}($i$) con probabilidad $pmutar$
+			}
+		}
+
+	\textbf{float} $maximo$ = \texttt{fitness}($poblacion[0]$, $poblacion$, $rows$, $columns$, $c$, $p$)
+
+	\textbf{int} $maxpos$ = 0
+
 	\For{\textbf{int} $i$ = [1..$poblacion$)}
-		\State \textbf{float} $actual$ = \texttt{fitness}($poblacion[i]$, $poblacion$, $rows$, $columns$, $c$, $p$)
+		{
+
+		\textbf{float} $actual$ = \texttt{fitness}($poblacion[i]$, $poblacion$, $rows$, $columns$, $c$, $p$)
+
 		\If{$actual>maximo$}
-			\State actualizar $maxpos$ y $maximo$
-		\EndIf
-	\EndFor
-	\State \textbf{return} $poblacion[maxpos]$
-    \EndFunction
-\end{algortithmic}
+			{
+
+			actualizar $maxpos$ y $maximo$
+			}
+		}
+
+	\textbf{return} $poblacion[maxpos]$
+
 \end{algorithm}
 
 En el pseudocódigo anterior se hicieroN llamadas a las siguientes funciones:
