@@ -805,7 +805,7 @@ tuple<int,int> backtracking(rows, columns, c, p, tablero, ultimajugada, int prof
 	bool puedoGanar = false;
 	bool puedoEmpatar = false;
 
-	if (profundidad>3) {return make_tuple<3, rand() & columns>}
+	if (profundidad>3) {return make_tuple<3, rand() % columns>}
 
 	for (int m=0; m<columns; ++m) {//me estoy fijando que pasa si yo juego m en este turno
 
