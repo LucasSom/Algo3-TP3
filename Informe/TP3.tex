@@ -593,6 +593,8 @@ Podemos ver en el gráfico de la Figura 3, que los resultados siguen siendo los 
 
 \subsubsection{El Pseudocódigo}
 
+La función \texttt{optimizar} toma un parámetro $pp$ de un \textbf{parametro} $param$ y busca el valor de ese parámetro para el que se maximiza la performance de $param$. Es decir, se juegan varios partidos con diferentes valores de $pp$ y devuelve el valor para el cual se ganaron más partidas.
+
 \begin{algorithm}
 \SetKwInOut{Input}{Input}
 
@@ -604,13 +606,13 @@ Podemos ver en el gráfico de la Figura 3, que los resultados siguen siendo los 
 \For{$pp \leftarrow $ parámetros de $param$}
 	{
 
-	$mejor$ = \texttt{optimizar} parametro $pp$
+	$mejor$ = \texttt{optimizar} parámetro $pp$
 	
 	}
  
 \textbf{return} mejor
 
-\caption{genetico}
+\caption{Grid Search}
 \end{algorithm}
 
 
