@@ -10,6 +10,7 @@
 #include <cassert>
 #include <tuple>
 #include <utility>
+#include <algorithm>
 
 
 using namespace std;
@@ -797,22 +798,22 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 	if (LeTocaA==1) {NoLeToca=2;} else {NoLeToca=1;}
 
 
-	if (perdi(tablero, c, ultimajugada)) {return make_pair<NoLeToca,0>;}//si ya termino el partido da lo mismo que juego
-	if (gane(tablero, c, ultimajugada)) {return make_pair<LeTocaA,0>;}//si ya termino el partido da lo mismo que juego
+	if (perdi(tablero, c, ultimajugada)) {return make_pair(NoLeToca,0);}//si ya termino el partido da lo mismo que juego
+	if (gane(tablero, c, ultimajugada)) {return make_pair(LeTocaA,0);}//si ya termino el partido da lo mismo que juego
 	//en estos casos devuelvo el numero del jugador que gano
 
 
-	if(p==0){return make_pair<0,0>;} //empate no hay mas fichas
+	if(p==0){return make_pair(0,0);} //empate no hay mas fichas
 	bool lleno=true;
 	int h=0;
 	while( h<columns && lleno){
 		if(tablero[h].size()<rows){ lleno=false;}
 		++h;
 	}
-	if (lleno) {return make_pair<0,0>;} //empate se lleno el tablero y no gano nadie, me da lo mismo que juego
+	if (lleno) {return make_pair(0,0);} //empate se lleno el tablero y no gano nadie, me da lo mismo que juego
 
 
-	if (profundidad>4) {return make_pair<3, rand() % columns>}
+	if (profundidad>4) {return make_pair(3, rand() % columns);}
 
 
 
@@ -825,7 +826,7 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 	for (int m=0; m<columns; ++m){
 		posibles.push_back(m);
 	}
-	random_shuffle(posibles.first(), posibles.end()); //para que no resulte que se prueban mas los partidos en los
+	random_shuffle(posibles.begin(), posibles.end()); //para que no resulte que se prueban mas los partidos en los
 	//que el backtracking juega mas a la izquierda
 
 	int m=0;
@@ -836,18 +837,18 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 		siJuegoM = backtracking(rows, columns, c, p, tablero, NoLeToca, posibles[m], profundidad+1);
 		tablero[posibles[m]].pop_back();
 
-		if (siJuegoM.first==LeTocaA) {return make_pair<LeTocaA,posibles[m]>;}
+		if (siJuegoM.first==LeTocaA) {return make_pair(LeTocaA,posibles[m]);}
 		if (siJuegoM.first==0) {puedoEmpatar=true; comoEmpatar=posibles[m];}
 		if (siJuegoM.first==NoLeToca) {elOtroGana=true; todosLosQueMeGana.push_back(posibles[m]);}
 
 		++m;
 	}
 
-	if (puedoEmpatar) {return make_pair<0,comoEmpatar>;}
+	if (puedoEmpatar) {return make_pair(0,comoEmpatar);}
 
 	//if (elOtroGana) {elegir lo que no estan en todosLosQueMeGana}
 
-	return make_pair<3, rand() % columns>;
+	return make_pair(3, rand() % columns);
 
 }
 
@@ -1030,7 +1031,7 @@ parametro leerParametroDeValores(int c, string a){
 parametro gridsearch(int rows, int columns, int c, int p){
 
 	parametro param= leerParametroDeValores(c, "NuestroJugadorBueno.txt");
-/*
+	/*
 	cerr<< param.esquinaparam.first << endl; 
 	cerr<<param.esquinaparam.second<< endl;
 	cerr<<param.bordeparam.first<< endl;
@@ -1056,7 +1057,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 		cerr<<param.consecutivos[k]<< endl;
 	}
 	
-*/
+	*/
 
 	ofstream porcentajes;
 	porcentajes.open ("porcentajes3aBacktrackingVentaja.txt");
@@ -1111,7 +1112,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 		//optimizamos biextparam
 		for (int i=0; i<valoresDiscretos.size(); ++i) {
-				param.biextparam.first = valoresDiscretos[i];
+			param.biextparam.first = valoresDiscretos[i];
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.biextparam.second = valoresDiscretos[j];
@@ -1122,6 +1123,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
+			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
 		param = mejor;
@@ -1270,7 +1272,7 @@ int escribirParametro(int c, parametro param){
 	ofstream valores;
 	valores.open ("jugador3aBacktrackingVentaja.txt");
 	
-valores << param.esquinaparam.first << "\n";
+	valores << param.esquinaparam.first << "\n";
 	valores << param.esquinaparam.second << "\n";
 	valores << param.bordeparam.first  << "\n";
 	valores << param.bordeparam.second  << "\n";
