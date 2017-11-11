@@ -184,13 +184,13 @@ El juego es una generalización del popular 4 en línea \footnote{$https://es.wi
 
 En los ejemplos de las Figuras 1 y 2 se pueden observar distintas configuraciones posibles del juego. La Figura 1 muestra un tradicional 4 en línea donde el jugador azul ha conseguido la victoria porque abajo a la izquierda ha conseguido formar una línea horizontal de 4 fichas propias. La Figura 2 es un ejemplo de 3 en línea (no confundir con el nombre español del tatetí) en un tablero de 4 filas y 3 columnas. En este caso se ha dado un empate pues ninguno de los dos jugadores ha podido formar una línea de 3 y ya se ha llenado el tablero.
 
-\begin{wrapfigure}{L}{0.4\textwidth}
+\begin{wrapfigure}{L!}{0.4\textwidth}
 	%\centering
 	\includegraphics[width=0.4\textwidth]{ejemplo_1.png}
 	\caption{Ejemplo de victoria del azul en un 4 en línea tradicional}
 \end{wrapfigure}
 
-\begin{wrapfigure}{R}{0.4\textwidth}
+\begin{wrapfigure}{R!}{0.4\textwidth}
 	%\centering
 	\includegraphics[width=0.4\textwidth]{ejemplo_2.png}
 	\caption{Ejemplo de empate con $c=3$ y un tablero de $4\times 3$}
@@ -564,7 +564,7 @@ Veamos que el jugador que presentamos decide que jugada realizar en tiempo $\mat
 
 
 
-En primer término, veamos que calcular el puntaje de un tablero es $\mathcal{O}(NM)$ puesto que lo único que hacemos es recorrer todas las filas, columnas y diagonales (que en total son 4, aunque no importa verdaderamente cuánto sino que es una cantidad constante) y en cada una de ellas contamos cuántas fichas son nuestras y cuántas de él. Pero esto lo repetimos una vez por cada parámetro que tenemos. Como tenemos finitos (y constantes) parámetros, pasamos a recorrer una cantidad constante de veces el tablero $\mathcal{O}(c)$. Además, chequeamos si ganamos, que como ya hemos visto en la complejidad del jugador óptimo es ...\textbf{COMPLETAR} \mathcal{O}(NM)... \textbf{SOY SOMA. MSG PARA SOMA: MI REVISION LLEGO HASTA ACA} Esto es porque recorrer el tablero es $\mathcal{O}(NM)$ ya que para cada sentido de recorrida, pasamos solo una vez por cada casilla, o sea recorremos $N*M$ casillas; repitiendo esto una cantidad constante de veces (la cantidad de parámetros) y para una cantidad constante de sentidos (cuatro) nos da que recorrimos una cantidad constante de veces $N*M $ casillas, por lo que la complejidad de calcular el puntaje es efectivamente $\mathcal{O}(NM)+\mathcal{O}(c)=\mathcal{O}(NM)$ puesto que $c<$ mín$\{N,M\}$.
+En primer término, veamos que calcular el puntaje de un tablero es $\mathcal{O}(NM)$ puesto que lo único que hacemos es recorrer todas las filas, columnas y diagonales (que en total son 4, aunque no importa verdaderamente cuánto sino que es una cantidad constante) y en cada una de ellas contamos cuántas fichas son nuestras y cuántas de él. Pero esto lo repetimos una vez por cada parámetro que tenemos. Como tenemos finitos (y constantes) parámetros, pasamos a recorrer una cantidad constante de veces el tablero $\mathcal{O}(c)$. Además, chequeamos si ganamos, que como ya hemos visto en la complejidad del jugador óptimo es ...\textbf{COMPLETAR} $\mathcal{O}(NM)$... \textbf{SOY SOMA. MSG PARA SOMA: MI REVISION LLEGO HASTA ACA} Esto es porque recorrer el tablero es $\mathcal{O}(NM)$ ya que para cada sentido de recorrida, pasamos solo una vez por cada casilla, o sea recorremos $N*M$ casillas; repitiendo esto una cantidad constante de veces (la cantidad de parámetros) y para una cantidad constante de sentidos (cuatro) nos da que recorrimos una cantidad constante de veces $N*M $ casillas, por lo que la complejidad de calcular el puntaje es efectivamente $\mathcal{O}(NM)+\mathcal{O}(c)=\mathcal{O}(NM)$ puesto que $c<$ mín$\{N,M\}$.
 
 Cabe aclarar aquí que consideramos como un parámetro a los vectores de parámetros (como es el caso de consecutivos) ya que para ellos recorremos solo cuatro veces el tablero (en todos los sentidos) y lo que cambia es dónde alojamos cada valor del vector según cuántas consecutivas encontremos del mismo color. Cabe aclarar también que la operación para saber qué ficha está en una casilla es $\mathcal{O}(1)$ porque guardamos al tablero en una matriz, esto es fundamental para poder asegurar la complejidad pedida.
 
@@ -688,7 +688,7 @@ Como conclusión se pudo concluir que a causa del inmenso espacio de búsqueda r
 
 \section{Algoritmo Genético}
 
-El algoritmo genético se basa en la teoría genética darwiniana y busca básicamente recrear la evolución de una población. Los individuos más aptos tendrán mayor probabilidad de perdurar a lo largo de las generaciones, transmitiendo así los genes que hacen que sean más aptos. Se recrea también la mutación que permite que haya cambios en los genes (que pueden ser beneficiosos para la aptitud como no) de forma aleatoria. También se da el \textit{crossover}, donde los genes de uno de los individuos se cruza con los de otro, generando así nuevos individuos que no son copia de uno ni de otro sino una mezcla de ambos. Para mayor precisión, a continuación se encuentra el pseudocódigo. Solo hay que hacer una salvedad previa: para medir qué individuo es mejor que otro, se usaron dos funciojnes distintas de \textit{fitness}, una de las cuales usa como parámetro un entero $k$.
+El algoritmo genético se basa en la teoría genética darwiniana y busca básicamente recrear la evolución de una población. Los individuos más aptos tendrán mayor probabilidad de perdurar a lo largo de las generaciones, transmitiendo así los genes que hacen que sean más aptos. Se recrea también la mutación que permite que haya cambios en los genes (que pueden ser beneficiosos para la aptitud como no) de forma aleatoria. También se da el \textit{crossover}, donde los genes de uno de los individuos se cruza con los de otro, generando así nuevos individuos que no son copia de uno ni de otro sino una mezcla de ambos. Para mayor precisión, a continuación se encuentra el pseudocódigo. Solo hay que hacer una salvedad previa: para medir qué individuo es mejor que otro, se usaron dos funciojnes distintas de \textit{fitness}.
 
 \subsubsection{El Pseudocódigo}
 \begin{algorithm}
@@ -701,13 +701,13 @@ El algoritmo genético se basa en la teoría genética darwiniana y busca básic
 
 \caption{genetico}
 
-	\textbf{int} $tamanopoblacion$, $totalgeneraciones$, $k$
+	\textbf{int} $tamanopoblacion$, $totalgeneraciones$
 
 	\textbf{float} $min$, $max$, $pmutar$, $pcrossover$
 
 	vector(conj(\textbf{parametro})) $poblacion$ = vector de longitud $tamanopoblacion$ donde cada elemento está dado por sendos llamados a \texttt{paramrandom}($c$)
 
-	\For{$generacion$ = [1..$totalgeneraciones$)}
+	\For{$generacion = [1..totalgeneraciones$)}
 
 		{
 
