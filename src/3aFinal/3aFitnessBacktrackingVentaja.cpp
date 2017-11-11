@@ -846,7 +846,25 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 
 	if (puedoEmpatar) {return make_pair(0,comoEmpatar);}
 
-	//if (elOtroGana) {elegir lo que no estan en todosLosQueMeGana}
+	if (elOtroGana) {
+
+		vector<bool> dondeNoPierdo (columns, true); //va a tener un true si puedo jugar ahi sin perder
+		for (int n=0; n<todosLosQueMeGana.size(); ++n){
+			dondeNoPierdo[todosLosQueMeGana[n]] = false; //en los lugares que me gana se que no quiero jugar
+		}
+
+		vector<int> dondePuedoJugar;
+		for (int n=0; n<dondeNoPierdo.size(); ++n) {
+			if (dondeNoPierdo[n]==true) {dondePuedoJugar.push_back(n);}
+		}
+
+		if (dondePuedoJugar.size()>0) {
+			int donde = rand() % dondePuedoJugar.size();
+			return make_pair(3, dondePuedoJugar[donde]);
+		}
+	}
+
+
 
 	return make_pair(3, rand() % columns);
 
@@ -1030,7 +1048,8 @@ parametro leerParametroDeValores(int c, string a){
 //funcion del punto 3.a que busca parametros que optimicen 
 parametro gridsearch(int rows, int columns, int c, int p){
 
-	parametro param= leerParametroDeValores(c, "NuestroJugadorBueno.txt");
+	parametro param;
+	paramrandom(param, c);
 	/*
 	cerr<< param.esquinaparam.first << endl; 
 	cerr<<param.esquinaparam.second<< endl;
@@ -1060,7 +1079,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 	*/
 
 	ofstream porcentajes;
-	porcentajes.open ("porcentajes3aBacktrackingVentaja.txt");
+	porcentajes.open ("porcentajes3aBacktrackingSinVentaja.txt");
 	porcentajes << "mejorNumero,porcentaje" << endl;
 
 
@@ -1081,7 +1100,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 					param.extensibles[k] = valoresDiscretos[j];
 					++z;
 					int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (nuevoCampeon(rows, columns, c, p, mejor, param) && porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1097,7 +1116,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.biextensibles[k] = valoresDiscretos[r];
 				++z;
 					int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1118,7 +1137,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.biextparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1138,7 +1157,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.extproxparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1156,7 +1175,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.extparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1175,7 +1194,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.esquinaparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1195,7 +1214,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.bordeparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1213,7 +1232,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.libertadparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1231,7 +1250,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.consecparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1249,7 +1268,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.centroparam.second = valoresDiscretos[j];
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
+					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
 						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
@@ -1270,7 +1289,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 int escribirParametro(int c, parametro param){
 	
 	ofstream valores;
-	valores.open ("jugador3aBacktrackingVentaja.txt");
+	valores.open ("jugador3aBacktrackingSinVentaja.txt");
 	
 	valores << param.esquinaparam.first << "\n";
 	valores << param.esquinaparam.second << "\n";
