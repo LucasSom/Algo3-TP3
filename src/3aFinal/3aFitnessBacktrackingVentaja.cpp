@@ -8,6 +8,8 @@
 #include <sys/stat.h>
 #include <cmath>
 #include <cassert>
+#include <tuple>
+#include <utility>
 
 
 using namespace std;
@@ -784,34 +786,68 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 }
 
 
+//estos primero dos nums se cambian (el ganar y perder) si leTocaA 2
+//el primer int es 1 si ya gano el jug 1, 2 si ya perdio el jug 1, 0 si ya empato, 3 si no sabe como termina
+//el segundo int es en que columna juega. Solo me importa en la primera llamada igual, no las recursivas
+//profundidad es que tan a futuro estoy viendo, nunca quiero ver mas de 4 a futuro
+//llega a ver si alguno puede ganar poniendo 2 fichas
+pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<int>>& tablero, int LeTocaA, int ultimajugada, int profundidad) {
 
-//el primer int es 1 si ya gano, 2 si ya perdio, 0 si ya empato, 3 si no sabe como termina, 4 si sabe ganar pero tenes que jugar lo que dice
-//el segundo int es en que columna juega
-//profundidad es que tan a futuro estoy viendo, nunca quiero ver mas de 3 a futuro
-tuple<int,int> backtracking(rows, columns, c, p, tablero, ultimajugada, int profundidad) {
+	int NoLeToca;
+	if (LeTocaA==1) {NoLeToca=2;} else {NoLeToca=1;}
 
-	if (perdi(tablero, c, ultimajugada)) {return make_tuple<2,0>;}//si ya termino el partido da lo mismo que juego
-	if (gane(tablero, c, ultimajugada)) {return make_tuple<1,0>;}//si ya termino el partido da lo mismo que juego
 
-	if(p==0){return make_tuple<0,0>;} //empate no hay mas fichas
+	if (perdi(tablero, c, ultimajugada)) {return make_pair<NoLeToca,0>;}//si ya termino el partido da lo mismo que juego
+	if (gane(tablero, c, ultimajugada)) {return make_pair<LeTocaA,0>;}//si ya termino el partido da lo mismo que juego
+	//en estos casos devuelvo el numero del jugador que gano
+
+
+	if(p==0){return make_pair<0,0>;} //empate no hay mas fichas
 	bool lleno=true;
 	int h=0;
 	while( h<columns && lleno){
 		if(tablero[h].size()<rows){ lleno=false;}
 		++h;
 	}
-	if (lleno) {return make_tuple<0,0>;} //empate se lleno el tablero y no gano nadie, me da lo mismo que juego
+	if (lleno) {return make_pair<0,0>;} //empate se lleno el tablero y no gano nadie, me da lo mismo que juego
 
-	bool puedoGanar = false;
+
+	if (profundidad>4) {return make_pair<3, rand() % columns>}
+
+
+
+	bool elOtroGana = false;
+	vector <int> todosLosQueMeGana;
 	bool puedoEmpatar = false;
+	int comoEmpatar = 0;
 
-	if (profundidad>3) {return make_tuple<3, rand() % columns>}
-
-	for (int m=0; m<columns; ++m) {//me estoy fijando que pasa si yo juego m en este turno
-
-
-
+	vector<int> posibles;
+	for (int m=0; m<columns; ++m){
+		posibles.push_back(m);
 	}
+	random_shuffle(posibles.first(), posibles.end()); //para que no resulte que se prueban mas los partidos en los
+	//que el backtracking juega mas a la izquierda
+
+	int m=0;
+	while (m<columns) {//me estoy fijando que pasa si yo juego m en este turno
+		
+		tablero[posibles[m]].push_back(LeTocaA);
+		pair<int, int> siJuegoM;
+		siJuegoM = backtracking(rows, columns, c, p, tablero, NoLeToca, posibles[m], profundidad+1);
+		tablero[posibles[m]].pop_back();
+
+		if (siJuegoM.first==LeTocaA) {return make_pair<LeTocaA,posibles[m]>;}
+		if (siJuegoM.first==0) {puedoEmpatar=true; comoEmpatar=posibles[m];}
+		if (siJuegoM.first==NoLeToca) {elOtroGana=true; todosLosQueMeGana.push_back(posibles[m]);}
+
+		++m;
+	}
+
+	if (puedoEmpatar) {return make_pair<0,comoEmpatar>;}
+
+	//if (elOtroGana) {elegir lo que no estan en todosLosQueMeGana}
+
+	return make_pair<3, rand() % columns>;
 
 }
 
@@ -850,7 +886,8 @@ int juezBacktrack (int rows, int columns, int c, int p, parametro param){
 				tablero[move].push_back(LeTocaA); //juega quien corresponda
 				LeTocaA=2;
 			}else{
-				move = backtracking(rows, columns, c, p, tablero, ultimajugada, 1).second;
+				pair<int,int> rta = backtracking(rows, columns, c, p, tablero, 2, ultimajugada, 1);
+				move = rta.second;
 				tablero[move].push_back(LeTocaA); //juega quien corresponda
 				LeTocaA=1;
 			}
@@ -1043,8 +1080,8 @@ parametro gridsearch(int rows, int columns, int c, int p){
 					param.extensibles[k] = valoresDiscretos[j];
 					++z;
 					int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (nuevoCampeon(rows, columns, c, p, mejor, param) && porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+					if (nuevoCampeon(rows, columns, c, p, mejor, param) && porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}				
@@ -1060,7 +1097,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 					int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1081,7 +1118,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1100,7 +1137,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1118,7 +1155,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1137,7 +1174,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1157,7 +1194,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1175,7 +1212,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1193,7 +1230,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
@@ -1211,7 +1248,7 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				++z;
 				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
 					if (porcentajeDesafianteBacktrack>porcentajeCampeonBacktrack && nuevoCampeon(rows, columns, c, p, mejor, param)) {
-						porcentajeCampeonBacktrack=porcentajeDesafiante;Backtrack
+						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
 						mejor = param;
 						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
 					}	
