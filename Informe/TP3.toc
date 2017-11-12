@@ -31,4 +31,4 @@
 \contentsline {subsubsection}{\numberline {5.2.1}Funciones del Algoritmo Gen\IeC {\'e}tico}{19}{subsubsection.5.2.1}
 \contentsline {subsubsection}{\numberline {5.2.2}Jugadores}{24}{subsubsection.5.2.2}
 \contentsline {section}{\numberline {6}An\IeC {\'a}lisis comparativo con paper}{27}{section.6}
-\contentsline {section}{\numberline {7}Conclusiones}{28}{section.7}
+\contentsline {section}{\numberline {7}Conclusiones}{29}{section.7}
