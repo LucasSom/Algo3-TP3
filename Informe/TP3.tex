@@ -254,6 +254,7 @@ Antes del ciclo hay un \texttt{If} que es la ejecución del primer turno si empe
 
 El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero es la columna donde se consigue el mejor valor posible, es decir, la jugada  que da resultado óptimo (si existe) desde el tablero de entrada, y el segundo es el mejor valor que se puede conseguir al hacer esa jugada. Se usaron los valores 1, 0 y -1 para asignar los valores respectivos a ganar, empatar o perder. Además, se usó $\infty$ cuando alguno de estos valores estaba indefinido.
 
+\newpage
 
 \begin{algorithm}
 	\SetKwInOut{Input}{Input}
@@ -281,15 +282,30 @@ El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero
 		    \textbf{return} ($\infty$,0)
 		    }
 		
-		recursión llamando al siguiente en el árbol de minimax para cada posible columna
+		mejorColumna = 0
+
+		mejorValorPosible = jugar en cero
+
+		\For{cada jugada posible}
+			{
+				\eIf{Maximizo}
+					{
+					\If {valor de esta jugada $>$ mejorValorPosible}
+		  	  			{
+						mejorColumna=esta jugada
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+					{
+		   	 		\If {valor de esta jugada $<$ mejorValorPosible}
+		  	  			{
+						mejorColumna=esta jugada
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+			}
+		\textbf{return} (columna del máximo, máximo)
 		
-		\eIf{Maximizo}
-			{
-		    \textbf{return} (columna del máximo, máximo)
-			}
-			{
-		    \textbf{return} (columna del mínimo, mínimo)
-			}
 
 \caption{Minimax}
 \end{algorithm}
