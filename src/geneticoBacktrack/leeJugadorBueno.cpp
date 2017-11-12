@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <cmath>
-#include <cassert>
 
 
 using namespace std;
@@ -16,7 +15,6 @@ std::random_device rd;
 std::mt19937 generator(rd());
 #define INF std::numeric_limits<float>::max();
 #define INFneg std::numeric_limits<float>::min();
-
 
 //------------------ ESTRUCTURA QUE CONTIENE LOS PARAMETROS QUE TOMARA LA FUNCION PARAMETRIZABLE--------------
 
@@ -48,14 +46,46 @@ struct parametro{
 };
 
 
+//------------------FUNCIONES DE COMUNICACION CON EL JUEZ-----------
+
+void send(const std::string& msg) {
+    std::cout << msg << std::endl;
+}
+
+void send(int msg) {
+    std::cout << msg << std::endl;
+}
+
+int read_int() {
+    std::string msg;
+    std::cin >> msg;
+    if (msg == "salir") {
+        send("listo");
+        std::exit(0);
+    }
+    return std::stoi(msg);
+}
+
+std::string read_str() {
+    std::string msg;
+    std::cin >> msg;
+    if (msg == "salir") {
+        send("listo");
+        std::exit(0);
+    }
+    return msg;
+}
+
+
+
 //---------------------FUNCIONES QUE DETERMINAN SI UN JUGADOR YA GANO O NO-------------
 
 //determina si dado un tablero gano el jugador i:
 bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	
 	 if(ultimajugada==-1){if(c==1) {return true;}else{return false;}}
-     //Por si es la primer jugada, nadie gano aun, salvo sea 1 en linea.
-     
+     //CAMBIO CHEBAR, AGREGUE ESTO, COSA QUE SI HAY QUE PONER UNA SOLA Y SOS EL PRIMERO EN JUGAR YA GANASTE
+     //Por si es la primer jugada, nadie gano aun
 	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
 	 bool esMio = true;
 		
@@ -644,7 +674,11 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	//el parametro de entrada consecutivos es un vector que tiene en la i coordenada el valor de las tiras de largo i+1. Consecutivos tiene c-1 elementos
 	//idem para extensibles
 	
-	//el checkeo de si gano o pierdo en el proximo turno lo hace la funcion parametrizable
+	if( gane(tablero,c,ultimajugada)) {return INF;} //si gane da infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
+	
+	//if( perdi(tablero,c,ultimajugada)) {return INFneg;} //si perdi da -infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
+	//NO TIENE SENTIDO, NUNCA VOY A TENER UN TABLERO EN EL QUE YA PERDI, SI ME TOCA JUGAR A MI
+	
 	
 	
 	//cuento los que estan en el borde, mias y de el.
@@ -692,7 +726,47 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	total= total + (libres1*param.libertadparam.first-libres2*param.libertadparam.second);
 	total= total + subtotalA;
 	return total;
-		
+	
+	
+	
+	
+	//ideas de puntajes:
+	
+	//--------------HECHO--------------------
+	//cantidad de fichas en los bordes HECHO
+	//cantidad de fichas en las esquinas HECHO
+	//cantidad de fichas en el centro HECHO
+	//contar casillas libres alrededor de cada mia. HECHO
+	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. HECHO 
+	//gano +inf y si pierdo es -inf HECHO
+	//contar TODAS las extensibles, no solo las de la proxima jugada, para cada largo HECHO
+	//cpntar las extensibles en AMBOS sentidos para cada largo HECHO
+	
+	
+	//----------A HACER -----------
+	
+	//EN EXTENSIBLES (en general, no en el caso de inmediatamente extensibles que ese esta bien): 
+	//NO CUENTO ACA SI CON UN MOVIMIENTO DOS DE 1 SE UNEN EN UNA DE 3, HACER ESTO
+	//INCLUSO CREO QUE LA QUE CUENTA EXTENSIBLES ESTA MAL... BUSCAR OTRA FORMA...
+	//soy chebar, creo que solucion esto, contando que dosd e 1 se unen en una de 3 para TODOS los extensibles
+	//y también contando bien todo porque antes estaba medio mal. Lo hice agregando eso de anterior, CHECKEAR
+	// (Esto lo hace la funcion ext)
+	
+
+	//Agregar las biextensibles en el proximo?
+	
+	//hacer parametros para cada jugada, o dividir en etapas y hacer parametros para cada etapa
+	
+	
+	
+	
+	//-------LO HACEMOS DESPUES Y NO TAN UTIL COMO LO DE ARRIBA. IDEAS VIEJAS----------
+	
+	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino, o contar por cada columna..
+	//tratar de maximizar mi putntaje, o minimizar el de el, o maximizar la diferencia (me parece mejor la ultima pero puede ser otro parámetro y que decida entre las tres)
+	//contar si hay lugares consecutivos (al menos dos, uno encima de otro) donde ambos extienden y de que largo
+	
+	
 	}
 
 
@@ -709,13 +783,13 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int h=0;h<columns;++h){
 		if(tablero[h].size()<rows){ posibles.push_back(h);}
 	}
-		
+	
 	for(int a=0; a<posibles.size();++a){
-		//si puedo ganar, gano
+		//si voy a perder, la salvo.
 		tablero[posibles[a]].push_back(1);
 		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
-	}	
+	}
 		
 	for(int a=0; a<posibles.size();++a){
 		//si voy a perder, la salvo.
@@ -743,172 +817,13 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 }
 
 
-//-------------------------JUEZ NUESTRO-----------------
 
-//decide de dos jugadors que usan los parametros p1 y p2 quien gana o si es empate. devuelve 0 si empate, 1 si 
-//gana el de p1 y 2 si gana el de  p2. Ambos jugadores utilizan la funcion parametrizable para jugar
-int juez (int rows, int columns, int c, int p, int primero, parametro p1, parametro p2){
-
-	vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
-	p=2*p; //cuento fichas totales
-	int LeTocaA=primero;
-	int ultimajugada=-1;
-	
-	while (true) {
-		if(gane(tablero, c, ultimajugada)) {return 1;} //gano el 1
-		if(perdi(tablero, c, ultimajugada)) {return 2;} //perdio el 1, gano el 2
-		if(p==0){return 0;} //empate no hay mas fichas
-		bool lleno=true;
-		int h=0;
-		while( h<columns && lleno){
-			if(tablero[h].size()<rows){ lleno=false;}
-			++h;
-		}
-		if (lleno) {return 0;} //empate se lleno el tablero y no gano nadie
-		
-		
-		parametro param;
-		int move;
-		if(LeTocaA==1){ 
-			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, p1);
-			tablero[move].push_back(LeTocaA); //juega quien corresponda
-			LeTocaA=2;
-		}else{
-			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, p2);
-			tablero[move].push_back(LeTocaA); //juega quien corresponda
-			LeTocaA=1;
-		}
-		--p;
-		ultimajugada=move;
-	}
-}
-
-//devuelve la cantidad de veces que el parametro de entrada le ganó a un jugador Random en cien partidos.
-int juezRandom (int rows, int columns, int c, int p, parametro param){
-	
-	int rta = 0;
-
-	for (int m=0; m<100; ++m) {
-
-		vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
-		p=2*p; //cuento fichas totales
-		int ultimajugada=-1;
-		int LeTocaA = 1;
-		if (m>50) {LeTocaA=2;} //para que los ultimos 50 partidos los empiece el random
-
-		while (true) {
-			if(gane(tablero, c, ultimajugada)) {++rta; break;} //gano el 1
-			if(perdi(tablero, c, ultimajugada)) {break;} //perdio el 1, gano el 2
-			if(p==0){break;} //empate no hay mas fichas
-			bool lleno=true;
-			int h=0;
-			while( h<columns && lleno){
-				if(tablero[h].size()<rows){ lleno=false;}
-				++h;
-			}
-			if (lleno) {break;} //empate se lleno el tablero y no gano nadie
-			
-
-			int move;
-			if(LeTocaA==1){ 
-				move = parametrizable(rows, columns, c, p, tablero, ultimajugada, param);
-				tablero[move].push_back(LeTocaA); //juega quien corresponda
-				LeTocaA=2;
-			}else{
-				move = rand() % columns;
-				tablero[move].push_back(LeTocaA); //juega quien corresponda
-				LeTocaA=1;
-			}
-			--p;
-			ultimajugada=move;
-		}
-
-	}
-
-	return rta;
-}
-
-
-
-//----------------- GRID SEARCH------------------------
-
-
-//funcion que da un float random en el intervalo cerrado [min,max]
-float float_rand( float min, float max ){
-    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
-    return min + scale * ( max - min );      /* [min, max] */
-}
-
-//función que sortea un parametro random
-void paramrandom(parametro& param, int c){
-	
-	float min=-1;
-	float max=1;
-	//los parametros que determinan el peso de mi jugada respecto a la del rival van entre -1 y 1
-	param.esquinaparam.first = float_rand(min,max);
-	param.esquinaparam.second = float_rand(min,max);
-	param.bordeparam.first = float_rand(min,max);
-	param.bordeparam.second = float_rand(min,max);
-	param.libertadparam.first = float_rand(min,max);
-	param.libertadparam.second = float_rand(min,max);
-	param.consecparam.first = float_rand(min,max);
-	param.consecparam.second = float_rand(min,max);
-	param.centroparam.first = float_rand(min,max);
-	param.centroparam.second = float_rand(min,max);
-	param.extproxparam.first = float_rand(min,max);
-	param.extproxparam.second = float_rand(min,max);
-	param.extparam.first = float_rand(min,max);
-	param.extparam.second = float_rand(min,max);
-	param.biextparam.first = float_rand(min,max);
-	param.biextparam.second = float_rand(min,max);
-	
-	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
-	//caracteristica va entre -1 y 1.
-	vector<float> vacio;
-	param.consecutivos=vacio;
-	param.extensibles=vacio;
-	param.extensiblesprox=vacio;
-	param.biextensibles=vacio;
-	for(int k=0;k<c-1;++k){
-		param.extensiblesprox.push_back(float_rand(min,max));
-		param.extensibles.push_back(float_rand(min,max));
-		param.biextensibles.push_back(float_rand(min,max));
-		param.consecutivos.push_back(float_rand(min,max));
-	}
-}
-
-
-
-//se fija si un jugador desafiante le gana al jugador mejor
-bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, parametro desafiante){
-
-	int empiezaDesafiante = juez(rows,columns,c,p,1,desafiante,mejor);
-	int empiezaCampeon = juez(rows,columns,c,p,1,mejor,desafiante);
-
-	if(empiezaDesafiante==1 && empiezaCampeon==2) {
-		//si le gana al mejor hasta ahora siendo primero y segundo
-		return true;// pasa a ser el nuevo mejor		
-	}
-	
-	if(empiezaDesafiante==1 && empiezaCampeon==0) {
-		//si le gana y empata al mejor hasta ahora siendo primero y segundo respectivamente
-		return true;// pasa a ser el nuevo mejor
-	}
-
-	if(empiezaDesafiante==0 && empiezaCampeon==2) {
-		//si le empata y gana al mejor hasta ahora siendo primero y segundo respectivamente
-		return true;// pasa a ser el nuevo mejor
-	}
-	return false;
-}
-
-
-parametro leerParametroDeValores(int c, string a){
+parametro leerParametroDeValores(int c){
 
 	parametro param;
 
 	ifstream valores;
-	valores.open (a);
+	valores.open ("jugadorGeneticoBackract.txt");
 	
 
 	valores >> param.esquinaparam.first;
@@ -953,320 +868,110 @@ parametro leerParametroDeValores(int c, string a){
 
 
 
+	
+//---------------FUNCION MAIN, EL JUGADOR EN SI---------------------
 
-//funcion del punto 3.a que busca parametros que optimicen 
-parametro gridsearch(int rows, int columns, int c, int p){
+int main() {
+	
 
+	
+	//-------PARA PROBAR YO PONIENDOLE A MANO PUNTAJES
 	parametro param;
-	paramrandom(param,c);
-/*
-	cerr<< param.esquinaparam.first << endl; 
-	cerr<<param.esquinaparam.second<< endl;
-	cerr<<param.bordeparam.first<< endl;
-	cerr<<param.bordeparam.second<< endl;
-	cerr<<	param.libertadparam.first << endl;
-	cerr<<	param.libertadparam.second << endl;
-	cerr<<param.consecparam.first << endl;
-	cerr<<param.consecparam.second << endl;
-	cerr<<param.centroparam.first << endl;
-	cerr<<	param.centroparam.second<< endl;
-	cerr<<param.extproxparam.first << endl;
-	cerr<<param.extproxparam.second << endl;
-	cerr<<param.extparam.first << endl;
-	cerr<<param.extparam.second << endl;
-	cerr<<param.biextparam.first << endl;
-	cerr<<param.biextparam.second << endl;
+	
+	param.esquinaparam.first=0;//-10
+	param.esquinaparam.second=0;//-10
+	param.bordeparam.first=0;//-3
+	param.bordeparam.second=0;//-3
+	param.centroparam.first=0;//8
+	param.centroparam.second=0;//8
+	param.libertadparam.first=0;//1
+	param.libertadparam.second=0;//1
+	
+	param.consecutivos.push_back(0);
+	param.consecutivos.push_back(10);
+	param.consecutivos.push_back(100);
+	
+	param.consecparam.first=0;
+	param.consecparam.second=0;
+	
+	
+	param.extensiblesprox.push_back(0);
+	param.extensiblesprox.push_back(200);
+	param.extensiblesprox.push_back(8888888); //esto es ganar para el, tiene que ser +inf
+	
+	param.extproxparam.first=0;
+	param.extproxparam.second=1;
+	
+	
+	param.extensibles.push_back(0);
+	param.extensibles.push_back(10);
+	param.extensibles.push_back(100); 
+	
+	param.extparam.first=0;
+	param.extparam.second=0;
+
+
+	param.biextensibles.push_back(10);
+	param.biextensibles.push_back(1000);
+	param.biextensibles.push_back(88888888); //esto es ganar para el, es +inf
+		
+	param.biextparam.first=0;
+	param.biextparam.second=1;
+	//---------
+
+
 	
 
-	for(int k=0;k<3;++k){
-		cerr<< param.extensiblesprox[k]<< endl;
-		cerr<<param.extensibles[k]<< endl;
-		cerr<<param.biextensibles[k]<< endl;
-		cerr<<param.consecutivos[k]<< endl;
-	}
-	
-*/
+    //std::default_random_engine generator;
+    std::string msg, color, oponent_color, go_first;
+    int columns, rows, c, p, move;
 
-	ofstream porcentajes;
-	porcentajes.open ("porcentajes3aRandomSinVentaja.txt");
-	porcentajes << "mejorNumero,porcentaje" << endl;
+    while (true) {
+        color = read_str();
+        oponent_color = read_str();
 
-
-	parametro mejor=param;
-	int porcentajeCampeon;
-	porcentajeCampeon = juezRandom(rows,columns,c,p,mejor);
-	int z=1; //me dice cuantos campeones fui cambiando hasta el momento
-	porcentajes << z << "," << porcentajeCampeon << endl;
+        columns = read_int();
+        rows = read_int();
+        c = read_int();
+        p = read_int();
 
 
-	vector<float> valoresDiscretos = {-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
+	param = leerParametroDeValores(c);
 
-	///for (int u=0; u<4; ++u){
-		for(int k=0;k<c-1;++k){
-			for (int i=0; i<valoresDiscretos.size(); ++i) {
-				param.extensiblesprox[k] = valoresDiscretos[i];
-				for (int j=0; j<valoresDiscretos.size(); ++j) {
-					param.extensibles[k] = valoresDiscretos[j];
-					int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}				
-				}
-			}
-			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-			param = mejor;
+	//std::vector<int> board(columns);
+		vector<vector<int>>tablero (columns);
+		//la primer cordenada del tablero es la columna, y la segunda es la fila
+        
+        //for(int i=0; i<columns; ++i) board[i] = 0;
+		
+		p=2*p;//CAMBIO CHEBAR FICHAS, AHORA CUENTO FICHAS TOTALES
+        go_first = read_str();
+        if (go_first == "vos") {
+            move = parametrizable(rows, columns, c, p, tablero, -1, param);
+            tablero[move].push_back(1); //juego yo
+            //board[move]++;
+            --p;
+            send(move);
+        }
 
-			for (int l=0; l<valoresDiscretos.size(); ++l) {
-				param.biextensibles[k] = valoresDiscretos[l];
-				for (int r=0; r<valoresDiscretos.size(); ++r) {
-				param.biextensibles[k] = valoresDiscretos[r];
-					int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-				}
-			}
-			//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-			param = mejor;
-		}
+        while (true) {
+            msg = read_str();
+            if (msg == "ganaste" || msg == "perdiste" || msg == "empataron") {
+                break;
+            }
+			tablero[std::stoi(msg)].push_back(2);//juega el
+			--p; //CAMBIO CHEBAR FICHAS AHORA CUENTO FICHAS TOTALES
+            //board[std::stoi(msg)]++;
+            move = parametrizable(rows, columns, c, p, tablero, std::stoi(msg), param);
+            tablero[move].push_back(1); //juego yo
+            //board[move]++;
+            --p;
+            send(move);
+        }
+    }
 
-
-
-		//optimizamos biextparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-				param.biextparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.biextparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-				if (porcentajeDesafiante>porcentajeCampeon) {mejor = param;}
-			}
-		}	
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-
-
-		cerr << "estoy avanzando a";
-		//optimizamos extproxparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.extproxparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.extproxparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}	
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-	
-		//optimizamos extparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.extparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.extparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}	
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-
-
-		//optimizamos equinaparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.esquinaparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.esquinaparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-
-
-		cerr << "estoy avanzando b";
-		//optimizamos bordeparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.bordeparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.bordeparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-	
-		//optimizamos libertadparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.libertadparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.libertadparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}	
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-
-		//optimizamos consecparam	
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.consecparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.consecparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}	
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-	
-		//optimizamos centroparam
-		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.centroparam.first = valoresDiscretos[i];
-
-			for (int j=0; j<valoresDiscretos.size(); ++j) {
-				param.centroparam.second = valoresDiscretos[j];
-				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
-					if (porcentajeDesafiante>porcentajeCampeon) {
-						porcentajeCampeon=porcentajeDesafiante;
-						mejor = param;
-						++z;
-						porcentajes<<z<<","<<porcentajeCampeon<<endl;
-					}	
-			}
-		}	
-		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
-		param = mejor;
-
-	///}
-
-
-	return mejor;
-}	
-	
-
-
-int escribirParametro(int c, parametro param){
-	
-	ofstream valores;
-	valores.open ("jugador3aRandomSinVentaja.txt");
-	
-valores << param.esquinaparam.first << "\n";
-	valores << param.esquinaparam.second << "\n";
-	valores << param.bordeparam.first  << "\n";
-	valores << param.bordeparam.second  << "\n";
-	valores << param.libertadparam.first << "\n";
-	valores << param.libertadparam.second << "\n";
-	valores << param.consecparam.first << "\n";
-	valores << param.consecparam.second << "\n";
-	valores << param.centroparam.first << "\n";
-	valores << param.centroparam.second << "\n";
-	valores << param.extproxparam.first << "\n";
-	valores << param.extproxparam.second << "\n";
-	valores << param.extparam.first  << "\n";
-	valores << param.extparam.second  << "\n";
-	valores << param.biextparam.first << "\n";
-	valores << param.biextparam.second  << "\n";
-	
-
-	int k=0;
-	for(k=0;k<c-1;++k){
-		valores << param.extensiblesprox[k] << "\n";
-		valores << param.extensibles[k] << "\n";
-		valores << param.biextensibles[k] << "\n";
-		valores << param.consecutivos[k] << "\n";
-	}
-
-	assert(param.extensiblesprox.size() == k);
-
-	return 0;
+    return 0;
 }
 
 
-//-----------------------MAIN--------------------------
-//Este es un main trucho para que me de el resultado de grid-search
-int main(){
-	srand((unsigned int)time(NULL));
-	int columns = 7;
-	int rows = 6;
-	int c = 4;
-	int p = 50; 
-	parametro param=gridsearch(columns,rows,c,p);
 
-	escribirParametro(c, param);
-
-	/*
-	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
-	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
-	cout<<"param borde1:"<<param.bordeparam.first<< endl;
-	cout<<"param borde2:"<<param.bordeparam.second<< endl;
-	cout<<"param centro1:"<<param.centroparam.first << endl;
-	cout<<"param centro2:"<<	param.centroparam.second<< endl;
-	cout<<"param libertad1:"<<	param.libertadparam.first << endl;
-	cout<<"param libertad2:"<<	param.libertadparam.second << endl;
-	cout<<"param consec1:"<<param.consecparam.first << endl;
-	cout<<"param consec2:"<<param.consecparam.second << endl;
-	cout<<"param extprox1:"<<param.extproxparam.first << endl;
-	cout<<"param extprox2:"<<param.extproxparam.second << endl;
-	cout<<"param ext1:"<<param.extparam.first << endl;
-	cout<<"param ext2:"<<param.extparam.second << endl;
-	cout<<"param biext1:"<<param.biextparam.first << endl;
-	cout<<"param biext2:"<<param.biextparam.second << endl;
-	
-	cout<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
-	
-	for(int k=0;k<c-1;++k){
-		cout<< param.extensiblesprox[k]<< ";  ";
-		cout<<param.extensibles[k]<< ";  ";
-		cout<<param.biextensibles[k]<< ";  ";
-		cout<<param.consecutivos[k]<< endl;
-	}
-	*/
-	
-	return 0;
-	}
-	
