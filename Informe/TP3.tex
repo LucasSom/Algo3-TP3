@@ -300,20 +300,24 @@ Las funciones \texttt{gane} y \texttt{perdi} devuelven \textbf{true} si con la j
 
 \subsection{Poda $\alpha$ - $\beta$}
 
-La poda $\alpha$ - $\beta$ consiste en disminuir la cantidad de accesos a nodos del árbol de minimax a partir de información obtenida por accesos previos a otros nodos. La idea general es que, si ya se sabe que por un camino se gana, no hace falta recorrer otra pues, en el mejor de los casos, igualamos el resultado anterior.
+La poda $\alpha$ - $\beta$ consiste en disminuir la cantidad de accesos a nodos del árbol de minimax a partir de información obtenida por accesos previos a otros nodos. La idea general es que, si ya si se está evaluando un nodo en el que juega el jugador 1 (es lo mismo con el jugador 2), y por un camino tiene estrategia ganadora, no hace falta recorrer los otros pues, en el mejor de los casos, igualamos el resultado anterior, seguro este jugador no va a encontrar nada que prefiera por sobre este camino.Esta poda también sirve para situaciones en las que un jugador puede garantizar un empate y por lo tanto sabemos que no hay que terminar de explorar ningún nodo en el que su oponente pueda ganar, ya que nunca veremos la situación que ese nodo representa en el partido real, el primer jugador siempre elegirá empatar por encima de darle la oportunidad de ganar a su oponente.
 
-El algoritmo se denomina $\alpha$ - $\beta$ por el nombre de las variables donde se guardan el máximo y el mínimo. Más precisamente, $\alpha$ es el valor de la mejor opción hasta el momento del camino del máximo. Análogamente, $\beta$ es el valor de la mejor opción hasta el momento del camino del mínimo. De este modo, cuando se analice un nodo para determinar el camino máximo, se compara con el valor de $\alpha$ y, si es menor, no se sigue buscando. Del mismo modo sucede con el mínimo: si es mayor a $\beta$, se deja de buscar.
+El algoritmo se denomina $\alpha$ - $\beta$ por el nombre de las variables donde se guardan el valor máximo y el mínimo de lo que se puede conseguir hasta el momento. Más precisamente, $\alpha$ es el valor más alto que puede conseguir el jugador 1. Análogamente, $\beta$ es el mínimo valor que puede asegurarse el jugador 2. Es importante aclarar que estos valores no son constantes en todos los nodos del arbol, cada nodo recibe los valores  $\alpha$ - $\beta$ de su padre, pero si juega el jugador 1 solo se actualiza el valor  $\alpha$, que será igual al máximo  $\alpha$ de sus hijos, en cambio  $\beta$ solo se actualiza en los nodos en los que juega el jugador 2 y se calcula como el mínimo $\beta$ de sus hijos. El caso base de esta recursión es el partido terminado, en el que tanto $\alpha$ como $\beta$ toman el valor del tablero final.
 
-Cuando esto no sucede, es decir, se examina el camino y se encuentra un valor mejor (ya sea, mayor a $\alpha$ o menor a $\beta$) que el que se tenía hasta entonces, se actualizan las variables.
+Como ejemplo se puede imaginar la siguiente situación: se está analizando un turno del jugador 2, y recibe un $\alpha$ = 0, lo que significa que el jugador 1 en el turno anterior puede conseguir un empate asegurado. Se analizan algunas opciones posibles para el jugador 2, y en una consigue una victoria asegurada, esto significa una derrota para el jugador 1, luego el valor de $\beta$ en este nodo se igualará a -1, ya que es el valor mínimo que puede conseguir el jugador 2 (mínimo desde el punto de vista del jugador 1). En este momento $\beta$ < $\alpha$ lo que significa que el jugador 1 en un turno anterior tiene otra forma de jugar que le devuelve un valor mayor (empate) en lugar de venir a este nodo en el que el jugador 2 se asegurará de conseguir un valor menor (derrota para el jugador 1). El primer jugador entonces nunca llegará a este nodo, y por lo tanto no es necesario explorar las otras posibilidades que tenía el jugador 2 en el mismo, ya que nunca se darán en el partido real.
 
-En nuestro problema, el número del nodo es 1, 0 o -1 para ganar, empatar o perder, por lo que la poda se puede simplificar diciendo que, si ya se conoce un camino que asegura la victoria a partir de cierto tablero, no hace falta mirar el resto de las opciones que se desprenden de ese tablero.
+De este modo, cuando se analice un nodo para determinar el camino máximo, se siguen los mismos pasos detallados en la sección 2.1 pero si en algun momento $\alpha$ <= $\beta$ sabemos que nunca se llegará verdaderamente a este nodo, porque en alguna jugada anterior algún jugador tiene una opción mejor o igual que ya estudió en su totalidad que venir a esta posición, por lo tanto se ahorra trabajo computacional evitando el análisis de todas las ramas que surgen de este nodo que no va a ser visitado.
 
-\textbf{CAMBIARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR}
+En nuestro problema, el número del nodo es 1, 0 o -1 para ganar, empatar o perder (desde el punto de vista del jugador 1), por lo que la poda se puede simplificar diciendo que, si ya se conoce un camino que asegura la victoria a partir de cierto tablero, no hace falta mirar el resto de las opciones que se desprenden de ese tablero, y si ya se conoce un camino que asegura el empate, y en un nodo el oponente tiene estrategia ganadora, no hace falta terminar de estudiar ese nodo ya que siempre se evitará.
+
+
 
 \subsubsection{Pseudocódigo}
 Para la poda se utilizó el mismo código y se hizo un cambio al hacer la recursión. Para no copiar todo el pseudocódigo, a continuación se lo presenta con la inicialización previa de las variables \textit{posibles, mejorPos, mejorValorMaximizo} y \textit{mejorValorMinimizo}. $posibles$ es un vector de tuplas de enteros donde cada elemento representa una columna del tablero. El primer elemento de la tupla es la columna en sí y el segundo es ...\textbf{COMPLETAR}... Las otras variables se inicializan con los valores del primer elemento de la primera posición de $posibles$, $-\infty$ y $\infty$ respectivamente.
 
-\begin{algorithm}
+\vspace{10mm}
+
+\begin{algorithm}[H]
 	\SetKwInOut{Input}{Input}
 
 

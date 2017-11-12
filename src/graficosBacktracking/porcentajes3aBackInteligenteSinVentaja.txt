@@ -1,0 +1,11 @@
+mejorNumero,porcentajeVictorias,porcentajeDerrotas
+1,22,76
+6,30,69
+9,34,65
+11,42,56
+17,48,52
+84,48,51
+163,50,48
+169,50,47
+623,53,47
+828,54,42
