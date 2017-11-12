@@ -47,6 +47,7 @@ struct parametro{
 	
 	pair<float,float> biextparam;	
 		
+	bool operator ==(const parametro& p){} 	
 };
 
 
@@ -55,6 +56,7 @@ struct parametro{
 //determina si dado un tablero gano el jugador i:
 bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	
+	 
 	 if(ultimajugada==-1){if(c==1) {return true;}else{return false;}}
      //Por si es la primer jugada, nadie gano aun, salvo sea 1 en linea.
      
@@ -644,9 +646,9 @@ pair<vector<int>,vector<int> > ext(int rows, int columns, const vector<vector<in
 //funcion que dado un tablero le asigna un puntaje:
 float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& tablero, int ultimajugada, parametro param){
 	//el parametro de entrada consecutivos es un vector que tiene en la i coordenada el valor de las tiras de largo i+1. Consecutivos tiene c-1 elementos
-	//idem para extensibles
+	//idem para extensibles, extensiblesprox y biextensibles
 	
-	//el checkeo de si gano o pierdo en el proximo turno lo hace la funcion parametrizable
+	//el checkeo de si estoy por ganar o me estan por ganar se hace en la funcion parametrizable
 	
 	
 	//cuento los que estan en el borde, mias y de el.
@@ -711,13 +713,14 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int h=0;h<columns;++h){
 		if(tablero[h].size()<rows){ posibles.push_back(h);}
 	}
-		
+	
 	for(int a=0; a<posibles.size();++a){
-		//si puedo ganar, gano
+		//si voy a ganar, gano.
 		tablero[posibles[a]].push_back(1);
 		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
-	}	
+	}
+	
 		
 	for(int a=0; a<posibles.size();++a){
 		//si voy a perder, la salvo.
@@ -738,7 +741,7 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 		if(puntajeActual>maximopuntaje){
 			maximopuntaje=puntajeActual;
 			maxpos= posibles[q];
-		}
+			}
 		tablero[posibles[q]].pop_back();		
 	}
 	

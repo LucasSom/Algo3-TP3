@@ -715,7 +715,7 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int a=0; a<posibles.size();++a){
 		//si voy a ganar, gano.
 		tablero[posibles[a]].push_back(1);
-		if( perdi(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
+		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
 	}
 	
