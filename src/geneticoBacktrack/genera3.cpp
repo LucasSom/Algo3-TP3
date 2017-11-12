@@ -941,9 +941,8 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 	int NoLeToca;
 	if (LeTocaA==1) {NoLeToca=2;} else {NoLeToca=1;}
 
-
-	if (perdi(tablero, c, ultimajugada)) {return make_pair(NoLeToca,0);}//si ya termino el partido da lo mismo que juego
-	if (gane(tablero, c, ultimajugada)) {return make_pair(LeTocaA,0);}//si ya termino el partido da lo mismo que juego
+	if (perdi(tablero, c, ultimajugada)) {return make_pair(2,0);}//si ya termino el partido da lo mismo que juego
+	if (gane(tablero, c, ultimajugada)) {return make_pair(1,0);}//si ya termino el partido da lo mismo que juego
 	//en estos casos devuelvo el numero del jugador que gano
 
 
@@ -1062,7 +1061,7 @@ float fitnessBacktrack(parametro param, int tamanoPoblacion, int rows, int  colu
 	int pierde=0;
 	int empata=5;
 	int gana=10;
-	for(int i=0;i<30;++i){
+	for(int i=0;i<25;++i){
 		int resultEmpezandoParam = juezBacktrack(rows,columns,c,p,param,1);
 		int resultEmpezandoBacktrack = juezBacktrack(rows,columns,c,p,param,2);
 		//empate siendo primero
@@ -1480,6 +1479,7 @@ parametro genetico(int rows, int columns, int c, int p){
 	ofstream myfile;
 	myfile.open ("geneticoBacktrack.csv", std::ios_base::app);
 	myfile<<"generacion,maxFitness,minFitness,fitnessPromedio,mediaDelFitness," << endl;
+	myfile.close();
 	//determino parametros que luego podemos modificar segun gustemos
 	int tamanopoblacion=50;
 	float min=-1;

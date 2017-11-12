@@ -798,8 +798,8 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 	if (LeTocaA==1) {NoLeToca=2;} else {NoLeToca=1;}
 
 
-	if (perdi(tablero, c, ultimajugada)) {return make_pair(NoLeToca,0);}//si ya termino el partido da lo mismo que juego
-	if (gane(tablero, c, ultimajugada)) {return make_pair(LeTocaA,0);}//si ya termino el partido da lo mismo que juego
+	if (perdi(tablero, c, ultimajugada)) {return make_pair(2,0);}//si ya termino el partido da lo mismo que juego
+	if (gane(tablero, c, ultimajugada)) {return make_pair(1,0);}//si ya termino el partido da lo mismo que juego
 	//en estos casos devuelvo el numero del jugador que gano
 
 
@@ -838,7 +838,8 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 		tablero[posibles[m]].pop_back();
 
 		if (siJuegoM.first==LeTocaA) {return make_pair(LeTocaA,posibles[m]);}
-		if (siJuegoM.first==0) {puedoEmpatar=true; comoEmpatar=posibles[m];}
+		if (siJuegoM.first==0) {puedoEmpatar=true; comoEmpatar=posibles[m];} //que el devuelva 0, es como si yo
+		//fuera a emptar, porque el no puede ganar y busca empatar seguro. Acá empatamos seguro
 		if (siJuegoM.first==NoLeToca) {elOtroGana=true; todosLosQueMeGana.push_back(posibles[m]);}
 
 		++m;
