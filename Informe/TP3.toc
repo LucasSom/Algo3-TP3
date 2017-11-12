@@ -6,7 +6,7 @@
 \contentsline {subsubsection}{\numberline {2.1.1}El Pseudoc\IeC {\'o}digo}{3}{subsubsection.2.1.1}
 \contentsline {subsection}{\numberline {2.2}Poda $\alpha $ - $\beta $}{4}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Pseudoc\IeC {\'o}digo}{4}{subsubsection.2.2.1}
-\contentsline {subsection}{\numberline {2.3}Complejidad}{6}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.3}Complejidad}{5}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Experimentaci\IeC {\'o}n}{6}{subsection.2.4}
 \contentsline {subsubsection}{\numberline {2.4.1}Contexto}{6}{subsubsection.2.4.1}
 \contentsline {subsubsection}{\numberline {2.4.2}Sin poda}{6}{subsubsection.2.4.2}
@@ -24,11 +24,11 @@
 \contentsline {subsubsection}{\numberline {4.2.2}Modificaciones}{14}{subsubsection.4.2.2}
 \contentsline {subsubsection}{\numberline {4.2.3}Grid recomendado}{14}{subsubsection.4.2.3}
 \contentsline {subsubsection}{\numberline {4.2.4}Redefinici\IeC {\'o}n de mejorar}{15}{subsubsection.4.2.4}
-\contentsline {section}{\numberline {5}Algoritmo Gen\IeC {\'e}tico}{16}{section.5}
-\contentsline {subsubsection}{\numberline {5.0.1}El Pseudoc\IeC {\'o}digo}{16}{subsubsection.5.0.1}
-\contentsline {subsection}{\numberline {5.1}El algoritmo}{18}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Experimentacion}{18}{subsection.5.2}
-\contentsline {subsubsection}{\numberline {5.2.1}Funciones del Algoritmo Gen\IeC {\'e}tico}{18}{subsubsection.5.2.1}
+\contentsline {section}{\numberline {5}Algoritmo Gen\IeC {\'e}tico}{17}{section.5}
+\contentsline {subsubsection}{\numberline {5.0.1}El Pseudoc\IeC {\'o}digo}{17}{subsubsection.5.0.1}
+\contentsline {subsection}{\numberline {5.1}El algoritmo}{19}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Experimentacion}{19}{subsection.5.2}
+\contentsline {subsubsection}{\numberline {5.2.1}Funciones del Algoritmo Gen\IeC {\'e}tico}{19}{subsubsection.5.2.1}
 \contentsline {subsubsection}{\numberline {5.2.2}Jugadores}{24}{subsubsection.5.2.2}
 \contentsline {section}{\numberline {6}An\IeC {\'a}lisis comparativo con paper}{27}{section.6}
 \contentsline {section}{\numberline {7}Conclusiones}{28}{section.7}
