@@ -8,9 +8,6 @@
 #include <sys/stat.h>
 #include <cmath>
 #include <cassert>
-#include <tuple>
-#include <utility>
-#include <algorithm>
 
 
 using namespace std;
@@ -786,100 +783,12 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 	}
 }
 
-
-//estos primero dos nums se cambian (el ganar y perder) si leTocaA 2
-//el primer int es 1 si ya gano el jug 1, 2 si ya perdio el jug 1, 0 si ya empato, 3 si no sabe como termina
-//el segundo int es en que columna juega. Solo me importa en la primera llamada igual, no las recursivas
-//profundidad es que tan a futuro estoy viendo, nunca quiero ver mas de 4 a futuro
-//llega a ver si alguno puede ganar poniendo 2 fichas
-pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<int>>& tablero, int LeTocaA, int ultimajugada, int profundidad) {
-
-	int NoLeToca;
-	if (LeTocaA==1) {NoLeToca=2;} else {NoLeToca=1;}
-
-
-	if (perdi(tablero, c, ultimajugada)) {return make_pair(2,0);}//si ya termino el partido da lo mismo que juego
-	if (gane(tablero, c, ultimajugada)) {return make_pair(1,0);}//si ya termino el partido da lo mismo que juego
-	//en estos casos devuelvo el numero del jugador que gano
-
-
-	if(p==0){return make_pair(0,0);} //empate no hay mas fichas
-	bool lleno=true;
-	int h=0;
-	while( h<columns && lleno){
-		if(tablero[h].size()<rows){ lleno=false;}
-		++h;
-	}
-	if (lleno) {return make_pair(0,0);} //empate se lleno el tablero y no gano nadie, me da lo mismo que juego
-
-
-	if (profundidad>4) {return make_pair(3, rand() % columns);}
-
-
-
-	bool elOtroGana = false;
-	vector <int> todosLosQueMeGana;
-	bool puedoEmpatar = false;
-	int comoEmpatar = 0;
-
-	vector<int> posibles;
-	for (int m=0; m<columns; ++m){
-		posibles.push_back(m);
-	}
-	random_shuffle(posibles.begin(), posibles.end()); //para que no resulte que se prueban mas los partidos en los
-	//que el backtracking juega mas a la izquierda
-
-	int m=0;
-	while (m<columns) {//me estoy fijando que pasa si yo juego m en este turno
-		
-		tablero[posibles[m]].push_back(LeTocaA);
-		pair<int, int> siJuegoM;
-		siJuegoM = backtracking(rows, columns, c, p, tablero, NoLeToca, posibles[m], profundidad+1);
-		tablero[posibles[m]].pop_back();
-
-		if (siJuegoM.first==LeTocaA) {return make_pair(LeTocaA,posibles[m]);}
-		if (siJuegoM.first==0) {puedoEmpatar=true; comoEmpatar=posibles[m];} //que el devuelva 0, es como si yo
-		//fuera a emptar, porque el no puede ganar y busca empatar seguro. Acá empatamos seguro
-		if (siJuegoM.first==NoLeToca) {elOtroGana=true; todosLosQueMeGana.push_back(posibles[m]);}
-
-		++m;
-	}
-
-	if (puedoEmpatar) {return make_pair(0,comoEmpatar);}
-
-	if (elOtroGana) {
-
-		vector<bool> dondeNoPierdo (columns, true); //va a tener un true si puedo jugar ahi sin perder
-		for (int n=0; n<todosLosQueMeGana.size(); ++n){
-			dondeNoPierdo[todosLosQueMeGana[n]] = false; //en los lugares que me gana se que no quiero jugar
-		}
-
-		vector<int> dondePuedoJugar;
-		for (int n=0; n<dondeNoPierdo.size(); ++n) {
-			if (dondeNoPierdo[n]==true) {dondePuedoJugar.push_back(n);}
-		}
-
-		if (dondePuedoJugar.size()>0) {
-			int donde = rand() % dondePuedoJugar.size();
-			return make_pair(3, dondePuedoJugar[donde]);
-		}
-	}
-
-
-
-	return make_pair(3, rand() % columns);
-
-}
-
-
-
-
 //devuelve la cantidad de veces que el parametro de entrada le ganó a un jugador Random en cien partidos.
-int juezBacktrack (int rows, int columns, int c, int p, parametro param){
+float juezRandom (int rows, int columns, int c, int p, parametro param){
 	
-	int rta = 0;
+	float rta = 0;
 
-	for (int m=0; m<100; ++m) {
+	for (int m=0; m<1000; ++m) {
 
 		vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
 		p=2*p; //cuento fichas totales
@@ -906,8 +815,7 @@ int juezBacktrack (int rows, int columns, int c, int p, parametro param){
 				tablero[move].push_back(LeTocaA); //juega quien corresponda
 				LeTocaA=2;
 			}else{
-				pair<int,int> rta = backtracking(rows, columns, c, p, tablero, 2, ultimajugada, 1);
-				move = rta.second;
+				move = rand() % columns;
 				tablero[move].push_back(LeTocaA); //juega quien corresponda
 				LeTocaA=1;
 			}
@@ -917,7 +825,7 @@ int juezBacktrack (int rows, int columns, int c, int p, parametro param){
 
 	}
 
-	return rta;
+	return rta/10;
 }
 
 
@@ -970,7 +878,6 @@ void paramrandom(parametro& param, int c){
 }
 
 
-
 //se fija si un jugador desafiante le gana al jugador mejor
 bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, parametro desafiante){
 
@@ -993,6 +900,7 @@ bool nuevoCampeon (int rows, int columns, int c, int p, parametro mejor, paramet
 	}
 	return false;
 }
+
 
 
 parametro leerParametroDeValores(int c, string a){
@@ -1050,8 +958,8 @@ parametro leerParametroDeValores(int c, string a){
 parametro gridsearch(int rows, int columns, int c, int p){
 
 	parametro param;
-	paramrandom(param, c);
-	/*
+	paramrandom(param,c);
+/*
 	cerr<< param.esquinaparam.first << endl; 
 	cerr<<param.esquinaparam.second<< endl;
 	cerr<<param.bordeparam.first<< endl;
@@ -1077,35 +985,34 @@ parametro gridsearch(int rows, int columns, int c, int p){
 		cerr<<param.consecutivos[k]<< endl;
 	}
 	
-	*/
+*/
 
 	ofstream porcentajes;
-	porcentajes.open ("porcentajes3aBackInteligenteSinVentaja.txt");
+	porcentajes.open ("porcentajes3aRandomSinVentaja.txt");
 	porcentajes << "mejorNumero,porcentaje" << endl;
 
 
 	parametro mejor=param;
-	int porcentajeCampeonBacktrack = juezBacktrack(rows,columns,c,p,mejor);
+	int porcentajeCampeon;
+	porcentajeCampeon = juezRandom(rows,columns,c,p,mejor);
 	int z=1; //me dice cuantos campeones fui cambiando hasta el momento
-	porcentajes << z << "," << porcentajeCampeonBacktrack << endl;
+	porcentajes << z << "," << porcentajeCampeon << endl;
 
 
 	vector<float> valoresDiscretos = {-1, -0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
 
 	///for (int u=0; u<4; ++u){
 		for(int k=0;k<c-1;++k){
-			cerr << "estoy avanzando" <<endl;
 			for (int i=0; i<valoresDiscretos.size(); ++i) {
 				param.extensiblesprox[k] = valoresDiscretos[i];
 				for (int j=0; j<valoresDiscretos.size(); ++j) {
 					param.extensibles[k] = valoresDiscretos[j];
-					++z;
-					int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+					int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}				
 				}
 			}
@@ -1116,13 +1023,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 				param.biextensibles[k] = valoresDiscretos[l];
 				for (int r=0; r<valoresDiscretos.size(); ++r) {
 				param.biextensibles[k] = valoresDiscretos[r];
-				++z;
-					int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+					int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 				}
 			}
@@ -1134,18 +1040,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 		//optimizamos biextparam
 		for (int i=0; i<valoresDiscretos.size(); ++i) {
-			param.biextparam.first = valoresDiscretos[i];
+				param.biextparam.first = valoresDiscretos[i];
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.biextparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
-						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
-					}	
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+				if (porcentajeDesafiante>porcentajeCampeon) {mejor = param;}
 			}
 		}	
 		//para que los proximos parametros tengan estos ya optimizados, si no estarian con desventaja.
@@ -1159,13 +1059,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.extproxparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}	
@@ -1178,13 +1077,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.extparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}	
@@ -1198,13 +1096,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.esquinaparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}
@@ -1219,13 +1116,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.bordeparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}
@@ -1238,13 +1134,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.libertadparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}	
@@ -1257,13 +1152,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.consecparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}	
@@ -1276,13 +1170,12 @@ parametro gridsearch(int rows, int columns, int c, int p){
 
 			for (int j=0; j<valoresDiscretos.size(); ++j) {
 				param.centroparam.second = valoresDiscretos[j];
-				++z;
-				int porcentajeDesafianteBacktrack = juezBacktrack(rows,columns,c,p,param);
-					if (porcentajeDesafianteBacktrack > porcentajeCampeonBacktrack) {
-						porcentajeCampeonBacktrack=porcentajeDesafianteBacktrack;
+				int porcentajeDesafiante = juezRandom(rows,columns,c,p,param);
+					if (porcentajeDesafiante>porcentajeCampeon) {
+						porcentajeCampeon=porcentajeDesafiante;
 						mejor = param;
-						escribirParametro(c, mejor);
-						porcentajes<<z<<","<<porcentajeCampeonBacktrack<<endl;
+						++z;
+						porcentajes<<z<<","<<porcentajeCampeon<<endl;
 					}	
 			}
 		}	
@@ -1300,9 +1193,9 @@ parametro gridsearch(int rows, int columns, int c, int p){
 int escribirParametro(int c, parametro param){
 	
 	ofstream valores;
-	valores.open ("jugador3aBackInteligenteSinVentaja.txt", std::ofstream::out | std::ofstream::trunc);
+	valores.open ("jugador3aRandomSinVentaja.txt");
 	
-	valores << param.esquinaparam.first << "\n";
+valores << param.esquinaparam.first << "\n";
 	valores << param.esquinaparam.second << "\n";
 	valores << param.bordeparam.first  << "\n";
 	valores << param.bordeparam.second  << "\n";
@@ -1328,8 +1221,6 @@ int escribirParametro(int c, parametro param){
 		valores << param.consecutivos[k] << "\n";
 	}
 
-	valores.close();
-
 	assert(param.extensiblesprox.size() == k);
 
 	return 0;
@@ -1344,9 +1235,13 @@ int main(){
 	int rows = 6;
 	int c = 4;
 	int p = 50; 
-	parametro param=gridsearch(columns,rows,c,p);
+	parametro param;
 
-	escribirParametro(c, param);
+	param = leerParametroDeValores(c, "MejorResultadoGenetico4EnLinea.txt");
+
+	float rta = juezRandom(rows, columns, c, p, param);
+
+	cout << rta << endl;
 
 	/*
 	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 

@@ -6,10 +6,9 @@
 #include <vector>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <cmath>
+#include <cassert>
 #include <algorithm>
-#include <cstdio>
-#include <ctime>
-#include <string>
 
 
 using namespace std;
@@ -47,7 +46,6 @@ struct parametro{
 	
 	pair<float,float> biextparam;	
 		
-	bool operator ==(const parametro& p){} 	
 };
 
 
@@ -57,8 +55,8 @@ struct parametro{
 bool ganojugador(vector<vector<int>> tablero, int i, int c, int ultimajugada){
 	
 	 if(ultimajugada==-1){if(c==1) {return true;}else{return false;}}
-     //CAMBIO CHEBAR, AGREGUE ESTO, COSA QUE SI HAY QUE PONER UNA SOLA Y SOS EL PRIMERO EN JUGAR YA GANASTE
-     //Por si es la primer jugada, nadie gano aun
+     //Por si es la primer jugada, nadie gano aun, salvo sea 1 en linea.
+     
 	 if (tablero[ultimajugada][tablero[ultimajugada].size()-1]!=i) return false; //tablero[j].size()-1 es la ultima fila con fichas de la columna j
 	 bool esMio = true;
 		
@@ -647,11 +645,7 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	//el parametro de entrada consecutivos es un vector que tiene en la i coordenada el valor de las tiras de largo i+1. Consecutivos tiene c-1 elementos
 	//idem para extensibles
 	
-	if( gane(tablero,c,ultimajugada)) {return INF;} //si gane da infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
-	
-	//if( perdi(tablero,c,ultimajugada)) {return INFneg;} //si perdi da -infinito CHECKEAR Q ESTE BIEN Y DE ESO POSTA
-	//NO TIENE SENTIDO, NUNCA VOY A TENER UN TABLERO EN EL QUE YA PERDI, SI ME TOCA JUGAR A MI
-	
+	//el checkeo de si gano o pierdo en el proximo turno lo hace la funcion parametrizable
 	
 	
 	//cuento los que estan en el borde, mias y de el.
@@ -699,47 +693,7 @@ float puntaje(int rows, int columns, int c, int p, const vector<vector<int>>& ta
 	total= total + (libres1*param.libertadparam.first-libres2*param.libertadparam.second);
 	total= total + subtotalA;
 	return total;
-	
-	
-	
-	
-	//ideas de puntajes:
-	
-	//--------------HECHO--------------------
-	//cantidad de fichas en los bordes HECHO
-	//cantidad de fichas en las esquinas HECHO
-	//cantidad de fichas en el centro HECHO
-	//contar casillas libres alrededor de cada mia. HECHO
-	//cantidad de fichas consecutivas, donde agregar una suma mucho mas. HECHO 
-	//gano +inf y si pierdo es -inf HECHO
-	//contar TODAS las extensibles, no solo las de la proxima jugada, para cada largo HECHO
-	//cpntar las extensibles en AMBOS sentidos para cada largo HECHO
-	
-	
-	//----------A HACER -----------
-	
-	//EN EXTENSIBLES (en general, no en el caso de inmediatamente extensibles que ese esta bien): 
-	//NO CUENTO ACA SI CON UN MOVIMIENTO DOS DE 1 SE UNEN EN UNA DE 3, HACER ESTO
-	//INCLUSO CREO QUE LA QUE CUENTA EXTENSIBLES ESTA MAL... BUSCAR OTRA FORMA...
-	//soy chebar, creo que solucion esto, contando que dosd e 1 se unen en una de 3 para TODOS los extensibles
-	//y también contando bien todo porque antes estaba medio mal. Lo hice agregando eso de anterior, CHECKEAR
-	// (Esto lo hace la funcion ext)
-	
-
-	//Agregar las biextensibles en el proximo?
-	
-	//hacer parametros para cada jugada, o dividir en etapas y hacer parametros para cada etapa
-	
-	
-	
-	
-	//-------LO HACEMOS DESPUES Y NO TAN UTIL COMO LO DE ARRIBA. IDEAS VIEJAS----------
-	
-	//eso de cant de fichas en el centro se puede definir mejor... podria contar varias centrales, y hasta cierta altura para ser mas fino, o contar por cada columna..
-	//tratar de maximizar mi putntaje, o minimizar el de el, o maximizar la diferencia (me parece mejor la ultima pero puede ser otro parámetro y que decida entre las tres)
-	//contar si hay lugares consecutivos (al menos dos, uno encima de otro) donde ambos extienden y de que largo
-	
-	
+		
 	}
 
 
@@ -756,15 +710,13 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	for(int h=0;h<columns;++h){
 		if(tablero[h].size()<rows){ posibles.push_back(h);}
 	}
-	
-	
+		
 	for(int a=0; a<posibles.size();++a){
-		//si voy a ganar, lo hago.
+		//si puedo ganar, gano
 		tablero[posibles[a]].push_back(1);
 		if( gane(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
-	}
-	
+	}	
 		
 	for(int a=0; a<posibles.size();++a){
 		//si voy a perder, la salvo.
@@ -772,8 +724,6 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 		if( perdi(tablero,c,posibles[a]) ) {tablero[posibles[a]].pop_back(); return posibles[a];}
 		tablero[posibles[a]].pop_back();
 	}
-	
-	
 	
 	//si o si hay una jugada posibles pues sino seria empate
 	tablero[posibles[0]].push_back(1);
@@ -835,101 +785,6 @@ int juez (int rows, int columns, int c, int p, int primero, parametro p1, parame
 }
 
 
-//funcion que da un float random en el intervalo cerrado [min,max]
-float float_rand( float min, float max ){
-    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
-    return min + scale * ( max - min );      /* [min, max] */
-}	
-	
-//función que sortea un parametro random
-parametro paramrandom(int c){
-	parametro param;
-	float min=-1;
-	float max=1;
-	//los parametros que determinan el peso de mi jugada respecto a la del rival van entre -1 y 1
-	param.esquinaparam.first = float_rand(min,max);
-	param.esquinaparam.second = float_rand(min,max);
-	param.bordeparam.first = float_rand(min,max);
-	param.bordeparam.second = float_rand(min,max);
-	param.libertadparam.first = float_rand(min,max);
-	param.libertadparam.second = float_rand(min,max);
-	param.consecparam.first = float_rand(min,max);
-	param.consecparam.second = float_rand(min,max);
-	param.centroparam.first = float_rand(min,max);
-	param.centroparam.second = float_rand(min,max);
-	param.extproxparam.first = float_rand(min,max);
-	param.extproxparam.second = float_rand(min,max);
-	param.extparam.first = float_rand(min,max);
-	param.extparam.second = float_rand(min,max);
-	param.biextparam.first = float_rand(min,max);
-	param.biextparam.second = float_rand(min,max);
-	
-	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
-	//caracteristica va entre -1 y 1.
-	vector<float> vacio;
-	param.consecutivos=vacio;
-	param.extensibles=vacio;
-	param.extensiblesprox=vacio;
-	param.biextensibles=vacio;
-	for(int k=0;k<c-1;++k){
-		param.extensiblesprox.push_back(float_rand(min,max));
-		param.extensibles.push_back(float_rand(min,max));
-		param.biextensibles.push_back(float_rand(min,max));
-		param.consecutivos.push_back(float_rand(min,max));
-	}
-	return param;
-}
-	
-
-//----------------- ALGORITMO GENETICO------------------------
-
-//FITNESS1
-	//idea: ver cantidad de partidos no perdidos sobre total jugados juega contra 
-	//todos los de su generacion.
-	//ES BASTANTE MALA, SE PODRIA MEJORAR, QUE JUEGUE CONTRA OTROS TAMBIEN, EXTERNOS
-float fitness1(parametro param, vector<parametro> poblacion, int rows,int  columns, int c,int  p){
-	float noperdio=0;
-	for(int i=0;i<poblacion.size();++i){
-		if(juez(rows,columns,c,p, 1, param,poblacion[i]) !=2) {++noperdio;}
-		if(juez(rows,columns,c,p, 2, param, poblacion[i]) !=2) {++noperdio;}
-	}
-	float x= 2*poblacion.size();
-	float resultado=noperdio/x;
-	return resultado;	
-}
-	
-	
-//FITNESS2
-	//idea: ver cantidad de partidos no perdidos sobre total jugados del peor de la generacion, da poblacion pareja
-	// ESTARIA BUENO ALGO QUE SEA MAS EXTERNO A LA GENERACION NUESTRA PER SE, que  mida cuan buena es PUERTAS AFUERA
-	// o tambien ver partidos ganados sobre total jugados, como podria ser jugar contra mejores de viejas generaciones	
-float fitness2(parametro param, vector<parametro> poblacion, int rows, int  columns, int c, int  p, int k){
-	//k es el valor del bonus si es segundo (pues ganar o empatar siendo segundo vale mas que siendo primero)
-	float puntaje=0;
-	int pierde=0;
-	int empata=5;
-	int gana=10;
-	for(int i=0;i<poblacion.size();++i){
-		//empate siendo primero
-		if(juez(rows,columns,c,p, 1, param, poblacion[i])==0) puntaje+=empata;
-		//empate siendo segundo
-		if(juez(rows,columns,c,p, 2, param, poblacion[i])==0) puntaje+=empata+k;
-		//gano siendo primero
-		if(juez(rows,columns,c,p, 1, param, poblacion[i])==1) puntaje+=gana;
-		//gano siendo segundo
-		if(juez(rows,columns,c,p, 2, param, poblacion[i])==1) puntaje+=gana+2*k;
-		//pierdo siendo primero
-		if(juez(rows,columns,c,p, 1, param, poblacion[i])==2) puntaje+=pierde;
-		//pierdo siendo segundo
-		if(juez(rows,columns,c,p, 2, param, poblacion[i])==2) puntaje+=pierde+k/2;
-
-	}
-	
-	float x=(2*poblacion.size());
-	float resultado = puntaje/x;
-	return resultado;	
-}
-	
 
 //estos primero dos nums se cambian (el ganar y perder) si leTocaA 2
 //el primer int es 1 si ya gano el jug 1, 2 si ya perdio el jug 1, 0 si ya empato, 3 si no sabe como termina
@@ -940,6 +795,7 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 
 	int NoLeToca;
 	if (LeTocaA==1) {NoLeToca=2;} else {NoLeToca=1;}
+
 
 	if (perdi(tablero, c, ultimajugada)) {return make_pair(2,0);}//si ya termino el partido da lo mismo que juego
 	if (gane(tablero, c, ultimajugada)) {return make_pair(1,0);}//si ya termino el partido da lo mismo que juego
@@ -991,407 +847,137 @@ pair<int,int> backtracking(int rows, int columns, int c, int p, vector<vector<in
 
 	if (elOtroGana) {
 
-		vector<bool> dondeNoPierdo (columns, true); //va a tener un true si puedo jugar ahi sin perder
+		vector<bool> dondeNoPierdo (columns, true); //va a tener true si puedo jugar ahi sin perder
 		for (int n=0; n<todosLosQueMeGana.size(); ++n){
 			dondeNoPierdo[todosLosQueMeGana[n]] = false; //en los lugares que me gana se que no quiero jugar
 		}
 
 		vector<int> dondePuedoJugar;
-		for (int n=0; n<dondeNoPierdo.size(); ++n) {
+		for (int n=0; n<dondeNoPierdo.size(); ++n){
 			if (dondeNoPierdo[n]==true) {dondePuedoJugar.push_back(n);}
 		}
-
-		if (dondePuedoJugar.size()>0) {
-			int donde = rand() % dondePuedoJugar.size();
+		
+		if (dondePuedoJugar.size()>0){
+			int n = dondePuedoJugar.size();
+			int donde = rand() % n;
 			return make_pair(3, dondePuedoJugar[donde]);
 		}
 	}
-
-
 
 	return make_pair(3, rand() % columns);
 
 }
 
+//funcion que da un float random en el intervalo cerrado [min,max]
+float float_rand( float min, float max ){
+    float scale = (float)rand() / (float) RAND_MAX; /* [0, 1.0] */
+    return min + scale * ( max - min );      /* [min, max] */
+}
 
 
-//devuelve 0,1,2 segun quien gano
-int juezBacktrack (int rows, int columns, int c, int p, parametro param, int empieza){
+
+
+//función que sortea un parametro random
+void paramrandom(parametro& param, int c){
 	
-	int rta = 0;
-
-	vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
-	p=2*p; //cuento fichas totales
-	int ultimajugada=-1;
-	int LeTocaA = empieza;
-
-	while (true) {
-		if(gane(tablero, c, ultimajugada)) {return 1;} //gano el 1
-		if(perdi(tablero, c, ultimajugada)) {return 2;} //perdio el 1, gano el 2
-		if(p==0){return 0;} //empate no hay mas fichas
-		bool lleno=true;
-		int h=0;
-		while( h<columns && lleno){
-			if(tablero[h].size()<rows){ lleno=false;}
-			++h;
-		}
-		if (lleno) {return 0;} //empate se lleno el tablero y no gano nadie
-		
-
-		int move;
-		if(LeTocaA==1){ 
-			move = parametrizable(rows, columns, c, p, tablero, ultimajugada, param);
-			tablero[move].push_back(LeTocaA); //juega quien corresponda
-			LeTocaA=2;
-		}else{
-			pair<int,int> rta = backtracking(rows, columns, c, p, tablero, 2, ultimajugada, 1);
-			move = rta.second;
-			tablero[move].push_back(LeTocaA); //juega quien corresponda
-			LeTocaA=1;
-		}
-		--p;
-		ultimajugada=move;
+	float min=-1;
+	float max=1;
+	//los parametros que determinan el peso de mi jugada respecto a la del rival van entre -1 y 1
+	param.esquinaparam.first = float_rand(min,max);
+	param.esquinaparam.second = float_rand(min,max);
+	param.bordeparam.first = float_rand(min,max);
+	param.bordeparam.second = float_rand(min,max);
+	param.libertadparam.first = float_rand(min,max);
+	param.libertadparam.second = float_rand(min,max);
+	param.consecparam.first = float_rand(min,max);
+	param.consecparam.second = float_rand(min,max);
+	param.centroparam.first = float_rand(min,max);
+	param.centroparam.second = float_rand(min,max);
+	param.extproxparam.first = float_rand(min,max);
+	param.extproxparam.second = float_rand(min,max);
+	param.extparam.first = float_rand(min,max);
+	param.extparam.second = float_rand(min,max);
+	param.biextparam.first = float_rand(min,max);
+	param.biextparam.second = float_rand(min,max);
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		param.extensiblesprox.push_back(float_rand(min,max));
+		param.extensibles.push_back(float_rand(min,max));
+		param.biextensibles.push_back(float_rand(min,max));
+		param.consecutivos.push_back(float_rand(min,max));
 	}
 }
 
 
-float fitnessBacktrack(parametro param, int tamanoPoblacion, int rows, int  columns, int c, int  p, int k){
-	//k es el valor del bonus si es segundo (pues ganar o empatar siendo segundo vale mas que siendo primero)
-	float puntaje=0;
-	int pierde=0;
-	int empata=5;
-	int gana=10;
-	for(int i=0;i<25;++i){
-		int resultEmpezandoParam = juezBacktrack(rows,columns,c,p,param,1);
-		int resultEmpezandoBacktrack = juezBacktrack(rows,columns,c,p,param,2);
-		//empate siendo primero
-		if(resultEmpezandoParam==0) puntaje+=empata;
-		//empate siendo segundo
-		if(resultEmpezandoBacktrack==0) puntaje+=empata+k;
-		//gano siendo primero
-		if(resultEmpezandoParam==1) puntaje+=gana;
-		//gano siendo segundo
-		if(resultEmpezandoBacktrack==1) puntaje+=gana+2*k;
-		//pierdo siendo primero
-		if(resultEmpezandoParam==2) puntaje+=pierde;
-		//pierdo siendo segundo
-		if(resultEmpezandoBacktrack==2) puntaje+=pierde+k/2;
-
-	}
-	
-	float x=(2*tamanoPoblacion);
-	float resultado = puntaje/x;
-	return resultado;	
-}
-	
-	
-//MUTACION
-	//idea: simple, tener un porcentaje fijo y en cada variable tira random si se da el porcentaje de mutacion
 
 
+//devuelve la cantidad de veces que el parametro de entrada le ganó a un jugador Random en cien partidos.
+float juezRandom (int rows, int columns, int c, int p){
 	
-//param es el paremtro a mutar, rate indica la proba de mutar, min y max son los rangos en que estan los puntajes
-//de todas las cosas.
-void mutacion(parametro& param, float rate, float min, float max){
-	
-	// PARA QE NO SEA MUY CAOTICA LA EVOLUCION ES OTRA OPCION QUE EN VEZ DE QUE MUTE A UN RANDOM CUALQUIER
-	//QUE MUTE A ALGO COMO nuevo=viejo+(float_rand(min,max)*mutSize) DONDE mutSize ES ALGO COMO EL MUTATION RATE,
-	// UN PARAMETRO DEL GENETICO Y QU SEA UN VALOR COMO 0.05 0.1 0.2 IDEA PARA EXPERIMENTAR.
+	float rta = 0;
 
-	//muto aleatoriamente los parametros que son solo numeros
-	if(float_rand(0,1)<rate){param.esquinaparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.esquinaparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.bordeparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.bordeparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.libertadparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.libertadparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.consecparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.consecparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.centroparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.centroparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.extproxparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.extproxparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.extparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.extparam.second = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.biextparam.first = float_rand(min,max);}
-	if(float_rand(0,1)<rate){param.biextparam.second = float_rand(min,max);}
-	//muto aleatoriamente los vectores
-	for(int k=0;k<param.extensibles.size();++k){
-		if(float_rand(0,1)<rate){param.extensiblesprox[k]=(float_rand(min,max));}
-		if(float_rand(0,1)<rate){param.extensibles[k]=(float_rand(min,max));}
-		if(float_rand(0,1)<rate){param.biextensibles[k]=(float_rand(min,max));}
-		if(float_rand(0,1)<rate){param.consecutivos[k]=(float_rand(min,max));}
-	}
-	
-}
-
-
-//CROSSOVER
-	//idea: simple, tener un porcentaje fijo que dice si hay crossover y cambia y lo ejecuto cada vez en cada 
-	//cosa, puede pasar varias veces en un mismo cruzamiento o ninguna. Los vectores y los pares de parametros
-	//son caracteristicas que van juntas. O sea, los pairs y vectors, se copian entero de alguno de los dos siempre.
-	// es como si fueran un solo gen que lo agarras o del padre o de la madre
-parametro crossover(parametro p1, parametro p2, float rate, float min, float max){
-	
 	parametro param;
-	//empiezo con p1 y si corresponde cambio
-	parametro copiode=p1;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.esquinaparam.first = copiode.esquinaparam.first;
-		param.esquinaparam.second = copiode.esquinaparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.bordeparam.first = copiode.bordeparam.first;
-		param.bordeparam.second = copiode.bordeparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.libertadparam.first = copiode.libertadparam.first;
-		param.libertadparam.second = copiode.libertadparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.consecparam.first = copiode.consecparam.first;
-		param.consecparam.second = copiode.consecparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.centroparam.first = copiode.centroparam.first;
-		param.centroparam.second = copiode.centroparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.extproxparam.first = copiode.extproxparam.first;
-		param.extproxparam.second = copiode.extproxparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.extparam.first = copiode.extparam.first;
-		param.extparam.second = copiode.extparam.second;
-	if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.biextparam.first = copiode.biextparam.first;
-		param.biextparam.second = copiode.biextparam.second;
+	paramrandom(param,c);
 
-	//CHE QUIZAS ESTARIA BUENO QUE PUEDACOPIAR PARTE DE UN VECTOR DE UN PADREY PARTE DEL OTRO NO?
-	//SE HARIA ASI PONELE. OTRA IDEA PARA EXPERIMENTAR
-		/*
-		//muto aleatoriamente los vectores
-	for(int k=0;k<p1.extensibles.size();++k){
-		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-		param.extensiblesprox.push_back(copiode.extensiblesprox[k]);
-	}
-*/
-	//muto aleatoriamente los vectores
-	for(int k=0;k<p1.extensibles.size();++k){
-		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-	
-		param.extensiblesprox.push_back(copiode.extensiblesprox[k]);
-	}
-	
-	for(int k=0;k<p1.extensibles.size();++k){
-		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-	
-		param.extensibles.push_back(copiode.extensibles[k]);
-	}
-		
-	for(int k=0;k<p1.extensibles.size();++k){
-		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-	
-		param.biextensibles.push_back(copiode.biextensibles[k]);
-	}
-	
-	for(int k=0;k<p1.extensibles.size();++k){
-		if(float_rand(0,1)<rate){ if(copiode==p1){copiode=p2;}else{copiode=p1;}}
-	
-		param.consecutivos.push_back(copiode.consecutivos[k]);
-	}
-	
-	return param;
-}
+	for (int m=0; m<1000; ++m) {
 
+		vector<vector<int>> tablero (columns);//la primer cordenada del tablero es la columna, y la segunda es la fila
+		p=2*p; //cuento fichas totales
+		int ultimajugada=-1;
+		int LeTocaA = 1;
+		if (m>50) {LeTocaA=2;} //para que los ultimos 50 partidos los empiece el random
 
-//SELECCION1
-	//idea: quedarse con la mitad de los de mejor fitness.Luego los cruzo agarrando aleatoriamente dos de ellos
-	// hasta que tenga una poblacion del mismo tamaño que antes.
-	// Conservar siempre al mejor individuo copiado tal cual
-	//POSIBLE MODIFICACION, TOMAR ALEATORIOS DONDE CUANTO MAS ARRIBA ESTAS MAS CHANCES TENES. ES FACIL DE HACER.
-	
-	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
-vector<parametro> seleccion1(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
-	
-	//ofstream myfile;
-	//myfile.open ("3b1seleccion1crossoverB0.4.csv", std::ios_base::app);
-	vector<parametro> poblacionnueva;
-	
-	int k=2;//PARA FITNESS2 EXPERIMENTAR
-	vector<float> fitnessValues;
-	for (int i=0;i<poblacion.size();++i){
-		///fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-		fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
-	}
-
-	float maximo=fitnessValues[0];
-	int maxpos=0;
-	for(int i=1;i<poblacion.size();++i){
-		
-		if(fitnessValues[i]>maximo){
-			maximo= fitnessValues[i];
-			maxpos=i;
-		}
-	}
-	poblacionnueva.push_back(poblacion[maxpos]); //elitismo, siempre dejo al mejor
-	
-	//ordeno ascendente por fitness
-
-	for (int j=poblacion.size()-1;j>=0;--j){
-		//esto de aca me da el maximo de lo que queda, siempre lo pongo ultimo;
-		maximo= fitnessValues[0];
-		maxpos=0;
-		for(int i=1;i<j;++i){
-			if(fitnessValues[i]>maximo){
-				maximo= fitnessValues[i];
-				maxpos=i;
+		while (true) {
+			if(gane(tablero, c, ultimajugada)) {++rta; break;} //gano el 1
+			if(perdi(tablero, c, ultimajugada)) {break;} //perdio el 1, gano el 2
+			if(p==0){break;} //empate no hay mas fichas
+			bool lleno=true;
+			int h=0;
+			while( h<columns && lleno){
+				if(tablero[h].size()<rows){ lleno=false;}
+				++h;
 			}
-		}
-		swap(fitnessValues[maxpos],fitnessValues[j]);
-		swap(poblacion[maxpos],poblacion[j]);
-	}
-
-
-	
-	
-	//myfile << fitnessValues[fitnessValues.size()-1] << ",";	
-	
-	//myfile << fitnessValues[0] << ",";	
-	
-	float suma=fitnessValues[0];
-	for(int i=1;i<poblacion.size();++i){
-			suma=suma+fitnessValues[i];
-	}
-	//myfile << suma/poblacion.size() << ",";
-	
-	//myfile << fitnessValues[poblacion.size()/2] << ",";	
-	//myfile.close();
-
-	while (poblacionnueva.size()<poblacion.size()){
-		int x, y;
-		x= rand() % (poblacion.size()-poblacion.size()/2) + poblacion.size()/2;
-		y= rand() % (poblacion.size()-poblacion.size()/2) + poblacion.size()/2;
-		//PUEDO VARIAR QUE SEAN LA MITAD, PUEDO ELEGIR X E Y DE ALGUN OTRO PORCENTAJE DE MEJORES
-		poblacionnueva.push_back(crossover(poblacion[x],poblacion[y], pcrossover, min, max) );		
-	}
-	
-	return poblacionnueva;
-}
-
-
-
-//SELECCION2
-	//idea: agarrar varios al azar y elegir el mejor y cruzarlo con otro elegido de la misma forma. Repetir asi
-	//hasta tener todos los que queremos.  Hago como minitorneos y asi elijo a cada padre.
-	//Conservar siempre al mejor individuo copiado tal cual
-	
-	
-	//NOTA: RECORDAR QUE USA FITNESS1 POR COMO ESTA POR AHORA
-pair<vector<parametro>,parametro> seleccion2(vector<parametro> poblacion, float pcrossover, float min, float max, int rows, int columns, int c, int p){
-	
-	
-	ofstream myfile;
-	myfile.open ("geneticoBacktrack.csv", std::ios_base::app);
-	vector<parametro> poblacionnueva;
-	int k=2;//PARA FITNESS2 EXPERIMENTAR
-	
-	vector<float> fitnessValues;
-	for (int i=0;i<poblacion.size();++i){
-		//fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-		fitnessValues.push_back(fitnessBacktrack(poblacion[i], poblacion.size(), rows, columns, c, p, k));
-	}
-
-	float maximo=fitnessValues[0];
-	int maxpos=0;
-	for(int i=1;i<poblacion.size();++i){
-		if(fitnessValues[i]>maximo){
-			maximo= fitnessValues[i];
-			maxpos=i;
-		}
-	}
-	poblacionnueva.push_back(poblacion[maxpos]); //elitismo, siempre dejo al mejor
-	parametro mejorJugador = poblacion[maxpos];
-	
-	myfile << fitnessValues[maxpos] << ",";	
-	
-	float minimo=fitnessValues[0];
-	int minpos=0;
-	for(int i=1;i<poblacion.size();++i){
-		if(fitnessValues[i]<minimo){
-			minimo= fitnessValues[i];
-			minpos=i;
-		}
-	}
-	
-	myfile << fitnessValues[minpos] << ",";	
-	
-	
-	float suma=fitnessValues[0];
-	for(int i=1;i<poblacion.size();++i){
-			suma=suma+fitnessValues[i];
-	}
-	myfile << suma/poblacion.size() << ",";
-	
-	
-	int posicion;
-	for(int i=0;i<poblacion.size();++i){
-		int contador=0;
-		for(int j=0;j<poblacion.size();++j){
-			if(fitnessValues[j]<=fitnessValues[i]) {++contador;}
-		}
-		if(contador>=poblacion.size()/2){posicion=i;}
-	}
-	myfile << fitnessValues[posicion] << ",";
-	
-	myfile.close();
-	
-	
-	
-	
-	
-	int tamano=poblacion.size()*2/10; //indica cantidad de los jugadores que elijo
-	
-	while (poblacionnueva.size()<poblacion.size()){
-		
-		vector<parametro> padres;
-		for(int h=0;h<2;++h){
+			if (lleno) {break;} //empate se lleno el tablero y no gano nadie
 			
-			vector<int> random;
-			for(int q=0;q<tamano;++q){
-				int x= rand() % (poblacion.size());
-				random.push_back(x);
-			}
 
-			//HAY OTRA FORMA DE HACERLO QU ES HACERQUE SOLO COMPITAN ETRE
-			//ELLOS DIEZ Y SEDEJA AL MEJOR, NO SE QUE OPCION SERA MEJOR. QUE COMPITAN ENTRE ELLOS 10 DA MENOS INFO
-			//PERO JUSTMNTE LES DA MAS OPORTUNIDAD DE COSAS RARAS. SERIA CON ESTO COMENADO
-
-		//	vector<float> fitnessValuesChico;
-		//	for (int i=0;i<random.size();++i){
-		//		fitnessValues.push_back(fitness1(random[i], random, rows, columns, c, p));
-		//	}
-
-			float maximo=fitnessValues[random[0]];
-			int maxpos=0;
-			for(int i=1;i<random.size();++i){
-				if(fitnessValues[random[i]]>maximo){
-					maximo= fitnessValues[random[i]];
-					maxpos=i;
+			int move;
+			if(LeTocaA==1){ 
+				move = parametrizable(rows, columns, c, p, tablero, ultimajugada, param);
+				tablero[move].push_back(LeTocaA); //juega quien corresponda
+				LeTocaA=2;
+			}else{
+				pair<int,int> rta = backtracking(rows,columns, c, p, tablero, 2, ultimajugada, 1);
+				move = rta.second;			
+				tablero[move].push_back(LeTocaA); //juega quien corresponda
+				LeTocaA=1;
 			}
-			padres.push_back(poblacion[random[maxpos]]);
-			}
+			--p;
+			ultimajugada=move;
 		}
-		//PUEDO VARIAR QUE SEAN LA MITAD, PUEDO ELEGIR X E Y DE ALGUN OTRO PORCENTAJE DE MEJORES
-		poblacionnueva.push_back(crossover(padres[0],padres[1], pcrossover, min, max) );		
+
 	}
-	
-	return make_pair(poblacionnueva, mejorJugador);
-	
+
+	return rta/10;
 }
 
+
+
+	
 
 
 int escribirParametro(int c, parametro param){
 	
 	ofstream valores;
-	valores.open ("jugadorGeneticoBacktrack.txt", std::ofstream::out | std::ofstream::trunc);
+	valores.open ("jugador3aRandomSinVentaja.txt");
 	
-	valores << param.esquinaparam.first << "\n";
+valores << param.esquinaparam.first << "\n";
 	valores << param.esquinaparam.second << "\n";
 	valores << param.bordeparam.first  << "\n";
 	valores << param.bordeparam.second  << "\n";
@@ -1417,177 +1003,53 @@ int escribirParametro(int c, parametro param){
 		valores << param.consecutivos[k] << "\n";
 	}
 
-	valores.close();
+	assert(param.extensiblesprox.size() == k);
 
 	return 0;
 }
 
 
-parametro leerParametroDeValores(int c, string a){
-
-	parametro param;
-
-	ifstream valores;
-	valores.open (a);
-	
-
-	valores >> param.esquinaparam.first;
-	valores >> param.esquinaparam.second;
-	valores >> param.bordeparam.first;
-	valores >> param.bordeparam.second;
-	valores >> param.libertadparam.first;
-	valores >> param.libertadparam.second;
-	valores >> param.consecparam.first;
-	valores >> param.consecparam.second;
-	valores >> param.centroparam.first;
-	valores >> param.centroparam.second;
-	valores >> param.extproxparam.first;
-	valores >> param.extproxparam.second;
-	valores >> param.extparam.first;
-	valores >> param.extparam.second;
-	valores >> param.biextparam.first;
-	valores >> param.biextparam.second ;
-	
-	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
-	//caracteristica va entre -1 y 1.
-	vector<float> vacio;
-	param.consecutivos=vacio;
-	param.extensibles=vacio;
-	param.extensiblesprox=vacio;
-	param.biextensibles=vacio;
-	for(int k=0;k<c-1;++k){
-		float n;
-		valores >> n;
-		param.extensiblesprox.push_back(n);
-		valores >> n;
-		param.extensibles.push_back(n);
-		valores >> n;
-		param.biextensibles.push_back(n);
-		valores >> n;
-		param.consecutivos.push_back(n);
-	}
-
-
-	return param;
-}
-
-
-
-//EL AGORITMO GENETICO PER SE
-parametro genetico(int rows, int columns, int c, int p){
-	
-	ofstream myfile;
-	myfile.open ("geneticoBacktrack.csv", std::ios_base::app);
-	myfile<<"generacion,maxFitness,minFitness,fitnessPromedio,mediaDelFitness," << endl;
-	myfile.close();
-	//determino parametros que luego podemos modificar segun gustemos
-	int tamanopoblacion=50;
-	float min=-1;
-	float max=1;
-	float pmutar=0.000001;
-	float pcrossover=0.4;
-	int totalgeneraciones=100;
-	int k=2; //PARA FITNESS2 EXPERIMENTAR
-	
-		
-	int generacion=1;
-	
-	vector<parametro> poblacion;
-
-	for(int i=1;i<=tamanopoblacion;++i){
-		poblacion.push_back(paramrandom(c));
-	}
-	
-	while(generacion<totalgeneraciones){
-		//puse esta como basica pero se puede poner una condicion de corte mucho mejor
-		//podria ser por ejemplo que el mejor de la poblacion no mejora durante tantas veces
-		for(int i=1;i<poblacion.size();++i){
-			mutacion(poblacion[i],pmutar, min, max);
-		}
-		myfile.open ("geneticoBacktrack.csv", std::ios_base::app);
-		myfile << generacion << ",";
-		myfile.close();		  
-		//SELECCIONAMOS Y ACTUALIZAMOS POBLACION CON CROSSOVER DE POR MEDIO
-		pair<vector<parametro>, parametro> seleccionados = seleccion2(poblacion,pcrossover,min,max, rows, columns, c, p);
-		poblacion = seleccionados.first;
-		parametro mejorJugador = seleccionados.second;
-		myfile.open ("geneticoBacktrack.csv", std::ios_base::app);
-		myfile << "\n";
-		myfile.close();	
-		
-
-		escribirParametro(c,mejorJugador);
-
-		++generacion;
-		cerr<<generacion<<endl;
-		
-	}
-	
-	
-	
-	myfile.open ("geneticoBacktrack.csv", std::ios_base::app);
-	myfile << generacion << ",";
-	vector<float> fitnessValues;
-	for (int i=0;i<poblacion.size();++i){
-		///fitnessValues.push_back(fitness1(poblacion[i], poblacion, rows, columns, c, p));
-		fitnessValues.push_back(fitness2(poblacion[i], poblacion, rows, columns, c, p, k));
-	}
-
-	float maximo=fitnessValues[0];
-	int maxpos=0;
-	for(int i=1;i<poblacion.size();++i){
-		if(fitnessValues[i]>maximo){
-			maximo= fitnessValues[i];
-			maxpos=i;
-		}
-	}
-	
-	myfile << fitnessValues[maxpos] << ",";	
-	
-	float minimo=fitnessValues[0];
-	int minpos=0;
-	for(int i=1;i<poblacion.size();++i){
-		if(fitnessValues[i]<minimo){
-			minimo= fitnessValues[i];
-			minpos=i;
-		}
-	}
-	
-	myfile << fitnessValues[minpos] << ",";	
-	
-	
-	float suma=fitnessValues[0];
-	for(int i=1;i<poblacion.size();++i){
-			suma=suma+fitnessValues[i];
-	}
-	myfile << suma/poblacion.size() << ",";
-	
-	
-	int posicion;
-	for(int i=0;i<poblacion.size();++i){
-		int contador=0;
-		for(int j=0;j<poblacion.size();++j){
-			if(fitnessValues[j]<=fitnessValues[i]) {++contador;}
-		}
-		if(contador>=poblacion.size()/2){posicion=i;}
-	}
-	myfile << fitnessValues[posicion] << ",";
-	
-	myfile.close();
-	
-	
-	
-	return poblacion[maxpos];
-
-}
-
-
-//--------------------MAIN-------------------
-//Este es un main trucho para que me de el resultado del genetico
+//-----------------------MAIN--------------------------
+//Este es un main trucho para que me de el resultado de grid-search
 int main(){
 	srand((unsigned int)time(NULL));
+	int columns = 7;
+	int rows = 6;
+	int c = 4;
+	int p = 50;
 
-	parametro param=genetico(6,7,4,50);
+	float rta = juezRandom(rows, columns, c, p);
 
-	escribirParametro(4,param);
-}	
+	cout << rta << endl;
+
+	/*
+	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
+	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
+	cout<<"param borde1:"<<param.bordeparam.first<< endl;
+	cout<<"param borde2:"<<param.bordeparam.second<< endl;
+	cout<<"param centro1:"<<param.centroparam.first << endl;
+	cout<<"param centro2:"<<	param.centroparam.second<< endl;
+	cout<<"param libertad1:"<<	param.libertadparam.first << endl;
+	cout<<"param libertad2:"<<	param.libertadparam.second << endl;
+	cout<<"param consec1:"<<param.consecparam.first << endl;
+	cout<<"param consec2:"<<param.consecparam.second << endl;
+	cout<<"param extprox1:"<<param.extproxparam.first << endl;
+	cout<<"param extprox2:"<<param.extproxparam.second << endl;
+	cout<<"param ext1:"<<param.extparam.first << endl;
+	cout<<"param ext2:"<<param.extparam.second << endl;
+	cout<<"param biext1:"<<param.biextparam.first << endl;
+	cout<<"param biext2:"<<param.biextparam.second << endl;
+	
+	cout<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
+	
+	for(int k=0;k<c-1;++k){
+		cout<< param.extensiblesprox[k]<< ";  ";
+		cout<<param.extensibles[k]<< ";  ";
+		cout<<param.biextensibles[k]<< ";  ";
+		cout<<param.consecutivos[k]<< endl;
+	}
+	*/
+	
+	return 0;
+	}
+	
