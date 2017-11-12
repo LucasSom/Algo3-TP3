@@ -917,14 +917,61 @@ void paramrandom(parametro& param, int c){
 
 
 
+parametro leerParametroDeValores(int c, string a){
+
+	parametro param;
+
+	ifstream valores;
+	valores.open (a);
+	
+
+	valores >> param.esquinaparam.first;
+	valores >> param.esquinaparam.second;
+	valores >> param.bordeparam.first;
+	valores >> param.bordeparam.second;
+	valores >> param.libertadparam.first;
+	valores >> param.libertadparam.second;
+	valores >> param.consecparam.first;
+	valores >> param.consecparam.second;
+	valores >> param.centroparam.first;
+	valores >> param.centroparam.second;
+	valores >> param.extproxparam.first;
+	valores >> param.extproxparam.second;
+	valores >> param.extparam.first;
+	valores >> param.extparam.second;
+	valores >> param.biextparam.first;
+	valores >> param.biextparam.second ;
+	
+	//los parametros que determinan el puntaje otorgado a cada linea de determinada longitud de cierta 
+	//caracteristica va entre -1 y 1.
+	vector<float> vacio;
+	param.consecutivos=vacio;
+	param.extensibles=vacio;
+	param.extensiblesprox=vacio;
+	param.biextensibles=vacio;
+	for(int k=0;k<c-1;++k){
+		float n;
+		valores >> n;
+		param.extensiblesprox.push_back(n);
+		valores >> n;
+		param.extensibles.push_back(n);
+		valores >> n;
+		param.biextensibles.push_back(n);
+		valores >> n;
+		param.consecutivos.push_back(n);
+	}
+
+
+	return param;
+}
+
 
 //devuelve la cantidad de veces que el parametro de entrada le ganó a un jugador Random en cien partidos.
 float juezRandom (int rows, int columns, int c, int p){
 	
 	float rta = 0;
 
-	parametro param;
-	paramrandom(param,c);
+	parametro param = leerParametroDeValores(c, "MejorResultadoGenetico4EnLinea.txt");
 
 	for (int m=0; m<1000; ++m) {
 
@@ -1022,33 +1069,6 @@ int main(){
 
 	cout << rta << endl;
 
-	/*
-	cout<< "param esquina1:"<< param.esquinaparam.first << endl; 
-	cout<< "param esquina2:"<<param.esquinaparam.second<< endl;
-	cout<<"param borde1:"<<param.bordeparam.first<< endl;
-	cout<<"param borde2:"<<param.bordeparam.second<< endl;
-	cout<<"param centro1:"<<param.centroparam.first << endl;
-	cout<<"param centro2:"<<	param.centroparam.second<< endl;
-	cout<<"param libertad1:"<<	param.libertadparam.first << endl;
-	cout<<"param libertad2:"<<	param.libertadparam.second << endl;
-	cout<<"param consec1:"<<param.consecparam.first << endl;
-	cout<<"param consec2:"<<param.consecparam.second << endl;
-	cout<<"param extprox1:"<<param.extproxparam.first << endl;
-	cout<<"param extprox2:"<<param.extproxparam.second << endl;
-	cout<<"param ext1:"<<param.extparam.first << endl;
-	cout<<"param ext2:"<<param.extparam.second << endl;
-	cout<<"param biext1:"<<param.biextparam.first << endl;
-	cout<<"param biext2:"<<param.biextparam.second << endl;
-	
-	cout<< "extprox; " << "ext; " << "biext; "<< "consec; "<< endl;
-	
-	for(int k=0;k<c-1;++k){
-		cout<< param.extensiblesprox[k]<< ";  ";
-		cout<<param.extensibles[k]<< ";  ";
-		cout<<param.biextensibles[k]<< ";  ";
-		cout<<param.consecutivos[k]<< endl;
-	}
-	*/
 	
 	return 0;
 	}
