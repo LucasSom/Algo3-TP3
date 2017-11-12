@@ -734,10 +734,11 @@ int parametrizable (int rows, int columns, int c, int p, vector<vector<int>>& ta
 	
 	for(int q=1; q< posibles.size();++q){
 		tablero[posibles[q]].push_back(1);
-		if(puntaje(rows, columns, c, p, tablero, posibles[q],param)>maximopuntaje){
-			maximopuntaje=puntaje(rows, columns, c, p, tablero, posibles[q],param);
+		float puntajeActual = puntaje(rows, columns, c, p, tablero, posibles[q],param);
+		if(puntajeActual > maximopuntaje){
+			maximopuntaje=puntajeActual;
 			maxpos= posibles[q];
-			}
+		}
 		tablero[posibles[q]].pop_back();		
 	}
 	
