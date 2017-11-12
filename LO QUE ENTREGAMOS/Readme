@@ -1,0 +1,22 @@
+Hay un archivo .cpp por ejercicio implementando lo general de cada uno
+
+En el cpp de 2, no se le dio ningun parametro en particular, por lo que no se obtiene un jugador
+
+En el cpp leeJugadoresEntrega.cpp se puede cambiar el archivo .txt que se lee, o agregar mas.
+Este cpp lo que hace es leer parametros de un txt y darnos el ejecutable es el 
+jugador que utiliza dichos parametros
+
+MejorResultadoGenetico4EnLinea es el obtenido con seleccion 2, fitness 2 y 10 horas(150 generaciones)
+Su ejecutable se llama jugadorGenetico Fitness2
+
+Jugador3aBackInteligenteSinVentaja.txt es el obtenido en el grid utilizando a minimax randomizado(el unico buen jugador obtenido con esta tecnica)
+Su ejecutable se llama jugadorGrid
+
+JugadorPropuestoPorNosotros.txt es el de los parametros puestos a mano
+Su ejecutable se llama jugadorNuestro
+
+jugadorGeneticoBacktrack.txt es el jugador obtenido en el genético utilizando a minimax randomizado junto con fitness 2.
+Su ejecutable se llama jugadorGeneticoBacktrack
+
+
+

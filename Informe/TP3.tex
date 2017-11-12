@@ -254,6 +254,7 @@ Antes del ciclo hay un \texttt{If} que es la ejecución del primer turno si empe
 
 El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero es la columna donde se consigue el mejor valor posible, es decir, la jugada  que da resultado óptimo (si existe) desde el tablero de entrada, y el segundo es el mejor valor que se puede conseguir al hacer esa jugada. Se usaron los valores 1, 0 y -1 para asignar los valores respectivos a ganar, empatar o perder. Además, se usó $\infty$ cuando alguno de estos valores estaba indefinido.
 
+\newpage
 
 \begin{algorithm}
 	\SetKwInOut{Input}{Input}
@@ -281,15 +282,32 @@ El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero
 		    \textbf{return} ($\infty$,0)
 		    }
 		
-		recursión llamando al siguiente en el árbol de minimax para cada posible columna
+		mejorColumna = 0
+
+		mejorValorPosible = jugar en cero
+
+		\For{cada jugada posible}
+			{
+				\eIf{Maximizo}
+					{
+					\If {valor de esta jugada $>$ mejorValorPosible}
+		  	  			{
+						mejorColumna=esta jugada
+
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+					{
+		   	 		\If {valor de esta jugada $<$ mejorValorPosible}
+		  	  			{
+						mejorColumna=esta jugada
+
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+			}
+		\textbf{return} (columna del máximo, máximo)
 		
-		\eIf{Maximizo}
-			{
-		    \textbf{return} (columna del máximo, máximo)
-			}
-			{
-		    \textbf{return} (columna del mínimo, mínimo)
-			}
 
 \caption{Minimax}
 \end{algorithm}
@@ -304,72 +322,62 @@ La poda $\alpha$ - $\beta$ consiste en disminuir la cantidad de accesos a nodos 
 
 El algoritmo se denomina $\alpha$ - $\beta$ por el nombre de las variables donde se guardan el valor máximo y el mínimo de lo que se puede conseguir hasta el momento. Más precisamente, $\alpha$ es el valor más alto que puede conseguir el jugador 1. Análogamente, $\beta$ es el mínimo valor que puede asegurarse el jugador 2. Es importante aclarar que estos valores no son constantes en todos los nodos del arbol, cada nodo recibe los valores  $\alpha$ - $\beta$ de su padre, pero si juega el jugador 1 solo se actualiza el valor  $\alpha$, que será igual al máximo  $\alpha$ de sus hijos, en cambio  $\beta$ solo se actualiza en los nodos en los que juega el jugador 2 y se calcula como el mínimo $\beta$ de sus hijos. El caso base de esta recursión es el partido terminado, en el que tanto $\alpha$ como $\beta$ toman el valor del tablero final.
 
-Como ejemplo se puede imaginar la siguiente situación: se está analizando un turno del jugador 2, y recibe un $\alpha$ = 0, lo que significa que el jugador 1 en el turno anterior puede conseguir un empate asegurado. Se analizan algunas opciones posibles para el jugador 2, y en una consigue una victoria asegurada, esto significa una derrota para el jugador 1, luego el valor de $\beta$ en este nodo se igualará a -1, ya que es el valor mínimo que puede conseguir el jugador 2 (mínimo desde el punto de vista del jugador 1). En este momento $\beta$ < $\alpha$ lo que significa que el jugador 1 en un turno anterior tiene otra forma de jugar que le devuelve un valor mayor (empate) en lugar de venir a este nodo en el que el jugador 2 se asegurará de conseguir un valor menor (derrota para el jugador 1). El primer jugador entonces nunca llegará a este nodo, y por lo tanto no es necesario explorar las otras posibilidades que tenía el jugador 2 en el mismo, ya que nunca se darán en el partido real.
+Como ejemplo se puede imaginar la siguiente situación: se está analizando un turno del jugador 2, y recibe un $\alpha$ = 0, lo que significa que el jugador 1 en el turno anterior puede conseguir un empate asegurado. Se analizan algunas opciones posibles para el jugador 2, y en una consigue una victoria asegurada, esto significa una derrota para el jugador 1, luego el valor de $\beta$ en este nodo se igualará a -1, ya que es el valor mínimo que puede conseguir el jugador 2 (mínimo desde el punto de vista del jugador 1). En este momento $\beta  \leq \alpha$ lo que significa que el jugador 1 en un turno anterior tiene otra forma de jugar que le devuelve un valor mayor (empate) en lugar de venir a este nodo en el que el jugador 2 se asegurará de conseguir un valor menor (derrota para el jugador 1). El primer jugador entonces nunca llegará a este nodo, y por lo tanto no es necesario explorar las otras posibilidades que tenía el jugador 2 en el mismo, ya que nunca se darán en el partido real.
 
-De este modo, cuando se analice un nodo para determinar el camino máximo, se siguen los mismos pasos detallados en la sección 2.1 pero si en algun momento $\alpha$ <= $\beta$ sabemos que nunca se llegará verdaderamente a este nodo, porque en alguna jugada anterior algún jugador tiene una opción mejor o igual que ya estudió en su totalidad que venir a esta posición, por lo tanto se ahorra trabajo computacional evitando el análisis de todas las ramas que surgen de este nodo que no va a ser visitado.
+De este modo, cuando se analice un nodo para determinar el camino máximo, se siguen los mismos pasos detallados en la sección 2.1 pero si en algun momento $\alpha \geq \beta$ sabemos que nunca se llegará verdaderamente a este nodo, porque en alguna jugada anterior algún jugador tiene una opción mejor o igual que ya estudió en su totalidad que venir a esta posición, por lo tanto se ahorra trabajo computacional evitando el análisis de todas las ramas que surgen de este nodo que no va a ser visitado.
 
 En nuestro problema, el número del nodo es 1, 0 o -1 para ganar, empatar o perder (desde el punto de vista del jugador 1), por lo que la poda se puede simplificar diciendo que, si ya se conoce un camino que asegura la victoria a partir de cierto tablero, no hace falta mirar el resto de las opciones que se desprenden de ese tablero, y si ya se conoce un camino que asegura el empate, y en un nodo el oponente tiene estrategia ganadora, no hace falta terminar de estudiar ese nodo ya que siempre se evitará.
 
 
 
 \subsubsection{Pseudocódigo}
-Para la poda se utilizó el mismo código y se hizo un cambio al hacer la recursión. Para no copiar todo el pseudocódigo, a continuación se lo presenta con la inicialización previa de las variables \textit{posibles, mejorPos, mejorValorMaximizo} y \textit{mejorValorMinimizo}. $posibles$ es un vector de tuplas de enteros donde cada elemento representa una columna del tablero. El primer elemento de la tupla es la columna en sí y el segundo es ...\textbf{COMPLETAR}... Las otras variables se inicializan con los valores del primer elemento de la primera posición de $posibles$, $-\infty$ y $\infty$ respectivamente.
+El código de este algoritmo es en su mayoría igual al detallado en la sección previa, con la única diferencia de ir modificando alfa y beta. Por la similitud que presenta se copiará solamente el chequeo de todas las jugadas posibles dentro del minimax, sabiendo que la función main y los cuatro chequeos para tableros terminales en minimax se mantienen iguales
 
-\vspace{10mm}
+\newpage
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\SetKwInOut{Input}{Input}
 
 
-    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} $\alpha$, \textbf{int} $\beta$, \textbf{int} ultimajugada}
-    
-    vector(pair(\textbf{int},\textbf{int})) $posibles$ = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
-    
-    \textbf{int} \textit{mejorPos} = $posibles[0]$.first
-    
-    \textbf{int} \textit{mejorValorMaximizo} = $-\infty$
-    
-    \textbf{int} \textit{mejorValorMinimizo} = $\infty$
-    
-    \For{todos los $posibles$}
-    	{
-    	matriz(\textbf{int}, \textbf{int}) $tablero2$ = $tablero$
-    	
-    	actualizar $tablero2$ según quién juega
-    	
-    	%MEJORAR ESTA LINEAAAAAAAAAA
-    	
-    	$posibles[i]$.second = recursión con $tablero2$, $p-1$ e invirtiendo el valor de verdad de $maximizo$
-    	
-    	\If{$maximizo$ $\land$ $posibles[i]$.second == $mejorValorMaximizo$}
-    		{
-    		actualizo $mejorPos$ y $mejorValorMaximizo$
-    		}
-    	\If{$\lnot maximizo$ $\land$ $posibles[i]$.second $< mejorValorMinimizo$}
-    		{
-    		actualizo $mejorPos$ y $mejorValorMinimizo$
-    		}
-    		
-    	$\alpha$ = max($\alpha$, mejorValorMaximizo)
-    	
-    	$\beta$ = min($\beta$, mejorValorMinimizo)
-    	
-    	\If{$\alpha$ $\geq$ $\beta$}
-    		{
-    		break
-    		}
-    	}
-    	
-    \eIf{$maximizo$}
-		{    	
-    	\textbf{return} ($mejorPos$, $mejorValorMaximizo$)
-    	}
-    	{
-    	\textbf{return} ($mejorPos$, $mejorValorMinimizo$)
-    	}
-    
-    \caption{minimaxPoda}
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, \textit{matriz}(\textbf{int} \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} ultimajugada, \textbf{int} $\alpha$, \textbf{int} $\beta$}
 
+		mejorColumna = 0
+
+		mejorValorPosible = jugar en cero
+
+		\For{cada jugada posible}
+			{
+				\If{ $\alpha \geq \beta$}				
+					{
+					Break
+					}
+
+				\eIf{Maximizo}
+					{
+					\If {valor de esta jugada $>$ mejorValorPosible}
+		  	  			{
+						$\alpha$ = valor de esta jugada
+
+						mejorColumna=esta jugada
+
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+					{
+		   	 		\If {valor de esta jugada $<$ mejorValorPosible}
+		  	  			{
+						$\beta$ = valor de esta jugada
+
+						mejorColumna=esta jugada
+
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+			}
+		\textbf{return} (columna del máximo, máximo)
+		
+
+\caption{Minimax}
 \end{algorithm}
 
 
@@ -669,7 +677,7 @@ Incluso con las modificaciones a la idea original, la forma de recorrer la grill
 \subsubsection{Grid recomendado}
 
 
-Con la recomendación de parámetros iniciales se esperaban observar resultados mejores del\texttt{ grid search}. El jugador resultante surge de haber vencido a los valores de entrada, por lo cual no sólo debería tener un nivel de juego muy superior a los intentos previos del algoritmo, sino que debería ser mejor que el parámetro que le dimos inicialmente (el hecho por nosotros, "a mano"). El problema surge en este punto, a causa de la naturaleza compleja del juego, resulta difícil especificar exactamente \textit{qué} define a un mejor jugador. ¿El\texttt{ output} del\texttt{ grid search} debe necesariamente ganarle al\texttt{ input}? 
+Con la recomendación de parámetros iniciales se esperaban observar resultados mejores del\texttt{ grid search}. El jugador resultante surge de haber vencido a los valores de entrada, por lo cual no sólo debería tener un nivel de juego muy superior a los intentos previos del algoritmo, sino que debería ser mejor que el parámetro que le dimos inicialmente (el hecho por nosotros, '' a mano ''). El problema surge en este punto, a causa de la naturaleza compleja del juego, resulta difícil especificar exactamente \textit{qué} define a un mejor jugador. ¿El\texttt{ output} del\texttt{ grid search} debe necesariamente ganarle al\texttt{ input}? 
 
 La forma en la que se iba mejorando al mejor jugador encontrado hasta el momento era tomar el inicial, y solo declarar que el conjunto de valores que se está explorando en este momento supera al mejor que se tiene si puede jugarle 2 partidos cambiando quién comienza sin perder. El problema de esto es que los partidos son completamente deterministas, y este nuevo campeón vence seguramente al jugador que "destronó". Pero cada uno de estos jugadores tiene determinada su jugada para cada tablero posible y nosotros al hacerlos competir solo estamos viendo dos de estas líneas de jugadas, omitiendo todas las demás. Estamos decidiendo de esta forma que un jugador es mejor que otro solo viendo dos líneas de juego posibles de las tantas que tiene (tantas como tableros posibles haya).
 
@@ -688,7 +696,7 @@ Como solo se están comparando dos jugadores, hacerlos jugar entre ellos no pres
 
 Para contrarrestar este problema en el \texttt{ grid search} se buscaron jugadores no determinísticos contra los cuales enfrentar cada conjunto de valores para los parámetros numerosas veces. Como ahora cada partido explora lineas de juego distintas, se expone a la función parametrizable a situaciones variadas en las cuales se refleja mejor la habilidad general de un "buen jugador". Ahora se considera que un nuevo conjunto de valores es mejor que el anterior, y se lo guarda como el nuevo mejor, solo si de cien partidos su cantidad de (\textit{partidos ganados $-$ partidos perdidos}) es mayor que el otro y no empeoró en ninguno (el jugador nuevo no puede ganar menos partidos que el anterior, ni perder más partidos que el anterior). Si le gana el doble de las veces pero pierde más no sirve, ya que empeoró su estrategia defensiva, y en esta versión se buscó mejorar de igual forma tanto el reconocimiento de jugadas ganadoras como el de jugadas perdedoras para poder evitar perder. 
 
-El primer intento de jugadores externos fue el de un jugador completamente aleatorio, sencillo de implementar. En cada turno este jugador elige dónde jugar entre todas las columnas con distribución uniforme (se utilizó la función\texttt{ std::rand()} de C++). Este jugador es muy rápido por lo que permitió realizar chequeos con muchas combinaciones de valores para los parámetros. Pero si bien permite probar muchos casos, no es bueno para calificar la habilidad de los distintos jugadores parametrizables. Cuando se intentó obtener gráficos que mostraran cómo a lo largo de la ejecución del \texttt{ grid search} aumentaba el porcentaje de partidos ganados y perdidos, se observó que ya inicialmente la función parametrizable ganaba los partidos casi en su totalidad (cercano a un 94\% con los parametros sorteados aleatoriamente). Esto parecería un buen resultado, pero a la hora de verificar la calidad de optimización de los parámetros obtenidos se observaba que éstos nuevamente no presentaban el nivel de juego esperado. Nuevamente la función con la cual se calificaba a los jugadores no era lo suficientemente exigente, si bien daba varias posibilidades de lineas de juego (pues no era determinista) era demasiado malo como para distinguir entre nuestros jugadores. 
+El primer intento de jugadores externos fue el de un jugador completamente aleatorio, sencillo de implementar. En cada turno este jugador elige dónde jugar entre todas las columnas con distribución uniforme (se utilizó la función\texttt{ std::rand()} de C++). Este jugador es muy rápido por lo que permitió realizar chequeos con muchas combinaciones de valores para los parámetros. Pero si bien permite probar muchos casos, no es bueno para calificar la habilidad de los distintos jugadores parametrizables. Cuando se intentó obtener gráficos que mostraran cómo a lo largo de la ejecución del \texttt{ grid search} aumentaba el porcentaje de partidos ganados y perdidos, se observó que ya inicialmente la función parametrizable ganaba los partidos casi en su totalidad (cercano a un 91\% con los parametros sorteados aleatoriamente). Esto parecería un buen resultado, pero a la hora de verificar la calidad de optimización de los parámetros obtenidos se observaba que éstos nuevamente no presentaban el nivel de juego esperado. Nuevamente la función con la cual se calificaba a los jugadores no era lo suficientemente exigente, si bien daba varias posibilidades de lineas de juego (pues no era determinista) era demasiado malo como para distinguir entre nuestros jugadores. 
 
 A pesar de la poca utilidad del jugador aleatorio para entrenar a los jugadores (pues como inicialmente con parmetros aleatorios le ganan, no pueden mejorar mucho), el hecho de que regularmente lo vencieran indica que nuestra función parametrizable está bien elegida. Más allá de los valores que se les asignen, los parametros elegidos (detallados en la sección 3) parecerían capturar valores esenciales del \textit{C en linea}, ya que permiten responder a las muy variadas situaciones que el jugador aleatorio presenta, lo que nos vuelve a llevar al problema de cómo decidir si un jugador es mejor a otro. Con eso parecería que se podrían conseguir jugadores que sepan responder a situaciones variadas, como los resultados contra los jugadores aleatorios sugieren.
 
@@ -711,11 +719,7 @@ Se puede ver en la Figura 5 como efectivamente la cantidad de partidos ganados a
 Con esta última modificación finalmente se obtuvieron los resultados esperados, comenzando con jugadores de valores aleatorios se veía un porcentaje de vicotorias bajo, pero a medida que se recorría la matriz de búsqueda se encontraban valores que obtenían mejores resultados a lo largo de las decenas de partidos contra el algoritmo óptimo. El descubrimiento de nuevos conjuntos de valores superiores al mejor hasta el momento ocurría con menos frecuencia (lo que se puede ver con claridad en la Figura 5 ya que los puntos cada vez estan más separados) pero esto es de esperar ya que el criterio de mejora es ahora mucho más exigente. Este nuevo criterio exigía una mejora real en la habilidad de un jugador dado, ya que lo enfrentaba a numerosas situaciones en las cuales debía jugar de forma razonable para poder vencer a este jugador óptimo, que era mucho más exigente que el aleatorio. 
 
 
-
-\textbf{DECIR COMO LE FUE AL JUGADOR FINAL}
-Ahora sí cuando se observaba el comportamiento de los jugadores a medida que mejoraban su desempeño contra este criterio externo se podían ver respuestas razonables, como el tapado de líneas grandes del oponente.
-
-
+Ahora sí cuando se observaba el comportamiento de los jugadores a medida que mejoraban su desempeño contra este criterio externo se podían ver respuestas razonables, obteniendo un porcentaje de 95\% de victorias frente a random, superior a los sorteados aleatoriamente que rondaban por el 91\% lo que se condice con la Figura 5 que muestra una clara mejoría respecto de la solución inicial.
 
 
 \section{Algoritmo Genético}
@@ -796,6 +800,7 @@ A lo largo de toda la experimentación utilizamos diversas funciones de estas qu
 \item \textbf{\underline{Fitness 2:}} La idea de esta función de \texttt{fitness} es establecer un sistema de puntos. Nuevamente se hace jugar a cada individuo contra todos los de su población dos partidos, donde en uno empieza y en otro va segundo. Se da un puntaje según pierda, gane o empate (pierde$=0$; empata$=5$; gana$=10$) y se da un bonus si se empieza segundo ya que suponemos que en tableros medianamente grandes es una ventaja comenzar (BonusPierde$=1$; BonusEmpata$=2$; BonusGana$=4$). Luego, se divide al puntaje sobre la cantidad de partidos jugados (para poder tener los mismos valores de \texttt{fitness} en poblaciones de distintos tamaños).
 \end{itemize}
 
+Luego a lo largo de la experimentación se irán modificando estas funciones o agregando nuevas para ver la influencia de las mismas en el algoritmo.
 
 \subsection{El algoritmo}
 
@@ -953,7 +958,7 @@ Se repitió la misma experimentación en otro tablero con $N=9$, $M=8$, $C=5$ y 
 
 Si bien utilizar al jugador random como una medida de fitness externa no tendría sentido por los mismos motivos que en grid (inicialmente el porcentaje de victorias ya es muy alto), sería bueno buscar alguna forma externa a la población actual de medir el fitness. Este podría ser un jugador externo que no sea determinista (pues sino sucederia lo mismo que en el grid al enfrentar a dos jugadores solo). Por esto se buscó alguna medida de fitness distinta que sea externa y permita medir de otra forma cuan bueno era un jugador dentro de la población, buscando mejores resultados. Intuitivamente, tomar medidas externas reflejaría mejor cuan bueno es un jugador ya que evitaría que todos los individuos tengan estrategias similares (ya que no importa sólo los resultados que obtienen entre ellos). Más aún si estas medidas fueran contra jugadores no deterministas permitirían detectar mas líneas de juego de nuestro jugador (si repitieramos el partido). 
 
-Por esto se corrió el algoritmo genético con una modificación en el fitness 2, donde en vez de jugar todos contra todos, jugaba cada uno 50 veces (25 empezando uno y 25 empezando el otro) contra el jugador minimax randomizado (que miraba cuatro jugadas a futuro, el mismo que se utilizó en grid search). A continuación, graficamos en la figura 13 los resultados de este experimento
+Por esto se corrió (nuevamente en el 4 en línea) el algoritmo genético con una modificación en el fitness 2, donde en vez de jugar todos contra todos, jugaba cada uno 50 veces (25 empezando uno y 25 empezando el otro) contra el jugador minimax randomizado (que miraba cuatro jugadas a futuro, el mismo que se utilizó en grid search). Se lo dejo correr durante 20 horas. A continuación, graficamos en la figura 13 los resultados de este experimento
 
 \begin{wrapfigure}{R}{0.4\textwidth}
 	%\centering
@@ -961,9 +966,9 @@ Por esto se corrió el algoritmo genético con una modificación en el fitness 2
 	\caption{ Gráfico de \textit{fitness} en función de generación. Se grafica el mejor, peor, la media y el promedio. Se utilizó el fitness 2 modificado, donde se jugaba contra el minimax randomizado.}
 \end{wrapfigure}
 
-Podemos ver que al ser un fitness externo no suceden cambios tan abruptos en la media y en el promedio. Más aún, la convergencia es mucho más lenta (el jugador contra el que se entrena es bueno, se tarda mas en lograr un buen fitness). Efectivamente  podemos ver, como se espera, que el fitness va creciendo en líneas generales (y por ende los resultados que obtienen por sobre el minimax randomizado ya que así lo definimos) pero no es un crecimiento estricto (como lo era en grid search) lo que tiene sentido a causa de las mutaciones.
+Antes que nada es destacable como al jugar contra el jugador minimax randomizado el tiempo de ejecución es mucho mayor, por lo que hay menos generaciones obtenidas en las 20 horas (mientras que con 10 horas obteniamos 150 generaciones con este mismo tamaño de poblacion y cantidad de partidos -solo que entre ellos y no contra minimax randomizado-). Podemos ver que al ser un fitness externo no suceden cambios tan abruptos en la media y en el promedio. Más aún, la convergencia es mucho más lenta (el jugador contra el que se entrena es bueno, se tarda mas en lograr un buen fitness). Efectivamente  podemos ver, como se espera, que el fitness va creciendo en líneas generales (y por ende los resultados que obtienen por sobre el minimax randomizado ya que así lo definimos) pero no es un crecimiento estricto (como lo era en grid search) lo que tiene sentido a causa de las mutaciones.
 
-\textbf{COMPLETAR CON LOS RESULTADOS DE COMO LE FUE AL JUGADOR}
+Efectivamente este resultado dió un mejor resultado contra el jugador random ya que le gano un 97.2 \% al jugador random, lo que fue superior al 96,3 \% obtenido con el fitness 2 inicial (sin minimax randomizado). Esto tiene sentido ya que se entrenaba viendo diversas lineas de juego por lo randomizado del minimax, sin embargo la diferencia no es tan marcada (como sí lo era en grid search) ya que en el otro caso se ven también varias lineas de juego ya que se juegan 50 partidos (todos contra todos dentro de la generación).
 
 
 
@@ -995,7 +1000,8 @@ Se reconoció también la importancia de utilizar métodos de fitness que distin
 
 Como resumen, se destacan dos cosas necesarias para poder observar una verdadera mejora en el jugador por medio de las heurísticas estudiadas. En primer lugar es necesaria la exploración del espacio de búsqueda, probar variados conjuntos de valores, ya que sin esta exploración hay opciones que uno nunca considera. En el \texttt{ Grid Search} esto se podía ver en la prueba de mover todos los parametros con valores a lo largo de todo el rango [-1,1], y si bien no se exploraba todo el espacio esto se debe a la imposibilidad de esa tarea. En el algoritmo genético la exploración del espacio se realiza de mejor forma con una mayor variabilidad genética que evita el estancamiento en un vecindario de soluciones reducido, por esto resultaba tan importante el uso del método de fitness y de selección 2. En particular, el algoritmo genético es una heurística que nos permite no solo encontrar buenas soluciones, sino no quedarnos al rededor maximos locales (gracias a las mutaciones) y explorar el espacio en general.
 
-El segundo requisito esencial es que la función con la cual se califica la habilidad de un jugador refleje fielmente esto. La misma debe contemplar múltiples y variados casos a los cuales la función parametrizable debe responder, ya que de lo contrario los jugadores optimizados no mostraran un buen desempeño frente a las amplias situaciones a los que deben saber enfrentarse (ya que solo analizarán contadas lineas de juego, mientras que tienen tantas como configuraciones un tablero). Es necesario que presenten varias situaciones (no solo mirar pocos partidos en particular) para poder captar la esencia de la estrategia de cada jugador. Es difícil en un problema de muchas configuraciones posibles como es el c-en línea establecer qué significa que un jugador sea mejor que otro o cuán bueno es un jugador. En cuanto a esto, vimos la poca efectividad de enfrentar dos jugadores entre sí ya que solo exploraban dos líneas de juego de toda su estrategia y podría tranquilamente un jugador muy malo ganarle a uno muy bueno en esa partida en particular. Esto, al aumentar la cantidad de gente que jugaba entre sí mejoró considerablemente como se vio en el algoritmo genético donde $50$ individuos jugaban todos contra todos. También es deseable tener algún factor de medición externo, pero jugar siempre contra un mismo jugador externo determinista sería repetir la situacion de ver muy pocas situaciones, por eso se busco un jugador externo que no fuese determinista. En cuanto a esto, la primer opción fue el jugador random, pero cualquier parámetro (por el simple hecho de ponderar alguna de las características que nosotros decidimos tomar del tablero) le ganaba en un alto porcentaje por lo que no resultó efectivo como medición de fitness. Finalmente,
-\textbf{PONER ACA QUE LO MEJOR FUE EL MINIMAX RANDOMIZADO}
+El segundo requisito esencial es que la función con la cual se califica la habilidad de un jugador refleje fielmente esto. La misma debe contemplar múltiples y variados casos a los cuales la función parametrizable debe responder, ya que de lo contrario los jugadores optimizados no mostraran un buen desempeño frente a las amplias situaciones a los que deben saber enfrentarse (ya que solo analizarán contadas lineas de juego, mientras que tienen tantas como configuraciones un tablero). Es necesario que presenten varias situaciones (no solo mirar pocos partidos en particular) para poder captar la esencia de la estrategia de cada jugador.
+
+ Es difícil en un problema de muchas configuraciones posibles como es el c-en línea establecer qué significa que un jugador sea mejor que otro o cuán bueno es un jugador. En cuanto a esto, vimos la poca efectividad de enfrentar dos jugadores entre sí ya que solo exploraban dos líneas de juego de toda su estrategia y podría tranquilamente un jugador muy malo ganarle a uno muy bueno en esa partida en particular. Esto, al aumentar la cantidad de gente que jugaba entre sí mejoró considerablemente como se vio en el algoritmo genético donde $50$ individuos jugaban todos contra todos. También es deseable tener algún factor de medición externo, pero jugar siempre contra un mismo jugador externo determinista sería repetir la situacion de ver muy pocas situaciones, por eso se busco un jugador externo que no fuese determinista. En cuanto a esto, la primer opción fue el jugador random, pero cualquier parámetro (por el simple hecho de ponderar alguna de las características que nosotros decidimos tomar del tablero) le ganaba en un alto porcentaje por lo que no resultó efectivo como medición de fitness. Finalmente, vimos como mejoraba la situación al competir contra un agente externo que era un mejor jugador como es el caso del minimax randomizado. Esto se vio claramente reflejado en el grid donde concluimos una mejora en el jugador y no tanto en el genético (puesto que al competir previamente contra todos los de su generación, ya tenía una medición variada contra varios jugadores que no eran tan malos como random -de hecho le ganaban en un 91\% los parametros aleatorios y por ende esto acotaría a los obtenidos por el genético-).
 
 \end{document}
