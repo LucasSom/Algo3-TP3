@@ -1497,7 +1497,7 @@ parametro genetico(int rows, int columns, int c, int p){
 	int tamanopoblacion=50;
 	float min=-1;
 	float max=1;
-	float pmutar=0.000001;
+	float pmutar=0.005;
 	float pcrossover=0.4;
 	int totalgeneraciones=100;
 	int k=2; //PARA FITNESS2 EXPERIMENTAR
