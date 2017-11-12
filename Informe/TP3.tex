@@ -293,6 +293,7 @@ El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero
 					\If {valor de esta jugada $>$ mejorValorPosible}
 		  	  			{
 						mejorColumna=esta jugada
+
 						mejorValorPosible=valor de esta jugada
 						}
 					}
@@ -300,6 +301,7 @@ El algoritmo del \texttt{minimax} devuelve una tupla de enteros donde el primero
 		   	 		\If {valor de esta jugada $<$ mejorValorPosible}
 		  	  			{
 						mejorColumna=esta jugada
+
 						mejorValorPosible=valor de esta jugada
 						}
 					}
@@ -329,63 +331,53 @@ En nuestro problema, el número del nodo es 1, 0 o -1 para ganar, empatar o perd
 
 
 \subsubsection{Pseudocódigo}
-Para la poda se utilizó el mismo código y se hizo un cambio al hacer la recursión. Para no copiar todo el pseudocódigo, a continuación se lo presenta con la inicialización previa de las variables \textit{posibles, mejorPos, mejorValorMaximizo} y \textit{mejorValorMinimizo}. $posibles$ es un vector de tuplas de enteros donde cada elemento representa una columna del tablero. El primer elemento de la tupla es la columna en sí y el segundo es ...\textbf{COMPLETAR}... Las otras variables se inicializan con los valores del primer elemento de la primera posición de $posibles$, $-\infty$ y $\infty$ respectivamente.
+El código de este algoritmo es en su mayoría igual al detallado en la sección previa, con la única diferencia de ir modificando alfa y beta. Por la similitud que presenta se copiará solamente el chequeo de todas las jugadas posibles dentro del minimax, sabiendo que la función main y los cuatro chequeos para tableros terminales en minimax se mantienen iguales
 
-\vspace{10mm}
+\newpage
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\SetKwInOut{Input}{Input}
 
 
-    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, matriz(\textbf{int}, \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} $\alpha$, \textbf{int} $\beta$, \textbf{int} ultimajugada}
-    
-    vector(pair(\textbf{int},\textbf{int})) $posibles$ = [(1, $\infty$),..,(\textit{columns}, $\infty$)]
-    
-    \textbf{int} \textit{mejorPos} = $posibles[0]$.first
-    
-    \textbf{int} \textit{mejorValorMaximizo} = $-\infty$
-    
-    \textbf{int} \textit{mejorValorMinimizo} = $\infty$
-    
-    \For{todos los $posibles$}
-    	{
-    	matriz(\textbf{int}, \textbf{int}) $tablero2$ = $tablero$
-    	
-    	actualizar $tablero2$ según quién juega
-    	
-    	%MEJORAR ESTA LINEAAAAAAAAAA
-    	
-    	$posibles[i]$.second = recursión con $tablero2$, $p-1$ e invirtiendo el valor de verdad de $maximizo$
-    	
-    	\If{$maximizo$ $\land$ $posibles[i]$.second == $mejorValorMaximizo$}
-    		{
-    		actualizo $mejorPos$ y $mejorValorMaximizo$
-    		}
-    	\If{$\lnot maximizo$ $\land$ $posibles[i]$.second $< mejorValorMinimizo$}
-    		{
-    		actualizo $mejorPos$ y $mejorValorMinimizo$
-    		}
-    		
-    	$\alpha$ = max($\alpha$, mejorValorMaximizo)
-    	
-    	$\beta$ = min($\beta$, mejorValorMinimizo)
-    	
-    	\If{$\alpha$ $\geq$ $\beta$}
-    		{
-    		break
-    		}
-    	}
-    	
-    \eIf{$maximizo$}
-		{    	
-    	\textbf{return} ($mejorPos$, $mejorValorMaximizo$)
-    	}
-    	{
-    	\textbf{return} ($mejorPos$, $mejorValorMinimizo$)
-    	}
-    
-    \caption{minimaxPoda}
+    \Input{\textbf{int} rows, \textbf{int} columns, \textbf{int} c, \textbf{int} p, \textit{matriz}(\textbf{int} \textbf{int}) tablero,  \textbf{bool} maximizo, \textbf{int} ultimajugada, \textbf{int} $\alpha$, \textbf{int} $\beta$}
 
+		mejorColumna = 0
+
+		mejorValorPosible = jugar en cero
+
+		\For{cada jugada posible}
+			{
+				\If{ $\alpha$ >= $\beta$}				
+					{
+					Break
+					}
+
+				\eIf{Maximizo}
+					{
+					\If {valor de esta jugada $>$ mejorValorPosible}
+		  	  			{
+						$\alpha$ = valor de esta jugada
+
+						mejorColumna=esta jugada
+
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+					{
+		   	 		\If {valor de esta jugada $<$ mejorValorPosible}
+		  	  			{
+						$\beta$ = valor de esta jugada
+
+						mejorColumna=esta jugada
+
+						mejorValorPosible=valor de esta jugada
+						}
+					}
+			}
+		\textbf{return} (columna del máximo, máximo)
+		
+
+\caption{Minimax}
 \end{algorithm}
 
 
