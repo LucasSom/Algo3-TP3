@@ -850,39 +850,40 @@ int main() {
     param = leerParametroDeValores(c, nombreArchivo);
 
 
-    //ojoooo	o
-    // hacemos que lea esto o no??
-    color = read_str();
-    oponent_color = read_str();
-
-
-
-	vector<vector<int>>tablero (columns);
-	//la primer cordenada del tablero es la columna, y la segunda es la fila
-    
-	
-	p=columns*rows;//Cuento fichas totales
-    go_first = read_str();
-    if (go_first == "vos") {
-        move = parametrizable(rows, columns, c, p, tablero, -1, param);
-        tablero[move].push_back(1); //juego yo
-        --p;
-        send(move);
-    }
-
     while (true) {
-        msg = read_str();
-        if (msg == "ganaste" || msg == "perdiste" || msg == "empataron") {
-            break;
-        }
-		tablero[std::stoi(msg)].push_back(2);//juega el
-		--p; //Cuento fichas totales
-        move = parametrizable(rows, columns, c, p, tablero, std::stoi(msg), param);
-        tablero[move].push_back(1); //juego yo
-        --p;
-        send(move);
-    }
+	    c color = read_str();
+	    oponent_color = read_str();
 
+	    columns = read_int();
+	    rows = read_int();
+	    c = read_int();
+	    p = read_int();
+		vector<vector<int>>tablero (columns);
+		//la primer cordenada del tablero es la columna, y la segunda es la fila
+	    
+		
+		p=columns*rows;//Cuento fichas totales
+	    go_first = read_str();
+	    if (go_first == "vos") {
+	        move = parametrizable(rows, columns, c, p, tablero, -1, param);
+	        tablero[move].push_back(1); //juego yo
+	        --p;
+	        send(move);
+	    }
+
+	    while (true) {
+	        msg = read_str();
+	        if (msg == "ganaste" || msg == "perdiste" || msg == "empataron") {
+	            break;
+	        }
+			tablero[std::stoi(msg)].push_back(2);//juega el
+			--p; //Cuento fichas totales
+	        move = parametrizable(rows, columns, c, p, tablero, std::stoi(msg), param);
+	        tablero[move].push_back(1); //juego yo
+	        --p;
+	        send(move);
+	    }
+	}
     return 0;
 }
 
