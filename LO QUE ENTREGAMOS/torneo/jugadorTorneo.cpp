@@ -845,7 +845,7 @@ int main() {
     rows = read_int();
     c = read_int();
 
-    string nombreArchivo = "parametrosc" + c + ".txt";
+    string nombreArchivo = "CSD" + c + ".txt";
 
     param = leerParametroDeValores(c, nombreArchivo);
 
